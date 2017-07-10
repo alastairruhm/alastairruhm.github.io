@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My New Hugo Site</title>
-    <link>http://example.org/post/index.xml</link>
+    <link>https://alastairruhm.github.io/post/index.xml</link>
     <description>Recent content in Posts on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alastairruhm.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>proxy on git</title>
-      <link>http://example.org/post/git-acceleration/</link>
+      <link>https://alastairruhm.github.io/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/git-acceleration/</guid>
+      <guid>https://alastairruhm.github.io/post/git-acceleration/</guid>
       <description>
 
 &lt;h1 id=&#34;github-加速&#34;&gt;github 加速&lt;/h1&gt;
