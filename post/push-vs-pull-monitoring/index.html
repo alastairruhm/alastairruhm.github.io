@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>监控系统 push 和 pull 模型 &middot; </title>
+        <meta name="description" content="监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount &#43;= 1 metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } }  push 模型需要处理的一些问题
+ Service Discovery: How does the application know where the monitoring system is located?">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://alastairruhm.github.io/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="My New Hugo Site" href="https://alastairruhm.github.io/">My New Hugo Site</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://alastairruhm.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">监控系统 push 和 pull 模型</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2017-06-12" itemprop="datePublished">Mon, Jun 12, 2017</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author"></a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#监控系统-push-和-pull-模型">监控系统 push 和 pull 模型</a>
+<ul>
+<li><a href="#push-模型">Push 模型</a></li>
+<li><a href="#pull-模型">Pull 模型</a></li>
+<li><a href="#两类模型的代表">两类模型的代表</a></li>
+<li><a href="#furthur-reading">furthur reading</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="监控系统-push-和-pull-模型">监控系统 push 和 pull 模型</h1>
+
+<h2 id="push-模型">Push 模型</h2>
+
+<pre><code>var fooCount = 0
+
+func foo() {
+    // ... do stuff ...
+
+    fooCount += 1
+    metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType}
+}
+
+var metricsChan = make(chan Metrics, 1000)
+
+func metricsPusher() { // run as a goroutine
+    for m := range metricsChan {
+        // send m to the monitoring system
+    }
+}
+</code></pre>
+
+<p>push 模型需要处理的一些问题</p>
+
+<ul>
+<li>Service Discovery: How does the application know where the monitoring system is located? For example, if you are reporting metrics to a StatsD server, all your app instances should know the StatsD server hostname/IP.</li>
+<li>Retry Policy: The sender should have some logic to handle intermittent network disruptions and delays.</li>
+<li>Backlog Management: In the pseudo-code above, the buffered channel had a size of 1000. When dealing with high metric volume, the sender should actively manage this backlog. Cases like production rate higher than dispatch rate, backlog filling up and memory consumption of backlog should be handled.</li>
+<li>Batching: For most systems, it is efficient to batch multiple requests into one, thereby avoiding multiple round trips. The sender should make use of batching if possible.</li>
+</ul>
+
+<h2 id="pull-模型">Pull 模型</h2>
+
+<pre><code>import _ &quot;expvar&quot;
+
+var fooCount = expvar.NewInt(&quot;foo.count&quot;)
+
+func foo() {
+    // ... do stuff ...
+
+    fooCount.Add(1)
+}
+
+func main() {
+    http.ListenAndServe(&quot;:8080&quot;, nil)
+    // http://localhost:8080/debug/vars has the metrics
+}
+
+</code></pre>
+
+<p>pull 模型的一些不同于 push 的特点：</p>
+
+<ul>
+<li>Lower Application Cost: The cost of memory and CPU at application side is proportional to the number of metrics, not the rate of production of metrics.</li>
+<li>No Application-side Service Discovery: The task of discovering the HTTP endpoints to be monitored is shifted to the monitoring system side.</li>
+<li>Risk of Lost Outliers: If an outlier occurs within two pulls, it will be missed by the monitoring system.</li>
+<li><strong>No Events</strong>: Typically, it is not possible to report one-shot events (like a “reload” or “deploy”) using the pull mechanism.</li>
+</ul>
+
+<h2 id="两类模型的代表">两类模型的代表</h2>
+
+<ul>
+<li>prometheus 是典型的基于 pull 模型的监控系统，但是它也可以通过 pushgateway 组件支持 push 模型</li>
+<li>StatsD has mostly become the defacto standard for the push method of reporting metrics.</li>
+<li><strong>Golang 标准库中的 expvar 包常用来暴露 app 中的 metrics</strong></li>
+</ul>
+
+<h2 id="furthur-reading">furthur reading</h2>
+
+<ul>
+<li><a href="https://www.opsdash.com/blog/golang-app-monitoring-statsd-expvar-prometheus.html">Go App Monitoring: expvar, Prometheus and StatsD - OpsDash</a></li>
+<li><a href="https://www.influxdata.com/monitoring-with-push-vs-pull-influxdb-adds-pull-support-with-kapacitor/">InfluxData Kapacitor 1.3 | Monitoring Push vs Pull and The Support of Both</a></li>
+<li><a href="https://gocn.io/question/373">监控系统中到底是pull还是push方案好？ - Go 技术社区 - golang</a></li>
+</ul>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/monitor/">monitor</a>, 
+            
+                <a href="/tags/%E7%9B%91%E6%8E%A7/">监控</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=%e7%9b%91%e6%8e%a7%e7%b3%bb%e7%bb%9f%20push%20%e5%92%8c%20pull%20%e6%a8%a1%e5%9e%8b&url=https%3a%2f%2falastairruhm.github.io%2fpost%2fpush-vs-pull-monitoring%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2falastairruhm.github.io%2fpost%2fpush-vs-pull-monitoring%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2falastairruhm.github.io%2fpost%2fpush-vs-pull-monitoring%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="My New Hugo Site" href="https://alastairruhm.github.io/">My New Hugo Site</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://alastairruhm.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://alastairruhm.github.io/js/jquery.fitvids.js"></script>
+        <script src="https://alastairruhm.github.io/js/scripts.js"></script>
+    </body>
+</html>
+
