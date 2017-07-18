@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>RUHM</title>
+    <title>RUHM BLOG SITE</title>
     <link>https://blog.ruhm.me/index.xml</link>
-    <description>Recent content on RUHM</description>
+    <description>Recent content on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>
@@ -320,6 +320,75 @@ func main() {
     </item>
     
     <item>
+      <title>图数据库 Neo4j 笔记</title>
+      <link>https://blog.ruhm.me/post/graph-database-neo4j-notes/</link>
+      <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/graph-database-neo4j-notes/</guid>
+      <description>
+
+&lt;h1 id=&#34;图数据库-neo4j-笔记&#34;&gt;图数据库 Neo4j 笔记&lt;/h1&gt;
+
+&lt;h2 id=&#34;图数据库&#34;&gt;图数据库&lt;/h2&gt;
+
+&lt;p&gt;图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;当前有流行图形数据库：Neo4j、FlockDB、AllegroGraph、GraphDB、InfiniteGraph、OrientDB、InfoGrid和HypergraphDB等&lt;/li&gt;
+&lt;li&gt;另有自称比MongoDB和Neo4j性能更佳的多模型数据库ArangoDB,见nosql-tests&lt;/li&gt;
+&lt;li&gt;关系型数据库用于存储“关系型”数据的效果并不好，其查询复杂、缓慢、超出预期，而图形数据库的独特设计恰恰弥补了这个缺陷。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;neo4j&#34;&gt;Neo4j&lt;/h2&gt;
+
+&lt;p&gt;Neo4j是一个用Java实现、完全兼容ACID的图形数据库。数据以一种针对图形网络进行过优化的格式保存在磁盘上。Neo4j的内核是一种极快的图形引擎，具有数据库产品期望的所有特性，如恢复、两阶段提交、符合XA等。自2003年起，Neo4j就已经被作为24/7的产品使用。
+Neo4j是目前主流的一个图数据库，相比传统的关系型数据库，它可以快速的进行基于人际社交网络类的查询查询和检索;它同时提供了&lt;code&gt;cypher&lt;/code&gt;语言来方便进行图数据库的操作和查询，该查询语言类似SQL语言。
+Neo4j的数据并非保存在表或集合中，而是保存为节点以及节点之间的关系。在Neo4j中，*节点以及关系都能够包含保存值的属性*，此外：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;可以为节点设置零或多个标签（例如Author或Book）&lt;/li&gt;
+&lt;li&gt;每个关系都对应一种类型（例如WROTE或FRIEND_OF）&lt;/li&gt;
+&lt;li&gt;关系总是从一个节点指向另一个节点（但可以在不考虑指向性的情况下进行查询）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;为什么选择-neo4j&#34;&gt;为什么选择 Neo4j？&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;自带一套易于学习的查询语言（&lt;code&gt;Cypher&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;不使用&lt;code&gt;schema&lt;/code&gt;，因此可以满足你的任何形式的需求&lt;/li&gt;
+&lt;li&gt;与关系型数据库相比，对于高度关联的数据（图形数据）的查询快速要快上许多&lt;/li&gt;
+&lt;li&gt;实体与关系结构非常自然地切合人类的直观感受&lt;/li&gt;
+&lt;li&gt;支持兼容ACID的事务操作&lt;/li&gt;
+&lt;li&gt;提供了一个高可用性模型，以支持大规模数据量的查询，支持备份、数据局部性以及冗余&lt;/li&gt;
+&lt;li&gt;提供了一个可视化的查询控制台&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;什么时候不应使用neo4j&#34;&gt;什么时候不应使用Neo4j？&lt;/h2&gt;
+
+&lt;p&gt;作为一个图形NoSQL数据库，Neo4j提供了大量的功能，但没有什么解决方案是完美的。在以下这些用例中，Neo4j就不是非常适合的选择：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;记录大量基于事件的数据（例如日志条目或传感器数据）&lt;/li&gt;
+&lt;li&gt;对大规模分布式数据进行处理，类似于Hadoop&lt;/li&gt;
+&lt;li&gt;二进制数据存储&lt;/li&gt;
+&lt;li&gt;适合于保存在关系型数据库中的结构化数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;neo4j图模型&#34;&gt;Neo4j图模型&lt;/h2&gt;
+
+&lt;p&gt;Neo4J中的图形模型要点：&lt;code&gt;Nodes&lt;/code&gt;与&lt;code&gt;Relationships&lt;/code&gt;可以被赋予&lt;code&gt;Properties(key-value)&lt;/code&gt;; Nodes可按label分组；Relationships可赋予direction和type并最终构成数据形态；Neo4j可存储10亿级别的数据量
+Neo4J使用以下索引机制：一个超级参考节点通过一条特殊类别的边线“REFERENCE”与所有节点相连。这实际上允许创建多个索引，借以通过不同的边线类别对其加以区分。Neo4J还提供了一些特殊功能，如列出特定节点的相邻诸节点或是两节点间长度最短的诸类路径等。注意要使用上述各类“遍历”功能，Neo4J要求指定路径中经过的边线类别。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.infoq.com/articles/full-stack-web-development-using-neo4j&#34;&gt;Full Stack Web Development Using Neo4j&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://geosmart.github.io/2016/01/25/Neo4j%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&#34;&gt;Neo4j图数据库学习笔记 | Geosmart&amp;rsquo;s Notes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>git 通过代理加速</title>
       <link>https://blog.ruhm.me/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
@@ -405,6 +474,253 @@ nc -xlocalhost:1080 -X5 $*
 &lt;li&gt;&lt;a href=&#34;https://www.zhihu.com/question/23315073&#34;&gt;有何方法可以给github远程仓库的push提速？ - 知乎&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://gist.github.com/goncha/4591538&#34;&gt;Git and socks5 proxy&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[翻译] 如何组织Go代码</title>
+      <link>https://blog.ruhm.me/post/organizing-go-code/</link>
+      <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
+      <description>
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&#34;如何组织go代码&#34;&gt;如何组织Go代码&lt;/h1&gt;
+
+&lt;p&gt;最近正在使用 &lt;code&gt;golang&lt;/code&gt; 编写一个 &lt;code&gt;command line application&lt;/code&gt;，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 &lt;a href=&#34;https://talks.golang.org/2014/organizeio.slide#1。&#34;&gt;https://talks.golang.org/2014/organizeio.slide#1。&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;包&#34;&gt;包&lt;/h2&gt;
+
+&lt;h3 id=&#34;go-程序都是由包构成&#34;&gt;Go 程序都是由包构成&lt;/h3&gt;
+
+&lt;p&gt;所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 &lt;code&gt;package&lt;/code&gt; 语句，程序执行则是从 &lt;code&gt;main&lt;/code&gt; 包开始的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+func main() {
+    fmt.Println(&amp;quot;Hello, world!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;对于一个非常简单的 &lt;code&gt;Go&lt;/code&gt; 程序，只需要一个 &lt;code&gt;main&lt;/code&gt; 包即可。&lt;/p&gt;
+
+&lt;p&gt;上面的 &lt;code&gt;hello world&lt;/code&gt; 应用程序导入了&lt;code&gt;fmt&lt;/code&gt;包，而函数&lt;code&gt;Println&lt;/code&gt;在包&lt;code&gt;fmt&lt;/code&gt;中定义。&lt;/p&gt;
+
+&lt;h3 id=&#34;示例包-fmt&#34;&gt;示例包：fmt&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;// Package fmt implements formatted I/O.
+package fmt
+
+// Println formats using the default formats for its
+// operands and writes to standard output.
+func Println(a ...interface{}) (n int, err error) {
+    ...
+}
+
+func newPrinter() *pp {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;Println&lt;/code&gt; 函数是可被导出的。（可被导出的函数）首字母大写，意味着它可以被其他包访问。&lt;code&gt;newPrinter&lt;/code&gt;函数是不可导出的，首字母小写，它只能在 &lt;code&gt;fmt&lt;/code&gt;包内访问。&lt;/p&gt;
+
+&lt;h3 id=&#34;包的大小&#34;&gt;包的大小&lt;/h3&gt;
+
+&lt;p&gt;包可大可小，甚至可能由多个源码文件组成，这些文件需要在同一个目录内。&lt;/p&gt;
+
+&lt;p&gt;Go 源码 net/http 包导出 100 个命名（共 18 个文件），而 errors 包只导出 1 个名字（只有 1 文件）。&lt;/p&gt;
+
+&lt;h3 id=&#34;包命名规范&#34;&gt;包命名规范&lt;/h3&gt;
+
+&lt;p&gt;包名要简短和有意义。 &lt;code&gt;_&lt;/code&gt; 下划线会使包名变长，不要使用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;* io/ioutil not io/util
+* suffixarray not suffix_array
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不要太过于概括，比如 &lt;code&gt;util&lt;/code&gt; 意义就很模糊&lt;/p&gt;
+
+&lt;p&gt;包名是类型和方法的一部分，比如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;buf := new(bytes.Buffer)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这个例子中就不需要取名为 &lt;code&gt;bytes.BytesBuffer&lt;/code&gt;，过于冗余&lt;/p&gt;
+
+&lt;h3 id=&#34;测试包&#34;&gt;测试包&lt;/h3&gt;
+
+&lt;p&gt;测试文件和源码文件所处的目录应该同级，测试文件名均已 &lt;code&gt;_test.go&lt;/code&gt; 结尾，如下例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;package fmt
+
+import &amp;quot;testing&amp;quot;
+
+var fmtTests = []fmtTest{
+    {&amp;quot;%d&amp;quot;, 12345, &amp;quot;12345&amp;quot;},
+    {&amp;quot;%v&amp;quot;, 12345, &amp;quot;12345&amp;quot;},
+    {&amp;quot;%t&amp;quot;, true, &amp;quot;true&amp;quot;},
+}
+
+func TestSprintf(t *testing.T) {
+    for _, tt := range fmtTests {
+        if s := Sprintf(tt.fmt, tt.val); s != tt.out {
+            t.Errorf(&amp;quot;...&amp;quot;)
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;代码组织&#34;&gt;代码组织&lt;/h2&gt;
+
+&lt;h3 id=&#34;工作目录&#34;&gt;工作目录&lt;/h3&gt;
+
+&lt;p&gt;Go 相关工具可以很容易的区分出工作空间，构建时候不需要依赖 Makefile 等类似文件 ，按照目录划分好就可以工作。例如&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$GOPATH/
+    src/
+        github.com/user/repo/
+            mypkg/
+                mysrc1.go
+                mysrc2.go
+            cmd/mycmd/
+                main.go
+    bin/
+        mycmd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;创建工作目录&#34;&gt;创建工作目录&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;mkdir /tmp/gows
+GOPATH=/tmp/gows
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;$GOPATH 环境变量前面以及提到，后续的安装和构建包都依赖这个环境变量&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ go get github.com/dsymonds/fixhub/cmd/fixhub
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;go get&lt;/code&gt; 命令则会远程仓库下载源码到自己的工作目录内（需要相关的版本工具，比如：git）&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;go install&lt;/code&gt; 命令则可以编译和分发文件到 $GOPATH/bin/fixhub 位置。&lt;/p&gt;
+
+&lt;p&gt;现在这个工作目录如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$GOPATH/
+    bin/fixhub                              # installed binary
+    pkg/darwin_amd64/                       # compiled archives
+        code.google.com/p/goauth2/oauth.a
+        github.com/...
+    src/                                    # source repositories
+        code.google.com/p/goauth2/
+            .hg
+            oauth                           # used by package go-github
+            ...
+        github.com/
+            golang/lint/...                 # used by package fixhub
+                .git
+            google/go-github/...            # used by package fixhub
+                .git
+            dsymonds/fixhub/
+                .git
+                client.go
+                cmd/fixhub/fixhub.go        # package main
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;为什么预先定义目录结构&#34;&gt;为什么预先定义目录结构&lt;/h3&gt;
+
+&lt;p&gt;通过目录结构来区分，可以免去配置的麻烦，不像其他语言会依赖 Makefile 或 build.xml 文件。&lt;/p&gt;
+
+&lt;p&gt;减少配置的时间，可以更多的时间去码字，另外大部分用户目录结构都类似，这样也更有利于去分享代码。&lt;/p&gt;
+
+&lt;h3 id=&#34;go-工具箱&#34;&gt;Go 工具箱&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ go help
+Go is a tool for managing Go source code.
+
+Usage:
+
+go command [arguments]
+
+The commands are:
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;常用的功能参数如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;build       compile packages and dependencies
+get         download and install packages and dependencies
+install     compile and install packages and dependencies
+test        test packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;还有一些其他有用的功能参数，比如：&lt;code&gt;vet&lt;/code&gt; 和 &lt;code&gt;fmt&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;依赖管理&#34;&gt;依赖管理&lt;/h2&gt;
+
+&lt;p&gt;默认情况下 &lt;code&gt;go get&lt;/code&gt; 都会去下载最新的代码然后构建，除非被中断。&lt;/p&gt;
+
+&lt;p&gt;在开发环境下这个没什么影响，但肯定不适用于生产环境。&lt;/p&gt;
+
+&lt;h3 id=&#34;版本控制&#34;&gt;版本控制&lt;/h3&gt;
+
+&lt;p&gt;两种方式：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;vendoring&lt;/li&gt;
+&lt;li&gt;gopkg.in&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;命名规范&#34;&gt;命名规范&lt;/h2&gt;
+
+&lt;p&gt;程序其实就是一堆名字的构成。&lt;/p&gt;
+
+&lt;p&gt;简单来说，长的名字浪费空间，而且在可读性方面很重要，好的名字一眼就能看意图。&lt;/p&gt;
+
+&lt;h3 id=&#34;命名风格&#34;&gt;命名风格&lt;/h3&gt;
+
+&lt;p&gt;使用驼峰 camelCase，而不是下划线 _underscores 连接。
+局部变量尽量短，短，短，1-2 个字符的情况很常见。
+包的名字一般来说，都是小写字母。
+全局变量应该使用一个更长更有意义的名字。&lt;/p&gt;
+
+&lt;p&gt;不建议这样：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;bytes.Buffer&lt;/code&gt;，不要 &lt;code&gt;bytes.ByteBuffer&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;zip.Reader&lt;/code&gt;，不要 &lt;code&gt;zip.ZipReader&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;errors.New&lt;/code&gt;，不要 &lt;code&gt;errors.NewError&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;r&lt;/code&gt; 不要用在 &lt;code&gt;bytesReader&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt; 不要用在 &lt;code&gt;loopIterator&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;文档&#34;&gt;文档&lt;/h3&gt;
+
+&lt;p&gt;文档位置在模块或者导出的名字前面：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Join concatenates the elements of elem to create a single string.
+// The separator string sep is placed between elements in the resulting string.
+func Join(elem []string, sep string) string {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;通过 godoc 在 web 查看该函数时候，文档位置位于函数原型下方（图略）。&lt;/p&gt;
+
+&lt;h3 id=&#34;文档书写&#34;&gt;文档书写&lt;/h3&gt;
+
+&lt;p&gt;使用英语书写文档句子和段落&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Join concatenates…         good
+// This function…             bad
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;包文档位于模块最上面：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Package fmt…
+	package fmt
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

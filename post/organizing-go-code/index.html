@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>[翻译] 如何组织Go代码 &middot; Ruhm</title>
+        <meta name="description" content="[toc]
+如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 https://talks.golang.org/2014/organizeio.slide#1。
+包 Go 程序都是由包构成 所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 package 语句，程序执行则是从 main 包开始的。
+package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, world!&quot;) }  对于一个非常简单的 Go 程序，只需要一个 main 包即可。
+上面的 hello world 应用程序导入了fmt包，而函数Println在包fmt中定义。
+示例包：fmt // Package fmt implements formatted I/O. package fmt // Println formats using the default formats for its // operands and writes to standard output. func Println(a ...interface{}) (n int, err error) { .">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">[翻译] 如何组织Go代码</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2016-11-03" itemprop="datePublished">Thu, Nov 3, 2016</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何组织go代码">如何组织Go代码</a>
+<ul>
+<li><a href="#包">包</a>
+<ul>
+<li><a href="#go-程序都是由包构成">Go 程序都是由包构成</a></li>
+<li><a href="#示例包-fmt">示例包：fmt</a></li>
+<li><a href="#包的大小">包的大小</a></li>
+<li><a href="#包命名规范">包命名规范</a></li>
+<li><a href="#测试包">测试包</a></li>
+</ul></li>
+<li><a href="#代码组织">代码组织</a>
+<ul>
+<li><a href="#工作目录">工作目录</a></li>
+<li><a href="#创建工作目录">创建工作目录</a></li>
+<li><a href="#为什么预先定义目录结构">为什么预先定义目录结构</a></li>
+<li><a href="#go-工具箱">Go 工具箱</a></li>
+</ul></li>
+<li><a href="#依赖管理">依赖管理</a>
+<ul>
+<li><a href="#版本控制">版本控制</a></li>
+</ul></li>
+<li><a href="#命名规范">命名规范</a>
+<ul>
+<li><a href="#命名风格">命名风格</a></li>
+<li><a href="#文档">文档</a></li>
+<li><a href="#文档书写">文档书写</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>[toc]</p>
+
+<h1 id="如何组织go代码">如何组织Go代码</h1>
+
+<p>最近正在使用 <code>golang</code> 编写一个 <code>command line application</code>，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 <a href="https://talks.golang.org/2014/organizeio.slide#1。">https://talks.golang.org/2014/organizeio.slide#1。</a></p>
+
+<h2 id="包">包</h2>
+
+<h3 id="go-程序都是由包构成">Go 程序都是由包构成</h3>
+
+<p>所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 <code>package</code> 语句，程序执行则是从 <code>main</code> 包开始的。</p>
+
+<pre><code class="language-golang">package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Hello, world!&quot;)
+}
+</code></pre>
+
+<p>对于一个非常简单的 <code>Go</code> 程序，只需要一个 <code>main</code> 包即可。</p>
+
+<p>上面的 <code>hello world</code> 应用程序导入了<code>fmt</code>包，而函数<code>Println</code>在包<code>fmt</code>中定义。</p>
+
+<h3 id="示例包-fmt">示例包：fmt</h3>
+
+<pre><code class="language-golang">// Package fmt implements formatted I/O.
+package fmt
+
+// Println formats using the default formats for its
+// operands and writes to standard output.
+func Println(a ...interface{}) (n int, err error) {
+    ...
+}
+
+func newPrinter() *pp {
+    ...
+}
+</code></pre>
+
+<p><code>Println</code> 函数是可被导出的。（可被导出的函数）首字母大写，意味着它可以被其他包访问。<code>newPrinter</code>函数是不可导出的，首字母小写，它只能在 <code>fmt</code>包内访问。</p>
+
+<h3 id="包的大小">包的大小</h3>
+
+<p>包可大可小，甚至可能由多个源码文件组成，这些文件需要在同一个目录内。</p>
+
+<p>Go 源码 net/http 包导出 100 个命名（共 18 个文件），而 errors 包只导出 1 个名字（只有 1 文件）。</p>
+
+<h3 id="包命名规范">包命名规范</h3>
+
+<p>包名要简短和有意义。 <code>_</code> 下划线会使包名变长，不要使用。</p>
+
+<pre><code>* io/ioutil not io/util
+* suffixarray not suffix_array
+</code></pre>
+
+<p>不要太过于概括，比如 <code>util</code> 意义就很模糊</p>
+
+<p>包名是类型和方法的一部分，比如：</p>
+
+<pre><code>buf := new(bytes.Buffer)
+</code></pre>
+
+<p>这个例子中就不需要取名为 <code>bytes.BytesBuffer</code>，过于冗余</p>
+
+<h3 id="测试包">测试包</h3>
+
+<p>测试文件和源码文件所处的目录应该同级，测试文件名均已 <code>_test.go</code> 结尾，如下例：</p>
+
+<pre><code class="language-golang">package fmt
+
+import &quot;testing&quot;
+
+var fmtTests = []fmtTest{
+    {&quot;%d&quot;, 12345, &quot;12345&quot;},
+    {&quot;%v&quot;, 12345, &quot;12345&quot;},
+    {&quot;%t&quot;, true, &quot;true&quot;},
+}
+
+func TestSprintf(t *testing.T) {
+    for _, tt := range fmtTests {
+        if s := Sprintf(tt.fmt, tt.val); s != tt.out {
+            t.Errorf(&quot;...&quot;)
+        }
+    }
+}
+</code></pre>
+
+<h2 id="代码组织">代码组织</h2>
+
+<h3 id="工作目录">工作目录</h3>
+
+<p>Go 相关工具可以很容易的区分出工作空间，构建时候不需要依赖 Makefile 等类似文件 ，按照目录划分好就可以工作。例如</p>
+
+<pre><code>$GOPATH/
+    src/
+        github.com/user/repo/
+            mypkg/
+                mysrc1.go
+                mysrc2.go
+            cmd/mycmd/
+                main.go
+    bin/
+        mycmd
+</code></pre>
+
+<h3 id="创建工作目录">创建工作目录</h3>
+
+<pre><code>mkdir /tmp/gows
+GOPATH=/tmp/gows
+</code></pre>
+
+<p>$GOPATH 环境变量前面以及提到，后续的安装和构建包都依赖这个环境变量</p>
+
+<pre><code>$ go get github.com/dsymonds/fixhub/cmd/fixhub
+</code></pre>
+
+<p><code>go get</code> 命令则会远程仓库下载源码到自己的工作目录内（需要相关的版本工具，比如：git）</p>
+
+<p><code>go install</code> 命令则可以编译和分发文件到 $GOPATH/bin/fixhub 位置。</p>
+
+<p>现在这个工作目录如下：</p>
+
+<pre><code>$GOPATH/
+    bin/fixhub                              # installed binary
+    pkg/darwin_amd64/                       # compiled archives
+        code.google.com/p/goauth2/oauth.a
+        github.com/...
+    src/                                    # source repositories
+        code.google.com/p/goauth2/
+            .hg
+            oauth                           # used by package go-github
+            ...
+        github.com/
+            golang/lint/...                 # used by package fixhub
+                .git
+            google/go-github/...            # used by package fixhub
+                .git
+            dsymonds/fixhub/
+                .git
+                client.go
+                cmd/fixhub/fixhub.go        # package main
+</code></pre>
+
+<h3 id="为什么预先定义目录结构">为什么预先定义目录结构</h3>
+
+<p>通过目录结构来区分，可以免去配置的麻烦，不像其他语言会依赖 Makefile 或 build.xml 文件。</p>
+
+<p>减少配置的时间，可以更多的时间去码字，另外大部分用户目录结构都类似，这样也更有利于去分享代码。</p>
+
+<h3 id="go-工具箱">Go 工具箱</h3>
+
+<pre><code>$ go help
+Go is a tool for managing Go source code.
+
+Usage:
+
+go command [arguments]
+
+The commands are:
+
+</code></pre>
+
+<p>常用的功能参数如：</p>
+
+<pre><code>build       compile packages and dependencies
+get         download and install packages and dependencies
+install     compile and install packages and dependencies
+test        test packages
+</code></pre>
+
+<p>还有一些其他有用的功能参数，比如：<code>vet</code> 和 <code>fmt</code>。</p>
+
+<h2 id="依赖管理">依赖管理</h2>
+
+<p>默认情况下 <code>go get</code> 都会去下载最新的代码然后构建，除非被中断。</p>
+
+<p>在开发环境下这个没什么影响，但肯定不适用于生产环境。</p>
+
+<h3 id="版本控制">版本控制</h3>
+
+<p>两种方式：</p>
+
+<ul>
+<li>vendoring</li>
+<li>gopkg.in</li>
+</ul>
+
+<h2 id="命名规范">命名规范</h2>
+
+<p>程序其实就是一堆名字的构成。</p>
+
+<p>简单来说，长的名字浪费空间，而且在可读性方面很重要，好的名字一眼就能看意图。</p>
+
+<h3 id="命名风格">命名风格</h3>
+
+<p>使用驼峰 camelCase，而不是下划线 _underscores 连接。
+局部变量尽量短，短，短，1-2 个字符的情况很常见。
+包的名字一般来说，都是小写字母。
+全局变量应该使用一个更长更有意义的名字。</p>
+
+<p>不建议这样：</p>
+
+<ul>
+<li><code>bytes.Buffer</code>，不要 <code>bytes.ByteBuffer</code></li>
+<li><code>zip.Reader</code>，不要 <code>zip.ZipReader</code></li>
+<li><code>errors.New</code>，不要 <code>errors.NewError</code></li>
+<li><code>r</code> 不要用在 <code>bytesReader</code></li>
+<li><code>i</code> 不要用在 <code>loopIterator</code></li>
+</ul>
+
+<h3 id="文档">文档</h3>
+
+<p>文档位置在模块或者导出的名字前面：</p>
+
+<pre><code>// Join concatenates the elements of elem to create a single string.
+// The separator string sep is placed between elements in the resulting string.
+func Join(elem []string, sep string) string {
+</code></pre>
+
+<p>通过 godoc 在 web 查看该函数时候，文档位置位于函数原型下方（图略）。</p>
+
+<h3 id="文档书写">文档书写</h3>
+
+<p>使用英语书写文档句子和段落</p>
+
+<pre><code>// Join concatenates…         good
+// This function…             bad
+</code></pre>
+
+<p>包文档位于模块最上面：</p>
+
+<pre><code>// Package fmt…
+	package fmt
+</code></pre>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/golang/">golang</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=%5b%e7%bf%bb%e8%af%91%5d%20%e5%a6%82%e4%bd%95%e7%bb%84%e7%bb%87Go%e4%bb%a3%e7%a0%81&url=https%3a%2f%2fblog.ruhm.me%2fpost%2forganizing-go-code%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2forganizing-go-code%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2forganizing-go-code%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+
