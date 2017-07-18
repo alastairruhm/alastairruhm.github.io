@@ -7,6 +7,11 @@
   </url>
   
   <url>
+    <loc>https://blog.ruhm.me/post/prometheus-intro/</loc>
+    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.ruhm.me/post/push-vs-pull-monitoring/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
   </url>
@@ -14,6 +19,12 @@
   <url>
     <loc>https://blog.ruhm.me/post/git-acceleration/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.ruhm.me/tags/</loc>
+    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>

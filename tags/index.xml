@@ -1,86 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Monitor on My New Hugo Site</title>
-    <link>https://blog.ruhm.me/tags/monitor/index.xml</link>
-    <description>Recent content in Monitor on My New Hugo Site</description>
+    <title>My New Hugo Site</title>
+    <link>https://blog.ruhm.me/tags/index.xml</link>
+    <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.ruhm.me/tags/monitor/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>kubernetes 集群监控方案研究</title>
-      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
-      <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;kubernetes-集群监控方案研究&#34;&gt;kubernetes 集群监控方案研究&lt;/h1&gt;
-
-&lt;h2 id=&#34;kubernetes-时代的监控新的特点&#34;&gt;kubernetes 时代的监控新的特点&lt;/h2&gt;
-
-&lt;p&gt;监控 kubernetes 和传统监控上的一些差异&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式&lt;/li&gt;
-&lt;li&gt;与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身&lt;/li&gt;
-&lt;li&gt;容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用&lt;/li&gt;
-&lt;li&gt;适应分布式集群监控的特点&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;kubernetes-系统中有哪些指标需要监控&#34;&gt;kubernetes 系统中有哪些指标需要监控&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;通常的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等&lt;/li&gt;
-&lt;li&gt;容器的原生监控指标&lt;/li&gt;
-&lt;li&gt;应用程序监控指标&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;既有方案比较&#34;&gt;既有方案比较&lt;/h2&gt;
-
-&lt;h3 id=&#34;方案一-heapster-influxdb-grafana&#34;&gt;方案一：Heapster + influxDB + Grafana&lt;/h3&gt;
-
-&lt;p&gt;首先这里的 Heapster 是什么？&lt;/p&gt;
-
-&lt;p&gt;Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。&lt;/p&gt;
-
-&lt;p&gt;Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。&lt;/p&gt;
-
-&lt;p&gt;该方案的优点是 &lt;code&gt;heapster&lt;/code&gt; 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，&lt;code&gt;heapster&lt;/code&gt; 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。&lt;/p&gt;
-
-&lt;h3 id=&#34;方案二-prometheus-exporter-grafana&#34;&gt;方案二：prometheus + (*)-exporter + Grafana&lt;/h3&gt;
-
-&lt;p&gt;之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;kubernetes 原生支持 prometheus：apiserver 服务的 &lt;code&gt;http://master_ip:8080/metrics&lt;/code&gt; endpoint 将集群中的监控数据暴露出来，prometheus 可以通过 pull 获取&lt;/li&gt;
-&lt;li&gt;cAdvisor 原生支持 prometheus：cAdvisor 已经集成在 kubelet 服务中，prometheus 可以从 &lt;code&gt;http://node_ip:4194/metrics&lt;/code&gt; 获取监控数据&lt;/li&gt;
-&lt;li&gt;prometheus 通过配置 &lt;kubernetes_sd_configs&gt;，支持将 kubernetes 作为一种服务发现机制&lt;/li&gt;
-&lt;li&gt;kubernetes 可以通过 daemonset 这种资源类型来部署 &lt;code&gt;node-exporter&lt;/code&gt;，收集每个 node 通用的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kube-state-metrics: kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等5、&lt;/li&gt;
-&lt;li&gt;应用的监控则可以通过在 Pod 部署时加入相应类型的 exporter 容器来向容器外暴露监控指标，比如在一个运行 mongodb 的 pod 中，加入一个 &lt;code&gt;mongo_exporter&lt;/code&gt;暴露mongodb的监控指标给 prometheus&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这套方案的优点则是 Prometheus 是一个通用的监控系统，可以自由扩展，并且拥有 alertmanager 这样的功能完整的告警组件；而在 pod 中加入一个新的容器来向外暴露监控指标的部署方式又和 k8s 结合的很好。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.kubernetes.io/2017/05/kubernetes-monitoring-guide.html&#34;&gt;Kubernetes: Kubernetes: a monitoring guide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;datadog 系列文章
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-era/&#34;&gt;Monitoring in the Kubernetes era&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-performance-metrics/#correlate-with-events&#34;&gt;Monitoring Kubernetes performance metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/how-to-collect-and-graph-kubernetes-metrics/#adding-kube-state-metrics&#34;&gt;How to collect and graph Kubernetes metrics&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://dockone.io/article/1881&#34;&gt;Kubernetes监控之Heapster介绍 - DockOne.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.slideshare.net/brianbrazil/monitoring-kubernetes-with-prometheus-kubernetes-ireland-2016&#34;&gt;Monitoring Kubernetes with Prometheus (Kubernetes Ireland, 2016)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
+    <atom:link href="https://blog.ruhm.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>prometheus 监控系统介绍与实践总结</title>
@@ -229,91 +155,6 @@ prometheus 提供的强大灵活的查询语言PromQL ，用于计算集群服�
 &lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24811652&#34;&gt;基于Prometheus的分布式在线服务监控实践 - 知乎专栏&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://dockone.io/article/397&#34;&gt;五个Docker监控工具的对比 - DockOne.io&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.gitbook.com/book/songjiayang/prometheus/details&#34;&gt;Prometheus 实战 · GitBook&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>监控系统 push 和 pull 模型</title>
-      <link>https://blog.ruhm.me/post/push-vs-pull-monitoring/</link>
-      <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ruhm.me/post/push-vs-pull-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;监控系统-push-和-pull-模型&#34;&gt;监控系统 push 和 pull 模型&lt;/h1&gt;
-
-&lt;h2 id=&#34;push-模型&#34;&gt;Push 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;var fooCount = 0
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount += 1
-    metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType}
-}
-
-var metricsChan = make(chan Metrics, 1000)
-
-func metricsPusher() { // run as a goroutine
-    for m := range metricsChan {
-        // send m to the monitoring system
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;push 模型需要处理的一些问题&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Service Discovery: How does the application know where the monitoring system is located? For example, if you are reporting metrics to a StatsD server, all your app instances should know the StatsD server hostname/IP.&lt;/li&gt;
-&lt;li&gt;Retry Policy: The sender should have some logic to handle intermittent network disruptions and delays.&lt;/li&gt;
-&lt;li&gt;Backlog Management: In the pseudo-code above, the buffered channel had a size of 1000. When dealing with high metric volume, the sender should actively manage this backlog. Cases like production rate higher than dispatch rate, backlog filling up and memory consumption of backlog should be handled.&lt;/li&gt;
-&lt;li&gt;Batching: For most systems, it is efficient to batch multiple requests into one, thereby avoiding multiple round trips. The sender should make use of batching if possible.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;pull-模型&#34;&gt;Pull 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;import _ &amp;quot;expvar&amp;quot;
-
-var fooCount = expvar.NewInt(&amp;quot;foo.count&amp;quot;)
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount.Add(1)
-}
-
-func main() {
-    http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil)
-    // http://localhost:8080/debug/vars has the metrics
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;pull 模型的一些不同于 push 的特点：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Lower Application Cost: The cost of memory and CPU at application side is proportional to the number of metrics, not the rate of production of metrics.&lt;/li&gt;
-&lt;li&gt;No Application-side Service Discovery: The task of discovering the HTTP endpoints to be monitored is shifted to the monitoring system side.&lt;/li&gt;
-&lt;li&gt;Risk of Lost Outliers: If an outlier occurs within two pulls, it will be missed by the monitoring system.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;No Events&lt;/strong&gt;: Typically, it is not possible to report one-shot events (like a “reload” or “deploy”) using the pull mechanism.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;两类模型的代表&#34;&gt;两类模型的代表&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;prometheus 是典型的基于 pull 模型的监控系统，但是它也可以通过 pushgateway 组件支持 push 模型&lt;/li&gt;
-&lt;li&gt;StatsD has mostly become the defacto standard for the push method of reporting metrics.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Golang 标准库中的 expvar 包常用来暴露 app 中的 metrics&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;furthur-reading&#34;&gt;furthur reading&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.opsdash.com/blog/golang-app-monitoring-statsd-expvar-prometheus.html&#34;&gt;Go App Monitoring: expvar, Prometheus and StatsD - OpsDash&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.influxdata.com/monitoring-with-push-vs-pull-influxdb-adds-pull-support-with-kapacitor/&#34;&gt;InfluxData Kapacitor 1.3 | Monitoring Push vs Pull and The Support of Both&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gocn.io/question/373&#34;&gt;监控系统中到底是pull还是push方案好？ - Go 技术社区 - golang&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
