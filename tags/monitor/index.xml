@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Monitor on My New Hugo Site</title>
-    <link>https://blog.ruhm,me/tags/monitor/index.xml</link>
+    <link>https://blog.ruhm.me/tags/monitor/index.xml</link>
     <description>Recent content in Monitor on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.ruhm,me/tags/monitor/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.ruhm.me/tags/monitor/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>https://blog.ruhm,me/post/kubernetes-monitoring/</link>
+      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm,me/post/kubernetes-monitoring/</guid>
+      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
       <description>
 
 &lt;h1 id=&#34;kubernetes-集群监控方案研究&#34;&gt;kubernetes 集群监控方案研究&lt;/h1&gt;
@@ -84,10 +84,10 @@
     
     <item>
       <title>监控系统 push 和 pull 模型</title>
-      <link>https://blog.ruhm,me/post/push-vs-pull-monitoring/</link>
+      <link>https://blog.ruhm.me/post/push-vs-pull-monitoring/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm,me/post/push-vs-pull-monitoring/</guid>
+      <guid>https://blog.ruhm.me/post/push-vs-pull-monitoring/</guid>
       <description>
 
 &lt;h1 id=&#34;监控系统-push-和-pull-模型&#34;&gt;监控系统 push 和 pull 模型&lt;/h1&gt;
