@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on My New Hugo Site</title>
-    <link>https://alastairruhm.github.io/tags/kubernetes/index.xml</link>
+    <link>https://blog.ruhm,me/tags/kubernetes/index.xml</link>
     <description>Recent content in Kubernetes on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://alastairruhm.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.ruhm,me/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>https://alastairruhm.github.io/post/kubernetes-monitoring/</link>
+      <link>https://blog.ruhm,me/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://alastairruhm.github.io/post/kubernetes-monitoring/</guid>
+      <guid>https://blog.ruhm,me/post/kubernetes-monitoring/</guid>
       <description>
 
 &lt;h1 id=&#34;kubernetes-集群监控方案研究&#34;&gt;kubernetes 集群监控方案研究&lt;/h1&gt;
