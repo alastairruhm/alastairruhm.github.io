@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title> &middot; </title>
+        <title>kubernetes 集群监控方案研究 &middot; </title>
         <meta name="description" content="kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异
  Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身 容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用 适应分布式集群监控的特点  kubernetes 系统中有哪些指标需要监控  通常的资源指标，如CPU，内存使用量和磁盘IO kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等 容器的原生监控指标 应用程序监控指标  既有方案比较 方案一：Heapster &#43; influxDB &#43; Grafana 首先这里的 Heapster 是什么？
 Kubernetes有个出名的监控agent&mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。
@@ -55,10 +55,10 @@ Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，
 <div class="container">
     <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
         <header class="post-header">
-    <h1 class="post-title" itemprop="name headline"></h1>
+    <h1 class="post-title" itemprop="name headline">kubernetes 集群监控方案研究</h1>
     
     <p class="post-date">
-        <span>Published <time datetime="0001-01-01" itemprop="datePublished">Mon, Jan 1, 0001</time></span>
+        <span>Published <time datetime="2017-07-12" itemprop="datePublished">Wed, Jul 12, 2017</time></span>
         <span>by</span>
         <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
             <span itemprop="name">
@@ -162,10 +162,26 @@ Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，
 
         <footer class="post-footer clearfix">
     
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/monitor/">monitor</a>, 
+            
+                <a href="/tags/%E7%9B%91%E6%8E%A7/">监控</a>, 
+            
+                <a href="/tags/kubernetes/">kubernetes</a>, 
+            
+                <a href="/tags/heapster/">heapster</a>, 
+            
+                <a href="/tags/prometheus/">prometheus</a>
+            
+        </p>
+    
 
     <div class="share">
         
-            <a class="icon-twitter" href="https://twitter.com/share?text=&url=https%3a%2f%2falastairruhm.github.io%2fpost%2fkubernetes-monitoring%2f"
+            <a class="icon-twitter" href="https://twitter.com/share?text=kubernetes%20%e9%9b%86%e7%be%a4%e7%9b%91%e6%8e%a7%e6%96%b9%e6%a1%88%e7%a0%94%e7%a9%b6&url=https%3a%2f%2falastairruhm.github.io%2fpost%2fkubernetes-monitoring%2f"
                 onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fa fa-twitter"></i>
                 <span class="hidden">Twitter</span>

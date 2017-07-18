@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>监控 on My New Hugo Site</title>
-    <link>https://alastairruhm.github.io/tags/%E7%9B%91%E6%8E%A7/index.xml</link>
-    <description>Recent content in 监控 on My New Hugo Site</description>
+    <title>Kubernetes on My New Hugo Site</title>
+    <link>https://alastairruhm.github.io/tags/kubernetes/index.xml</link>
+    <description>Recent content in Kubernetes on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://alastairruhm.github.io/tags/%E7%9B%91%E6%8E%A7/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alastairruhm.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
@@ -78,91 +78,6 @@
 &lt;/ol&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://dockone.io/article/1881&#34;&gt;Kubernetes监控之Heapster介绍 - DockOne.io&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.slideshare.net/brianbrazil/monitoring-kubernetes-with-prometheus-kubernetes-ireland-2016&#34;&gt;Monitoring Kubernetes with Prometheus (Kubernetes Ireland, 2016)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>监控系统 push 和 pull 模型</title>
-      <link>https://alastairruhm.github.io/post/push-vs-pull-monitoring/</link>
-      <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://alastairruhm.github.io/post/push-vs-pull-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;监控系统-push-和-pull-模型&#34;&gt;监控系统 push 和 pull 模型&lt;/h1&gt;
-
-&lt;h2 id=&#34;push-模型&#34;&gt;Push 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;var fooCount = 0
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount += 1
-    metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType}
-}
-
-var metricsChan = make(chan Metrics, 1000)
-
-func metricsPusher() { // run as a goroutine
-    for m := range metricsChan {
-        // send m to the monitoring system
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;push 模型需要处理的一些问题&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Service Discovery: How does the application know where the monitoring system is located? For example, if you are reporting metrics to a StatsD server, all your app instances should know the StatsD server hostname/IP.&lt;/li&gt;
-&lt;li&gt;Retry Policy: The sender should have some logic to handle intermittent network disruptions and delays.&lt;/li&gt;
-&lt;li&gt;Backlog Management: In the pseudo-code above, the buffered channel had a size of 1000. When dealing with high metric volume, the sender should actively manage this backlog. Cases like production rate higher than dispatch rate, backlog filling up and memory consumption of backlog should be handled.&lt;/li&gt;
-&lt;li&gt;Batching: For most systems, it is efficient to batch multiple requests into one, thereby avoiding multiple round trips. The sender should make use of batching if possible.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;pull-模型&#34;&gt;Pull 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;import _ &amp;quot;expvar&amp;quot;
-
-var fooCount = expvar.NewInt(&amp;quot;foo.count&amp;quot;)
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount.Add(1)
-}
-
-func main() {
-    http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil)
-    // http://localhost:8080/debug/vars has the metrics
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;pull 模型的一些不同于 push 的特点：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Lower Application Cost: The cost of memory and CPU at application side is proportional to the number of metrics, not the rate of production of metrics.&lt;/li&gt;
-&lt;li&gt;No Application-side Service Discovery: The task of discovering the HTTP endpoints to be monitored is shifted to the monitoring system side.&lt;/li&gt;
-&lt;li&gt;Risk of Lost Outliers: If an outlier occurs within two pulls, it will be missed by the monitoring system.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;No Events&lt;/strong&gt;: Typically, it is not possible to report one-shot events (like a “reload” or “deploy”) using the pull mechanism.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;两类模型的代表&#34;&gt;两类模型的代表&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;prometheus 是典型的基于 pull 模型的监控系统，但是它也可以通过 pushgateway 组件支持 push 模型&lt;/li&gt;
-&lt;li&gt;StatsD has mostly become the defacto standard for the push method of reporting metrics.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Golang 标准库中的 expvar 包常用来暴露 app 中的 metrics&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;furthur-reading&#34;&gt;furthur reading&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.opsdash.com/blog/golang-app-monitoring-statsd-expvar-prometheus.html&#34;&gt;Go App Monitoring: expvar, Prometheus and StatsD - OpsDash&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.influxdata.com/monitoring-with-push-vs-pull-influxdb-adds-pull-support-with-kapacitor/&#34;&gt;InfluxData Kapacitor 1.3 | Monitoring Push vs Pull and The Support of Both&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gocn.io/question/373&#34;&gt;监控系统中到底是pull还是push方案好？ - Go 技术社区 - golang&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

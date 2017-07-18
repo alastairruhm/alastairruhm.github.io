@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alastairruhm.github.io/post/kubernetes-monitoring/</loc>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://alastairruhm.github.io/post/push-vs-pull-monitoring/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
   </url>
@@ -9,10 +14,6 @@
   <url>
     <loc>https://alastairruhm.github.io/post/git-acceleration/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alastairruhm.github.io/post/kubernetes-monitoring/</loc>
   </url>
   
   <url>
@@ -28,20 +29,38 @@
   </url>
   
   <url>
+    <loc>https://alastairruhm.github.io/tags/heapster/</loc>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alastairruhm.github.io/tags/kubernetes/</loc>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://alastairruhm.github.io/tags/monitor/</loc>
-    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://alastairruhm.github.io/</loc>
-    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://alastairruhm.github.io/post/</loc>
-    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://alastairruhm.github.io/tags/prometheus/</loc>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -58,7 +77,7 @@
   
   <url>
     <loc>https://alastairruhm.github.io/tags/%E7%9B%91%E6%8E%A7/</loc>
-    <lastmod>2017-06-12T00:00:00+00:00</lastmod>
+    <lastmod>2017-07-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
