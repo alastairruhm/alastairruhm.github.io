@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html prefix="og: http://ogp.me/ns#">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,7 +15,15 @@ package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, world
         <meta name="generator" content="Hugo 0.18" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+        <meta property="og:title" content="[翻译] 如何组织Go代码">
+<meta property="og:description" content="[toc]
+如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 https://talks.golang.org/2014/organizeio.slide#1。
+包 Go 程序都是由包构成 所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 package 语句，程序执行则是从 main 包开始的。
+package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, world!&quot;) }  对于一个非常简单的 Go 程序，只需要一个 main 包即可。
+上面的 hello world 应用程序导入了fmt包，而函数Println在包fmt中定义。
+示例包：fmt // Package fmt implements formatted I/O. package fmt // Println formats using the default formats for its // operands and writes to standard output. func Println(a ...interface{}) (n int, err error) { .">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/organizing-go-code/">
         <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -35,11 +43,27 @@ package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, world
                         
                         <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
                         
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
                         
                         
                         
                         
-                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
                         
                     </div>
 
