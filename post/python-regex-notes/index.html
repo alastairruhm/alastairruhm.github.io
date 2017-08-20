@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>python 正则表达式和内置 re 模块小结 &middot; Ruhm</title>
+        <meta name="description" content="[toc]
+python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
+表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
+re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
+ compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
+ 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
+re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
+import re # 将正则表达式编译成 Pattern 对象 pattern = re.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="python 正则表达式和内置 re 模块小结">
+<meta property="og:description" content="[toc]
+python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
+表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
+re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
+ compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
+ 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
+re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
+import re # 将正则表达式编译成 Pattern 对象 pattern = re.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/python-regex-notes/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">python 正则表达式和内置 re 模块小结</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2017-08-20" itemprop="datePublished">Sun, Aug 20, 2017</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#python-正则表达式和内置-re-模块小结">python 正则表达式和内置 re 模块小结</a>
+<ul>
+<li><a href="#什么是正则表达式">什么是正则表达式</a></li>
+<li><a href="#表达式全集">表达式全集</a></li>
+<li><a href="#re-模块">re 模块</a>
+<ul>
+<li><a href="#compile-函数">compile 函数</a>
+<ul>
+<li><a href="#match-方法">match 方法</a></li>
+<li><a href="#search-方法">search 方法</a></li>
+<li><a href="#findall-方法">findall 方法</a></li>
+<li><a href="#finditer-方法">finditer 方法</a></li>
+<li><a href="#split-方法">split 方法</a></li>
+<li><a href="#sub-方法">sub 方法</a></li>
+<li><a href="#subn-方法">subn 方法</a></li>
+</ul></li>
+<li><a href="#其他函数">其他函数</a></li>
+<li><a href="#选择哪种方式">选择哪种方式</a></li>
+</ul></li>
+<li><a href="#常见问题">常见问题</a>
+<ul>
+<li><a href="#中文匹配">中文匹配</a>
+<ul>
+<li><a href="#python2">python2</a></li>
+<li><a href="#python3">python3</a></li>
+</ul></li>
+<li><a href="#贪婪匹配和非贪婪匹配">贪婪匹配和非贪婪匹配</a></li>
+<li><a href="#使用-r-前缀-避免转义">使用 <code>r</code> 前缀，避免转义</a></li>
+<li><a href="#预先编译">预先编译</a></li>
+<li><a href="#避免多个模糊匹配的模块叠加在一起">避免多个模糊匹配的模块叠加在一起</a></li>
+</ul></li>
+<li><a href="#更高级的模块-regex">更高级的模块 Regex</a></li>
+<li><a href="#扩展阅读">扩展阅读</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>[toc]</p>
+
+<h1 id="python-正则表达式和内置-re-模块小结">python 正则表达式和内置 re 模块小结</h1>
+
+<h2 id="什么是正则表达式">什么是正则表达式</h2>
+
+<p>正则表达式（regular expression）是可以匹配文本片段的模式</p>
+
+<h2 id="表达式全集">表达式全集</h2>
+
+<p>正则表达式有多种不同的风格，下表列出了适用于 <code>Python</code> 或 <code>Perl</code> 等编程语言的部分元字符以及说明：</p>
+
+<p><img src="media/re.png" alt="re" /></p>
+
+<h2 id="re-模块">re 模块</h2>
+
+<p>在 Python 中，我们可以使用内置的 <code>re</code> 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：</p>
+
+<ul>
+<li>compile</li>
+<li>match</li>
+<li>search</li>
+<li>findall</li>
+<li>finditer</li>
+<li>split</li>
+<li>sub</li>
+<li>subn</li>
+</ul>
+
+<p>re 模块的一般使用步骤如下：</p>
+
+<ul>
+<li>使用 <code>compile</code> 函数将正则表达式的字符串形式编译为一个 <code>Pattern</code> 对象</li>
+<li>通过 <code>Pattern</code> 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 <code>Match</code> 对象）</li>
+<li>最后使用 <code>Match</code> 对象提供的属性和方法获得信息，根据需要进行其他的操作</li>
+</ul>
+
+<h3 id="compile-函数">compile 函数</h3>
+
+<p>compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：</p>
+
+<pre><code class="language-python">re.compile(pattern[, flag])
+</code></pre>
+
+<p>其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。</p>
+
+<pre><code>import re
+# 将正则表达式编译成 Pattern 对象 
+pattern = re.compile(r'\d+')
+</code></pre>
+
+<p>在上面，我们已将一个正则表达式编译成 <code>Pattern</code> 对象，接下来，我们就可以利用 pattern 的一系列方法对文本进行匹配查找了。Pattern 对象的一些常用方法和re模块拥有的函数是相似的：</p>
+
+<ul>
+<li>match 方法</li>
+<li>search 方法</li>
+<li>findall 方法</li>
+<li>finditer 方法</li>
+<li>split 方法</li>
+<li>sub 方法</li>
+<li>subn 方法</li>
+</ul>
+
+<h4 id="match-方法">match 方法</h4>
+
+<p>match 方法用于查找字符串的*头部*（也可以指定起始位置），它是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; import re
+&gt;&gt;&gt; pattern = re.compile(r'\d+')                    # 用于匹配至少一个数字
+&gt;&gt;&gt; m = pattern.match('one12twothree34four')        # 查找头部，没有匹配
+&gt;&gt;&gt; print m
+None
+&gt;&gt;&gt; m = pattern.match('one12twothree34four', 2, 10) # 从'e'的位置开始匹配，没有匹配
+&gt;&gt;&gt; print m
+None
+&gt;&gt;&gt; m = pattern.match('one12twothree34four', 3, 10) # 从'1'的位置开始匹配，正好匹配
+&gt;&gt;&gt; print m                                         # 返回一个 Match 对象
+&lt;_sre.SRE_Match object at 0x10a42aac0&gt;
+&gt;&gt;&gt; m.group(0)   # 可省略 0
+'12'
+&gt;&gt;&gt; m.start(0)   # 可省略 0
+3
+&gt;&gt;&gt; m.end(0)     # 可省略 0
+5
+&gt;&gt;&gt; m.span(0)    # 可省略 0
+(3, 5)
+</code></pre>
+
+<p>在上面，当匹配成功时返回一个 Match 对象，其中：</p>
+
+<ul>
+<li>group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；</li>
+<li>start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；</li>
+<li>end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；</li>
+<li>span([group]) 方法返回 (start(group), end(group))。</li>
+</ul>
+
+<h4 id="search-方法">search 方法</h4>
+
+<p>search 方法用于查找字符串的*任何位置*，它也是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：</p>
+
+<pre><code class="language-python">&gt;&gt;&gt; import re
+&gt;&gt;&gt; pattern = re.compile('\d+')
+&gt;&gt;&gt; m = pattern.search('one12twothree34four')  # 这里如果使用 match 方法则不匹配
+&gt;&gt;&gt; m
+&lt;_sre.SRE_Match object at 0x10cc03ac0&gt;
+&gt;&gt;&gt; m.group()
+'12'
+&gt;&gt;&gt; m = pattern.search('one12twothree34four', 10, 30)  # 指定字符串区间
+&gt;&gt;&gt; m
+&lt;_sre.SRE_Match object at 0x10cc03b28&gt;
+&gt;&gt;&gt; m.group()
+'34'
+&gt;&gt;&gt; m.span()
+(13, 15)
+</code></pre>
+
+<h4 id="findall-方法">findall 方法</h4>
+
+<p>上面的 match 和 search 方法都是一次匹配，只要找到了一个匹配的结果就返回。然而，在大多数时候，我们需要搜索整个字符串，获得所有匹配的结果。findall 以*列表形式*返回全部能匹配的子串，如果没有匹配，则返回一个空列表。例子：</p>
+
+<pre><code class="language-python">import re
+ 
+pattern = re.compile(r'\d+')   # 查找数字
+result1 = pattern.findall('hello 123456 789')
+result2 = pattern.findall('one1two2three3four4', 0, 10)
+ 
+print result1  # ['123456', '789']
+print result2  # ['1', '2']
+</code></pre>
+
+<h4 id="finditer-方法">finditer 方法</h4>
+
+<p>finditer 方法的行为跟 findall 的行为类似，也是搜索整个字符串，获得所有匹配的结果。但它返回一个顺序访问每一个匹配结果（Match 对象）的迭代器（所以对复杂度有要求的程序，优先考虑选用 finditer 避免在内存中加载大列表）。例子：</p>
+
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import re
+ 
+pattern = re.compile(r'\d+')
+result_iter1 = pattern.finditer('hello 123456 789')
+result_iter2 = pattern.finditer('one1two2three3four4', 0, 10)
+print type(result_iter1)
+print type(result_iter2)
+print 'result1...'
+for m1 in result_iter1:   # m1 是 Match 对象
+    print 'matching string: {}, position: {}'.format(m1.group(), m1.span())
+print 'result2...'
+for m2 in result_iter2:
+    print 'matching string: {}, position: {}'.format(m2.group(), m2.span())
+</code></pre>
+
+<p>执行结果</p>
+
+<pre><code class="language-python">&lt;type 'callable-iterator'&gt;
+&lt;type 'callable-iterator'&gt;
+result1...
+matching string: 123456, position: (6, 12)
+matching string: 789, position: (13, 16)
+result2...
+matching string: 1, position: (3, 4)
+matching string: 2, position: (7, 8)
+</code></pre>
+
+<h4 id="split-方法">split 方法</h4>
+
+<p>split 方法按照能够匹配的子串将字符串分割后返回列表。例子：</p>
+
+<pre><code class="language-python">import re
+ 
+p = re.compile(r'[\s\,\;]+')
+print p.split('a,b;; c   d')   # ['a', 'b', 'c', 'd']
+</code></pre>
+
+<h4 id="sub-方法">sub 方法</h4>
+
+<p>sub 方法用于替换。它的语法如下：</p>
+
+<pre><code class="language-python">sub(repl, string[, count])
+</code></pre>
+
+<p>其中，repl 可以是字符串也可以是一个函数：</p>
+
+<ul>
+<li>如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；</li>
+<li>如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。</li>
+</ul>
+
+<p>例子：</p>
+
+<pre><code class="language-python">import re
+ 
+p = re.compile(r'(\w+) (\w+)')
+s = 'hello 123, hello 456'
+def func(m):
+    return 'hi' + ' ' + m.group(2)
+print p.sub(r'hello world', s)  # 使用 'hello world' 替换 'hello 123' 和 'hello 456'
+print p.sub(r'\2 \1', s)        # 引用分组
+print p.sub(func, s)
+print p.sub(func, s, 1)         # 最多替换一次
+</code></pre>
+
+<p>执行结果：</p>
+
+<pre><code>hello world, hello world
+123 hello, 456 hello
+hi 123, hi 456
+hi 123, hello 456
+</code></pre>
+
+<h4 id="subn-方法">subn 方法</h4>
+
+<p>subn 方法跟 sub 方法的行为类似，也用于替换。不过它返回一个元组，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。</p>
+
+<h3 id="其他函数">其他函数</h3>
+
+<p>使用 compile 函数生成的 Pattern 对象的一系列方法跟 re 模块的多数函数是对应的，只是使用上有细微差别。</p>
+
+<p>比如，match 函数不能指定匹配的字符串的区间，只能搜索头部；search 和 findall 也都不能指定匹配的字符串的区间</p>
+
+<h3 id="选择哪种方式">选择哪种方式</h3>
+
+<p>从上文可以看到，使用 re 模块有两种方式：</p>
+
+<ul>
+<li>使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；</li>
+<li>直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；</li>
+</ul>
+
+<p>如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。</p>
+
+<p>结论：首选第一种方式，特别是在对效率要求高，尽量避免大量重复编译的的场景中，</p>
+
+<h2 id="常见问题">常见问题</h2>
+
+<h3 id="中文匹配">中文匹配</h3>
+
+<h4 id="python2">python2</h4>
+
+<p>在某些情况下，我们想匹配文本中的汉字，有一点需要注意的是，中文的 unicode 编码范围 主要在 <code>[\u4e00-\u9fa5]</code>，这里说主要是因为这个范围并不完整，比如没有包括全角（中文）标点，不过，在大部分情况下，应该是够用的。</p>
+
+<p>假设现在想把字符串 title = u&rsquo;你好，hello，世界&rsquo; 中的中文提取出来，可以这么做：</p>
+
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import re
+title = u'你好，hello，世界'
+pattern = re.compile(ur'[\u4e00-\u9fa5]+')
+result = pattern.findall(title)
+print result
+</code></pre>
+
+<h4 id="python3">python3</h4>
+
+<p>直接使用 <code>\w+</code> 匹配</p>
+
+<h3 id="贪婪匹配和非贪婪匹配">贪婪匹配和非贪婪匹配</h3>
+
+<p>*python 默认就是贪婪匹配*，也就是匹配尽可能多的字符。举例：</p>
+
+<pre><code>&gt;&gt;&gt; re.match(r'^(\d+)(0*)$', '102300').groups()
+('102300', '')
+</code></pre>
+
+<p>由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。</p>
+
+<p>必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配</p>
+
+<pre><code>&gt;&gt;&gt; re.match(r'^(\d+?)(0*)$', '102300').groups()
+('1023', '00')
+</code></pre>
+
+<h3 id="使用-r-前缀-避免转义">使用 <code>r</code> 前缀，避免转义</h3>
+
+<pre><code>s = 'ABC\\-001' # Python的字符串
+# 对应的正则表达式字符串变成：
+# 'ABC\-001'
+
+s = r'ABC\-001' # Python的字符串
+# 对应的正则表达式字符串不变：
+# 'ABC\-001'
+</code></pre>
+
+<h3 id="预先编译">预先编译</h3>
+
+<p>当我们在Python中使用正则表达式时，re模块内部会做两件事情：</p>
+
+<ul>
+<li>编译正则表达式，如果正则表达式的字符串本身不合法，会报错；</li>
+<li>用编译后的正则表达式去匹配字符串。</li>
+</ul>
+
+<p>如果一个正则表达式要重复使用成千上万次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：</p>
+
+<pre><code>&gt;&gt;&gt; import re
+# 编译:
+&gt;&gt;&gt; re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
+# 使用：
+&gt;&gt;&gt; re_telephone.match('010-12345').groups()
+('010', '12345')
+&gt;&gt;&gt; re_telephone.match('010-8086').groups()
+('010', '8086')
+</code></pre>
+
+<h3 id="避免多个模糊匹配的模块叠加在一起">避免多个模糊匹配的模块叠加在一起</h3>
+
+<p>避免使用 \s*.*这样的组合，因为这种组合会导致正则引擎匹配时间指数增加。</p>
+
+<h2 id="更高级的模块-regex">更高级的模块 Regex</h2>
+
+<p>当然，re 这个内置模块有一些缺陷的。这里有个模块<a href="https://pypi.python.org/pypi/regex">regex 2016.12.27</a>提供了新的实现，目的是为了替换<code>re</code>。</p>
+
+<p>这篇文章<a href="http://www.rexegg.com/regex-python.html">Python Regex Tutorial</a>介绍了re模块具体有哪些缺陷，以及为什么 regex 是所有替代品中最好的一个。</p>
+
+<h2 id="扩展阅读">扩展阅读</h2>
+
+<ul>
+<li><a href="http://www.cnblogs.com/belid/archive/2013/04/27/python.html">python 贪婪和非贪婪、多行匹配正则表达式小结</a></li>
+<li><a href="http://www.lfhacks.com/tech/python-re-single-multiline">Python 正则表达式里的单行s和多行m模式</a></li>
+<li><a href="https://docs.python.org/3.5/howto/regex.html#">Regular Expression HOWTO — Python 3.5.2 documentation</a></li>
+<li><a href="https://pypi.python.org/pypi/regex/">regex 2016.12.27 : Python Package Index</a></li>
+<li><a href="http://www.rexegg.com/regex-python.html">Python Regex Tutorial</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143193331387014ccd1040c814dee8b2164bb4f064cff000">正则表达式 - 廖雪峰的官方网站</a></li>
+<li><a href="https://funhacks.net/2016/12/27/regular_expression/">Python 正则表达式 re 模块简明笔记 · FunHacks</a></li>
+<li><a href="http://deerchao.net/tutorials/regex/regex.htm">正则表达式30分钟入门教程</a></li>
+</ul>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/python/">python</a>, 
+            
+                <a href="/tags/regex/">regex</a>, 
+            
+                <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=python%20%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e5%92%8c%e5%86%85%e7%bd%ae%20re%20%e6%a8%a1%e5%9d%97%e5%b0%8f%e7%bb%93&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fpython-regex-notes%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fpython-regex-notes%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fpython-regex-notes%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+

@@ -6,8 +6,343 @@
     <description>Recent content on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 20 Aug 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://blog.ruhm.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>python 正则表达式和内置 re 模块小结</title>
+      <link>https://blog.ruhm.me/post/python-regex-notes/</link>
+      <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
+      <description>
+
+&lt;p&gt;[toc]&lt;/p&gt;
+
+&lt;h1 id=&#34;python-正则表达式和内置-re-模块小结&#34;&gt;python 正则表达式和内置 re 模块小结&lt;/h1&gt;
+
+&lt;h2 id=&#34;什么是正则表达式&#34;&gt;什么是正则表达式&lt;/h2&gt;
+
+&lt;p&gt;正则表达式（regular expression）是可以匹配文本片段的模式&lt;/p&gt;
+
+&lt;h2 id=&#34;表达式全集&#34;&gt;表达式全集&lt;/h2&gt;
+
+&lt;p&gt;正则表达式有多种不同的风格，下表列出了适用于 &lt;code&gt;Python&lt;/code&gt; 或 &lt;code&gt;Perl&lt;/code&gt; 等编程语言的部分元字符以及说明：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;media/re.png&#34; alt=&#34;re&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;re-模块&#34;&gt;re 模块&lt;/h2&gt;
+
+&lt;p&gt;在 Python 中，我们可以使用内置的 &lt;code&gt;re&lt;/code&gt; 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;compile&lt;/li&gt;
+&lt;li&gt;match&lt;/li&gt;
+&lt;li&gt;search&lt;/li&gt;
+&lt;li&gt;findall&lt;/li&gt;
+&lt;li&gt;finditer&lt;/li&gt;
+&lt;li&gt;split&lt;/li&gt;
+&lt;li&gt;sub&lt;/li&gt;
+&lt;li&gt;subn&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;re 模块的一般使用步骤如下：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;使用 &lt;code&gt;compile&lt;/code&gt; 函数将正则表达式的字符串形式编译为一个 &lt;code&gt;Pattern&lt;/code&gt; 对象&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;Pattern&lt;/code&gt; 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 &lt;code&gt;Match&lt;/code&gt; 对象）&lt;/li&gt;
+&lt;li&gt;最后使用 &lt;code&gt;Match&lt;/code&gt; 对象提供的属性和方法获得信息，根据需要进行其他的操作&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;compile-函数&#34;&gt;compile 函数&lt;/h3&gt;
+
+&lt;p&gt;compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;re.compile(pattern[, flag])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import re
+# 将正则表达式编译成 Pattern 对象 
+pattern = re.compile(r&#39;\d+&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在上面，我们已将一个正则表达式编译成 &lt;code&gt;Pattern&lt;/code&gt; 对象，接下来，我们就可以利用 pattern 的一系列方法对文本进行匹配查找了。Pattern 对象的一些常用方法和re模块拥有的函数是相似的：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;match 方法&lt;/li&gt;
+&lt;li&gt;search 方法&lt;/li&gt;
+&lt;li&gt;findall 方法&lt;/li&gt;
+&lt;li&gt;finditer 方法&lt;/li&gt;
+&lt;li&gt;split 方法&lt;/li&gt;
+&lt;li&gt;sub 方法&lt;/li&gt;
+&lt;li&gt;subn 方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;match-方法&#34;&gt;match 方法&lt;/h4&gt;
+
+&lt;p&gt;match 方法用于查找字符串的*头部*（也可以指定起始位置），它是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; import re
+&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&#39;\d+&#39;)                    # 用于匹配至少一个数字
+&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;)        # 查找头部，没有匹配
+&amp;gt;&amp;gt;&amp;gt; print m
+None
+&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;, 2, 10) # 从&#39;e&#39;的位置开始匹配，没有匹配
+&amp;gt;&amp;gt;&amp;gt; print m
+None
+&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;, 3, 10) # 从&#39;1&#39;的位置开始匹配，正好匹配
+&amp;gt;&amp;gt;&amp;gt; print m                                         # 返回一个 Match 对象
+&amp;lt;_sre.SRE_Match object at 0x10a42aac0&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; m.group(0)   # 可省略 0
+&#39;12&#39;
+&amp;gt;&amp;gt;&amp;gt; m.start(0)   # 可省略 0
+3
+&amp;gt;&amp;gt;&amp;gt; m.end(0)     # 可省略 0
+5
+&amp;gt;&amp;gt;&amp;gt; m.span(0)    # 可省略 0
+(3, 5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在上面，当匹配成功时返回一个 Match 对象，其中：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；&lt;/li&gt;
+&lt;li&gt;start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；&lt;/li&gt;
+&lt;li&gt;end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；&lt;/li&gt;
+&lt;li&gt;span([group]) 方法返回 (start(group), end(group))。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;search-方法&#34;&gt;search 方法&lt;/h4&gt;
+
+&lt;p&gt;search 方法用于查找字符串的*任何位置*，它也是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; import re
+&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(&#39;\d+&#39;)
+&amp;gt;&amp;gt;&amp;gt; m = pattern.search(&#39;one12twothree34four&#39;)  # 这里如果使用 match 方法则不匹配
+&amp;gt;&amp;gt;&amp;gt; m
+&amp;lt;_sre.SRE_Match object at 0x10cc03ac0&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; m.group()
+&#39;12&#39;
+&amp;gt;&amp;gt;&amp;gt; m = pattern.search(&#39;one12twothree34four&#39;, 10, 30)  # 指定字符串区间
+&amp;gt;&amp;gt;&amp;gt; m
+&amp;lt;_sre.SRE_Match object at 0x10cc03b28&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; m.group()
+&#39;34&#39;
+&amp;gt;&amp;gt;&amp;gt; m.span()
+(13, 15)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;findall-方法&#34;&gt;findall 方法&lt;/h4&gt;
+
+&lt;p&gt;上面的 match 和 search 方法都是一次匹配，只要找到了一个匹配的结果就返回。然而，在大多数时候，我们需要搜索整个字符串，获得所有匹配的结果。findall 以*列表形式*返回全部能匹配的子串，如果没有匹配，则返回一个空列表。例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
+ 
+pattern = re.compile(r&#39;\d+&#39;)   # 查找数字
+result1 = pattern.findall(&#39;hello 123456 789&#39;)
+result2 = pattern.findall(&#39;one1two2three3four4&#39;, 0, 10)
+ 
+print result1  # [&#39;123456&#39;, &#39;789&#39;]
+print result2  # [&#39;1&#39;, &#39;2&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;finditer-方法&#34;&gt;finditer 方法&lt;/h4&gt;
+
+&lt;p&gt;finditer 方法的行为跟 findall 的行为类似，也是搜索整个字符串，获得所有匹配的结果。但它返回一个顺序访问每一个匹配结果（Match 对象）的迭代器（所以对复杂度有要求的程序，优先考虑选用 finditer 避免在内存中加载大列表）。例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# -*- coding: utf-8 -*-
+import re
+ 
+pattern = re.compile(r&#39;\d+&#39;)
+result_iter1 = pattern.finditer(&#39;hello 123456 789&#39;)
+result_iter2 = pattern.finditer(&#39;one1two2three3four4&#39;, 0, 10)
+print type(result_iter1)
+print type(result_iter2)
+print &#39;result1...&#39;
+for m1 in result_iter1:   # m1 是 Match 对象
+    print &#39;matching string: {}, position: {}&#39;.format(m1.group(), m1.span())
+print &#39;result2...&#39;
+for m2 in result_iter2:
+    print &#39;matching string: {}, position: {}&#39;.format(m2.group(), m2.span())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行结果&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;lt;type &#39;callable-iterator&#39;&amp;gt;
+&amp;lt;type &#39;callable-iterator&#39;&amp;gt;
+result1...
+matching string: 123456, position: (6, 12)
+matching string: 789, position: (13, 16)
+result2...
+matching string: 1, position: (3, 4)
+matching string: 2, position: (7, 8)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;split-方法&#34;&gt;split 方法&lt;/h4&gt;
+
+&lt;p&gt;split 方法按照能够匹配的子串将字符串分割后返回列表。例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
+ 
+p = re.compile(r&#39;[\s\,\;]+&#39;)
+print p.split(&#39;a,b;; c   d&#39;)   # [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;sub-方法&#34;&gt;sub 方法&lt;/h4&gt;
+
+&lt;p&gt;sub 方法用于替换。它的语法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sub(repl, string[, count])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;其中，repl 可以是字符串也可以是一个函数：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；&lt;/li&gt;
+&lt;li&gt;如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
+ 
+p = re.compile(r&#39;(\w+) (\w+)&#39;)
+s = &#39;hello 123, hello 456&#39;
+def func(m):
+    return &#39;hi&#39; + &#39; &#39; + m.group(2)
+print p.sub(r&#39;hello world&#39;, s)  # 使用 &#39;hello world&#39; 替换 &#39;hello 123&#39; 和 &#39;hello 456&#39;
+print p.sub(r&#39;\2 \1&#39;, s)        # 引用分组
+print p.sub(func, s)
+print p.sub(func, s, 1)         # 最多替换一次
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行结果：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hello world, hello world
+123 hello, 456 hello
+hi 123, hi 456
+hi 123, hello 456
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;subn-方法&#34;&gt;subn 方法&lt;/h4&gt;
+
+&lt;p&gt;subn 方法跟 sub 方法的行为类似，也用于替换。不过它返回一个元组，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。&lt;/p&gt;
+
+&lt;h3 id=&#34;其他函数&#34;&gt;其他函数&lt;/h3&gt;
+
+&lt;p&gt;使用 compile 函数生成的 Pattern 对象的一系列方法跟 re 模块的多数函数是对应的，只是使用上有细微差别。&lt;/p&gt;
+
+&lt;p&gt;比如，match 函数不能指定匹配的字符串的区间，只能搜索头部；search 和 findall 也都不能指定匹配的字符串的区间&lt;/p&gt;
+
+&lt;h3 id=&#34;选择哪种方式&#34;&gt;选择哪种方式&lt;/h3&gt;
+
+&lt;p&gt;从上文可以看到，使用 re 模块有两种方式：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；&lt;/li&gt;
+&lt;li&gt;直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。&lt;/p&gt;
+
+&lt;p&gt;结论：首选第一种方式，特别是在对效率要求高，尽量避免大量重复编译的的场景中，&lt;/p&gt;
+
+&lt;h2 id=&#34;常见问题&#34;&gt;常见问题&lt;/h2&gt;
+
+&lt;h3 id=&#34;中文匹配&#34;&gt;中文匹配&lt;/h3&gt;
+
+&lt;h4 id=&#34;python2&#34;&gt;python2&lt;/h4&gt;
+
+&lt;p&gt;在某些情况下，我们想匹配文本中的汉字，有一点需要注意的是，中文的 unicode 编码范围 主要在 &lt;code&gt;[\u4e00-\u9fa5]&lt;/code&gt;，这里说主要是因为这个范围并不完整，比如没有包括全角（中文）标点，不过，在大部分情况下，应该是够用的。&lt;/p&gt;
+
+&lt;p&gt;假设现在想把字符串 title = u&amp;rsquo;你好，hello，世界&amp;rsquo; 中的中文提取出来，可以这么做：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# -*- coding: utf-8 -*-
+import re
+title = u&#39;你好，hello，世界&#39;
+pattern = re.compile(ur&#39;[\u4e00-\u9fa5]+&#39;)
+result = pattern.findall(title)
+print result
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;python3&#34;&gt;python3&lt;/h4&gt;
+
+&lt;p&gt;直接使用 &lt;code&gt;\w+&lt;/code&gt; 匹配&lt;/p&gt;
+
+&lt;h3 id=&#34;贪婪匹配和非贪婪匹配&#34;&gt;贪婪匹配和非贪婪匹配&lt;/h3&gt;
+
+&lt;p&gt;*python 默认就是贪婪匹配*，也就是匹配尽可能多的字符。举例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; re.match(r&#39;^(\d+)(0*)$&#39;, &#39;102300&#39;).groups()
+(&#39;102300&#39;, &#39;&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。&lt;/p&gt;
+
+&lt;p&gt;必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; re.match(r&#39;^(\d+?)(0*)$&#39;, &#39;102300&#39;).groups()
+(&#39;1023&#39;, &#39;00&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用-r-前缀-避免转义&#34;&gt;使用 &lt;code&gt;r&lt;/code&gt; 前缀，避免转义&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;s = &#39;ABC\\-001&#39; # Python的字符串
+# 对应的正则表达式字符串变成：
+# &#39;ABC\-001&#39;
+
+s = r&#39;ABC\-001&#39; # Python的字符串
+# 对应的正则表达式字符串不变：
+# &#39;ABC\-001&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;预先编译&#34;&gt;预先编译&lt;/h3&gt;
+
+&lt;p&gt;当我们在Python中使用正则表达式时，re模块内部会做两件事情：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;编译正则表达式，如果正则表达式的字符串本身不合法，会报错；&lt;/li&gt;
+&lt;li&gt;用编译后的正则表达式去匹配字符串。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果一个正则表达式要重复使用成千上万次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import re
+# 编译:
+&amp;gt;&amp;gt;&amp;gt; re_telephone = re.compile(r&#39;^(\d{3})-(\d{3,8})$&#39;)
+# 使用：
+&amp;gt;&amp;gt;&amp;gt; re_telephone.match(&#39;010-12345&#39;).groups()
+(&#39;010&#39;, &#39;12345&#39;)
+&amp;gt;&amp;gt;&amp;gt; re_telephone.match(&#39;010-8086&#39;).groups()
+(&#39;010&#39;, &#39;8086&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;避免多个模糊匹配的模块叠加在一起&#34;&gt;避免多个模糊匹配的模块叠加在一起&lt;/h3&gt;
+
+&lt;p&gt;避免使用 \s*.*这样的组合，因为这种组合会导致正则引擎匹配时间指数增加。&lt;/p&gt;
+
+&lt;h2 id=&#34;更高级的模块-regex&#34;&gt;更高级的模块 Regex&lt;/h2&gt;
+
+&lt;p&gt;当然，re 这个内置模块有一些缺陷的。这里有个模块&lt;a href=&#34;https://pypi.python.org/pypi/regex&#34;&gt;regex 2016.12.27&lt;/a&gt;提供了新的实现，目的是为了替换&lt;code&gt;re&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;这篇文章&lt;a href=&#34;http://www.rexegg.com/regex-python.html&#34;&gt;Python Regex Tutorial&lt;/a&gt;介绍了re模块具体有哪些缺陷，以及为什么 regex 是所有替代品中最好的一个。&lt;/p&gt;
+
+&lt;h2 id=&#34;扩展阅读&#34;&gt;扩展阅读&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/belid/archive/2013/04/27/python.html&#34;&gt;python 贪婪和非贪婪、多行匹配正则表达式小结&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.lfhacks.com/tech/python-re-single-multiline&#34;&gt;Python 正则表达式里的单行s和多行m模式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.python.org/3.5/howto/regex.html#&#34;&gt;Regular Expression HOWTO — Python 3.5.2 documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/regex/&#34;&gt;regex 2016.12.27 : Python Package Index&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.rexegg.com/regex-python.html&#34;&gt;Python Regex Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143193331387014ccd1040c814dee8b2164bb4f064cff000&#34;&gt;正则表达式 - 廖雪峰的官方网站&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://funhacks.net/2016/12/27/regular_expression/&#34;&gt;Python 正则表达式 re 模块简明笔记 · FunHacks&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://deerchao.net/tutorials/regex/regex.htm&#34;&gt;正则表达式30分钟入门教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
