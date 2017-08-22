@@ -37,6 +37,11 @@
   </url>
   
   <url>
+    <loc>https://blog.ruhm.me/post/multi-user-in-git/</loc>
+    <lastmod>2016-08-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.ruhm.me/tags/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
