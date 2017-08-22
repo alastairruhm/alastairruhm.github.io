@@ -218,7 +218,34 @@ Disconnected from 10.34.50.193
 <pre><code>ssh-add -K /Users/leon/.ssh/google_compute_engine
 ...
 </code></pre></li>
+
+<li><p>如何避免本地git提交使用错误的账号</p></li>
 </ol>
+
+<pre><code class="language-bash"># Require setting user.name and email per-repo:
+$ git config --global user.useConfigOnly true
+
+# Remove email address from global config:
+$ git config --global --unset-all user.email
+$ git config --global --unset-all user.name
+</code></pre>
+
+<p>这样之后的 commit，如果没有设置 name和email，就会出现如下错误</p>
+
+<pre><code>$ git commit -m &quot;test&quot;
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email &quot;you@example.com&quot;
+  git config --global user.name &quot;Your Name&quot;
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: no name was given and auto-detection is disabled
+</code></pre>
 
 <h2 id="参考链接">参考链接：</h2>
 
@@ -227,6 +254,7 @@ Disconnected from 10.34.50.193
 <li><a href="http://tmyam.github.io/blog/2014/05/07/duo-githubzhang-hu-she-zhi/">一个客户端设置多个github账号 - tmyam&rsquo;s blog</a></li>
 <li><a href="https://help.github.com/articles/setting-your-username-in-git/">Setting your username in Git - User Documentation</a></li>
 <li><a href="https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md">my-git/use-gitlab-github-together.md at master · xirong/my-git</a></li>
+<li><a href="https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/">Git: Using Different User Emails for Different Repositories – Orr Sella</a></li>
 </ul>
 
 </div>
