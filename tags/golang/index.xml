@@ -16,8 +16,6 @@
       <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
       <description>
 
-&lt;p&gt;[toc]&lt;/p&gt;
-
 &lt;h1 id=&#34;如何组织go代码&#34;&gt;如何组织Go代码&lt;/h1&gt;
 
 &lt;p&gt;最近正在使用 &lt;code&gt;golang&lt;/code&gt; 编写一个 &lt;code&gt;command line application&lt;/code&gt;，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 &lt;a href=&#34;https://talks.golang.org/2014/organizeio.slide#1。&#34;&gt;https://talks.golang.org/2014/organizeio.slide#1。&lt;/a&gt;&lt;/p&gt;

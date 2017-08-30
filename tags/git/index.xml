@@ -105,7 +105,7 @@ nc -xlocalhost:1080 -X5 $*
       <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
       <description>
 
-&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&#34;git-多账号处理&#34;&gt;git 多账号处理&lt;/h2&gt;
 
 &lt;p&gt;主要分两种场景&lt;/p&gt;
 
