@@ -103,7 +103,12 @@ host github.com-userA hostname github.com User userA IdentityFile ~/.ssh/github_
 <li><a href="#1-不同网站的2个git账号使用相同的邮箱">1. 不同网站的2个git账号使用相同的邮箱</a></li>
 <li><a href="#2-同一个网站有2个账号">2. 同一个网站有2个账号</a></li>
 <li><a href="#如何验证">如何验证</a></li>
-<li><a href="#q-a">Q&amp;A</a></li>
+<li><a href="#q-a">Q&amp;A</a>
+<ul>
+<li><a href="#如果发现-push-提交的-user-name-是错误的-如何修复">如果发现 push 提交的 user.name 是错误的，如何修复？</a></li>
+<li><a href="#过多的秘钥导致服务器触发最大认证次数而登录失败的问题">过多的秘钥导致服务器触发最大认证次数而登录失败的问题</a></li>
+<li><a href="#如何避免本地git提交使用错误的账号">如何避免本地git提交使用错误的账号</a></li>
+</ul></li>
 <li><a href="#参考链接">参考链接：</a></li>
 </ul></li>
 </ul>
@@ -172,14 +177,15 @@ Hello ruhm! You've connected to Coding.net via SSH successfully!
 
 <h2 id="q-a">Q&amp;A</h2>
 
-<ol>
-<li><p>如果发现 push 提交的 user.name 是错误的，如何修复？</p>
+<h3 id="如果发现-push-提交的-user-name-是错误的-如何修复">如果发现 push 提交的 user.name 是错误的，如何修复？</h3>
 
-<p>参考：<a href="https://help.github.com/articles/changing-author-info/">Changing author info - User Documentation</a></p></li>
+<pre><code>参考：[Changing author info - User Documentation](https://help.github.com/articles/changing-author-info/)
+</code></pre>
 
-<li><p>过多的秘钥导致服务器触发最大认证次数而登录失败的问题</p>
+<h3 id="过多的秘钥导致服务器触发最大认证次数而登录失败的问题">过多的秘钥导致服务器触发最大认证次数而登录失败的问题</h3>
 
-<pre><code>debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
+<pre><code>```
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
 debug1: Next authentication method: publickey
 debug1: Offering RSA public key: /Users/leon/.ssh/id_rsa
 debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
@@ -194,11 +200,12 @@ debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mi
 debug1: Offering RSA public key: /Users/leon/.ssh/github_alastairruhm_rsa
 Received disconnect from 10.34.50.193: 2: Too many authentication failures for root
 Disconnected from 10.34.50.193
-</code></pre>
+```
 
-<p>这个时候，先查看系统 ssh-key 代理</p>
+这个时候，先查看系统 ssh-key 代理
 
-<pre><code>ssh-add -l
+```
+ssh-add -l
 2048 SHA256:xxxx /Users/leon/.ssh/id_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/gitcafe_ras (RSA)
 4096 SHA256:xxxx /Users/leon/.ssh/github_rsa (RSA)
@@ -206,21 +213,23 @@ Disconnected from 10.34.50.193
 4096 SHA256:xxxx /Users/leon/.ssh/gitlab_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/github_alastairruhm_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/google_compute_engine (RSA)
-</code></pre>
+```
 
-<p>删除全部代理</p>
+删除全部代理
 
-<pre><code>ssh-add -D
-</code></pre>
+```
+ssh-add -D
+```
 
-<p>如果是OSX，再通过将私钥加入agent管理</p>
+如果是OSX，再通过将私钥加入agent管理
 
-<pre><code>ssh-add -K /Users/leon/.ssh/google_compute_engine
+```
+ssh-add -K /Users/leon/.ssh/google_compute_engine
 ...
-</code></pre></li>
+```
+</code></pre>
 
-<li><p>如何避免本地git提交使用错误的账号</p></li>
-</ol>
+<h3 id="如何避免本地git提交使用错误的账号">如何避免本地git提交使用错误的账号</h3>
 
 <pre><code class="language-bash"># Require setting user.name and email per-repo:
 $ git config --global user.useConfigOnly true

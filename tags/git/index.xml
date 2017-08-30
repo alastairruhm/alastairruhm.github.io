@@ -160,14 +160,15 @@ Hello ruhm! You&#39;ve connected to Coding.net via SSH successfully!
 
 &lt;h2 id=&#34;q-a&#34;&gt;Q&amp;amp;A&lt;/h2&gt;
 
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;如果发现 push 提交的 user.name 是错误的，如何修复？&lt;/p&gt;
+&lt;h3 id=&#34;如果发现-push-提交的-user-name-是错误的-如何修复&#34;&gt;如果发现 push 提交的 user.name 是错误的，如何修复？&lt;/h3&gt;
 
-&lt;p&gt;参考：&lt;a href=&#34;https://help.github.com/articles/changing-author-info/&#34;&gt;Changing author info - User Documentation&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;pre&gt;&lt;code&gt;参考：[Changing author info - User Documentation](https://help.github.com/articles/changing-author-info/)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;li&gt;&lt;p&gt;过多的秘钥导致服务器触发最大认证次数而登录失败的问题&lt;/p&gt;
+&lt;h3 id=&#34;过多的秘钥导致服务器触发最大认证次数而登录失败的问题&#34;&gt;过多的秘钥导致服务器触发最大认证次数而登录失败的问题&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
+&lt;pre&gt;&lt;code&gt;```
+debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
 debug1: Next authentication method: publickey
 debug1: Offering RSA public key: /Users/leon/.ssh/id_rsa
 debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
@@ -182,11 +183,12 @@ debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mi
 debug1: Offering RSA public key: /Users/leon/.ssh/github_alastairruhm_rsa
 Received disconnect from 10.34.50.193: 2: Too many authentication failures for root
 Disconnected from 10.34.50.193
-&lt;/code&gt;&lt;/pre&gt;
+```
 
-&lt;p&gt;这个时候，先查看系统 ssh-key 代理&lt;/p&gt;
+这个时候，先查看系统 ssh-key 代理
 
-&lt;pre&gt;&lt;code&gt;ssh-add -l
+```
+ssh-add -l
 2048 SHA256:xxxx /Users/leon/.ssh/id_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/gitcafe_ras (RSA)
 4096 SHA256:xxxx /Users/leon/.ssh/github_rsa (RSA)
@@ -194,21 +196,23 @@ Disconnected from 10.34.50.193
 4096 SHA256:xxxx /Users/leon/.ssh/gitlab_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/github_alastairruhm_rsa (RSA)
 2048 SHA256:xxxx /Users/leon/.ssh/google_compute_engine (RSA)
-&lt;/code&gt;&lt;/pre&gt;
+```
 
-&lt;p&gt;删除全部代理&lt;/p&gt;
+删除全部代理
 
-&lt;pre&gt;&lt;code&gt;ssh-add -D
-&lt;/code&gt;&lt;/pre&gt;
+```
+ssh-add -D
+```
 
-&lt;p&gt;如果是OSX，再通过将私钥加入agent管理&lt;/p&gt;
+如果是OSX，再通过将私钥加入agent管理
 
-&lt;pre&gt;&lt;code&gt;ssh-add -K /Users/leon/.ssh/google_compute_engine
+```
+ssh-add -K /Users/leon/.ssh/google_compute_engine
 ...
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+```
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;li&gt;&lt;p&gt;如何避免本地git提交使用错误的账号&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h3 id=&#34;如何避免本地git提交使用错误的账号&#34;&gt;如何避免本地git提交使用错误的账号&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Require setting user.name and email per-repo:
 $ git config --global user.useConfigOnly true
