@@ -655,6 +655,24 @@ func main() {
     </item>
     
     <item>
+      <title>golang notes: package</title>
+      <link>https://blog.ruhm.me/post/golang-notes-package/</link>
+      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
+      <description>
+
+&lt;h1 id=&#34;golang-notes-package&#34;&gt;golang notes: package&lt;/h1&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://thenewstack.io/understanding-golang-packages/&#34;&gt;Understanding Golang Packages - The New Stack&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>图数据库 Neo4j 笔记</title>
       <link>https://blog.ruhm.me/post/graph-database-neo4j-notes/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
@@ -1091,7 +1109,7 @@ wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv
       <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
       <description>
 
-&lt;p&gt;#Zj git 多账号处理&lt;/p&gt;
+&lt;h1 id=&#34;git-多账号处理&#34;&gt;git 多账号处理&lt;/h1&gt;
 
 &lt;p&gt;主要分两种场景&lt;/p&gt;
 
