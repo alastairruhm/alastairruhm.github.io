@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>CentOS 上搭建 grafana 开发环境 &middot; Ruhm</title>
+        <meta name="description" content="CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
+环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
+bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
+gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
+需要预先安装 node(v4&#43;), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="CentOS 上搭建 grafana 开发环境">
+<meta property="og:description" content="CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
+环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
+bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
+gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
+需要预先安装 node(v4&#43;), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/grafana-dev-setup/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">CentOS 上搭建 grafana 开发环境</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2016-11-22" itemprop="datePublished">Tue, Nov 22, 2016</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#centos-上搭建-grafana-开发环境">CentOS 上搭建 grafana 开发环境</a>
+<ul>
+<li><a href="#环境要求">环境要求</a>
+<ul>
+<li><a href="#设置代理-必须-多个包依赖的源需要fq才能访问">设置代理（必须，多个包依赖的源需要FQ才能访问）</a></li>
+<li><a href="#预先安装依赖">预先安装依赖</a></li>
+<li><a href="#需要预先安装-go1-7-官方要求-go-1-6-编译存在问题">需要预先安装 go1.7（官方要求，go 1.6 编译存在问题）</a></li>
+<li><a href="#需要预先安装-node-v4-npm-v2-5-0-grunt-v0-4-5">需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5)</a></li>
+</ul></li>
+<li><a href="#组织项目结构">组织项目结构</a>
+<ul>
+<li><a href="#创建-go-开发目录">创建 go 开发目录</a></li>
+<li><a href="#后端编译">后端编译</a></li>
+<li><a href="#前端编译">前端编译</a></li>
+</ul></li>
+<li><a href="#项目开发">项目开发</a>
+<ul>
+<li><a href="#开发支持工具">开发支持工具</a></li>
+</ul></li>
+<li><a href="#生成-rpm-包">生成 rpm 包</a></li>
+<li><a href="#几个要注意的点">几个要注意的点</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="centos-上搭建-grafana-开发环境">CentOS 上搭建 grafana 开发环境</h1>
+
+<p>主要过程参考<a href="https://github.com/grafana/grafana">grafana/grafana</a> 的github主页</p>
+
+<h2 id="环境要求">环境要求</h2>
+
+<h3 id="设置代理-必须-多个包依赖的源需要fq才能访问">设置代理（必须，多个包依赖的源需要FQ才能访问）</h3>
+
+<h3 id="预先安装依赖">预先安装依赖</h3>
+
+<pre><code>yum install -y git bison gcc
+</code></pre>
+
+<h3 id="需要预先安装-go1-7-官方要求-go-1-6-编译存在问题">需要预先安装 go1.7（官方要求，go 1.6 编译存在问题）</h3>
+
+<p>这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm</p>
+
+<pre><code>bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+source /root/.gvm/scripts/gvm
+</code></pre>
+
+<p>如果要安装 go1.7，必须先安装 go1.4编译自举</p>
+
+<pre><code>gvm install go1.4 --source=http://xxx.xxx/go.git
+gvm use go1.4
+export GOROOT_BOOTSTRAP=$GOROOT
+gvm install go1.7 --source=http://xxxx.com/ops/go.git
+gvm use go1.7 --default
+</code></pre>
+
+<p>gvm 其他指令见 <a href="https://github.com/moovweb/gvm">moovweb/gvm: Go Version Manager</a></p>
+
+<h3 id="需要预先安装-node-v4-npm-v2-5-0-grunt-v0-4-5">需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5)</h3>
+
+<p>这里通过 <a href="https://github.com/creationix/nvm">creationix/nvm: Node Version Manager</a> 安装</p>
+
+<pre><code>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+</code></pre>
+
+<p>安装无误后，通过 nvm 安装 node</p>
+
+<pre><code>nvm install v5.11.1
+</code></pre>
+
+<p>安装好之后检查 node 和 npm 版本</p>
+
+<pre><code>npm -v
+node -v
+</code></pre>
+
+<h2 id="组织项目结构">组织项目结构</h2>
+
+<h3 id="创建-go-开发目录">创建 go 开发目录</h3>
+
+<p>首先确认 go 版本是 1.7</p>
+
+<pre><code>go version
+</code></pre>
+
+<p>创建项目目录结构</p>
+
+<pre><code>cd ~
+mkdir -p ~/repo/grafana
+cd ~/repo/grafana
+</code></pre>
+
+<p>创建 golang 隔离开发环境</p>
+
+<pre><code>gvm pkgset create --local
+gvm pkgset use --local
+go get github.com/grafana/grafana
+</code></pre>
+
+<h3 id="后端编译">后端编译</h3>
+
+<pre><code>cd ~/repo/grafana/src/github.com/grafana/grafana
+go run build.go setup
+go run build.go build
+</code></pre>
+
+<h3 id="前端编译">前端编译</h3>
+
+<pre><code>yum -y install bzip2  # phantomjs 解压缩
+cnpm install -g grunt-cli # to do only once to install grunt command line interface
+</code></pre>
+
+<p>这里 npm 配置淘宝的镜像源 <a href="https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**">https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**</a></p>
+
+<p>配置完后，我们使用 cnpm 安装</p>
+
+<pre><code>cnpm install
+cnpm run build
+</code></pre>
+
+<h2 id="项目开发">项目开发</h2>
+
+<h3 id="开发支持工具">开发支持工具</h3>
+
+<pre><code>cd ~/repo/grafana
+gvm pkgset use --local
+go get github.com/Unknwon/bra
+
+cd ~/repo/grafana/src/github.com/grafana/grafana
+bra run
+</code></pre>
+
+<p>保持这个命令行，任何 golang 代码的变动都会被检测到，然后 bra 会自动执行编译和执行</p>
+
+<p>另启动一个命令行</p>
+
+<pre><code>cd ~/repo/grafana/src/github.com/grafana/grafana
+grunt watch
+</code></pre>
+
+<p>grunt 会检测前端代码的变动并执行编译</p>
+
+<h2 id="生成-rpm-包">生成 rpm 包</h2>
+
+<p>生成 rpm 包需要 <a href="https://github.com/jordansissel/fpm">fpm</a></p>
+
+<pre><code>yum -y install ruby-devel gcc make rpm-build fontconfig # gem 安装 fpm
+</code></pre>
+
+<p>这里要将Ruby源替换为 ruby-china 的，按照<a href="https://ruby.taobao.org/">这个链接</a>的提示配置</p>
+
+<p>注意：fpm 必须安装 v1.4 版本的，否则可能安装会有问题</p>
+
+<pre><code>gem install fpm -v 1.4 -V
+</code></pre>
+
+<p>fpm 安装好之后就可以制作分发包了。</p>
+
+<pre><code>go run build.go package latest
+</code></pre>
+
+<p>生成的包在 dist 目录中</p>
+
+<p>打包的细节可以看官方的 <a href="https://github.com/grafana/grafana-packer">grafana-packer</a> 仓库的 <a href="https://github.com/grafana/grafana-packer/blob/master/build.sh">build.sh</a></p>
+
+<h2 id="几个要注意的点">几个要注意的点</h2>
+
+<ol>
+<li>依赖的组件的各版本一定要和README文件中一致，如果不知道具体版本，可以去 circle CI配置里看，比如 node js 版本这里用的是 5.11.1 ，而如果直接安装最新版 v7.0.0，会导致编译失败 - 准则：任何搞不清楚版本的组件都去CI配置里面找版本号</li>
+<li>npm 使用 ruby-china 源，目前来看，没有 side-effect</li>
+<li>gem 源用淘宝的</li>
+<li>golang 的安装则比较简单了，通过 govendor 做了第三方包的版本锁定，安装的时候直接从 vendor 目录导入，所以只需要安装 golang 时需要FQ</li>
+</ol>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/golang/">golang</a>, 
+            
+                <a href="/tags/grafana/">grafana</a>, 
+            
+                <a href="/tags/memo/">memo</a>, 
+            
+                <a href="/tags/centos/">CentOS</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=CentOS%20%e4%b8%8a%e6%90%ad%e5%bb%ba%20grafana%20%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fgrafana-dev-setup%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fgrafana-dev-setup%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fgrafana-dev-setup%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+
