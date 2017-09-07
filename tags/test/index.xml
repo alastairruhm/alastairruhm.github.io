@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Test on RUHM BLOG SITE</title>
+    <link>https://blog.ruhm.me/tags/test/index.xml</link>
+    <description>Recent content in Test on RUHM BLOG SITE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://blog.ruhm.me/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>golang test techniques</title>
+      <link>https://blog.ruhm.me/post/go-test-technique/</link>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
+      <description>
+
+&lt;h1 id=&#34;golang-test-techniques&#34;&gt;golang test techniques&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func twoSum(nums []int, target int) []int {
+	for i := 0; i &amp;lt; len(nums); i++ {
+		for j := i + 1; j &amp;lt; len(nums); j++ {
+			if nums[i]+nums[j] == target {
+				return []int{i, j}
+			}
+		}
+	}
+	return []int{0, 0}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;table driven test&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func TestAddTwo(t *testing.T) {
+	var addTwoTests = []struct {
+		nums     []int
+		target   int
+		expected []int
+	}{
+		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
+		{[]int{3, 2, 4}, 6, []int{1, 2}},
+	}
+
+	for _, tt := range addTwoTests {
+		if result := twoSum(tt.nums, tt.target); !reflect.DeepEqual(result, tt.expected) {
+			t.Fatalf(&amp;quot;should be %v, but is:%v\n&amp;quot;, tt.expected, result)
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;gocheck&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func Test(t *testing.T) { TestingT(t) }
+
+type TestSuite struct{}
+
+var _ = Suite(&amp;amp;TestSuite{})
+
+func (s *TestSuite) TestAddTwo(c *C) {
+
+	var addTwoTests = []struct {
+		nums     []int
+		target   int
+		expected []int
+	}{
+		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
+		{[]int{3, 2, 4}, 6, []int{1, 2}},
+	}
+
+	for _, tt := range addTwoTests {
+		result := twoSum(tt.nums, tt.target)
+		c.Check(result, DeepEquals, tt.expected)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;using github.com/stretchr/testify&lt;/p&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.qcloud.com/community/article/921985001483606833?fromSource=gwzcw.84785.84785.84785&#34;&gt;go 单元测试进阶篇 - 腾云阁 - 腾讯云&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
