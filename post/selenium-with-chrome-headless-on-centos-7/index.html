@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>selenium with chrome headless on CentOS 7 &middot; Ruhm</title>
+        <meta name="description" content="selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless模式在centos系统上的可行性。
+关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &quot;[google-chrome]&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;name=google-chrome&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;enabled=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgcheck=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="selenium with chrome headless on CentOS 7">
+<meta property="og:description" content="selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless模式在centos系统上的可行性。
+关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &quot;[google-chrome]&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;name=google-chrome&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;enabled=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgcheck=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">selenium with chrome headless on CentOS 7</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2017-06-12" itemprop="datePublished">Mon, Jun 12, 2017</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#selenium-with-chrome-headless-on-centos-7">selenium with chrome headless on centos 7</a>
+<ul>
+<li><a href="#关于chrome安装">关于chrome安装</a></li>
+<li><a href="#遇到的问题">遇到的问题</a>
+<ul>
+<li><a href="#chromedriver-版本问题">chromedriver 版本问题</a></li>
+<li><a href="#selenium-配置">selenium 配置</a></li>
+</ul></li>
+<li><a href="#refs">refs</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="selenium-with-chrome-headless-on-centos-7">selenium with chrome headless on centos 7</h1>
+
+<p><code>chrome</code> 在 17年4月开始支持 headless 模式(v59)， <code>phantomjs</code> 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下<code>chrome headless</code>模式在<code>centos</code>系统上的可行性。</p>
+
+<h2 id="关于chrome安装">关于chrome安装</h2>
+
+<pre><code class="language-bash">yum install  \
+    ipa-gothic-fonts \
+    xorg-x11-fonts-100dpi \
+    xorg-x11-fonts-75dpi \
+    xorg-x11-utils \
+    xorg-x11-fonts-cyrillic \
+    xorg-x11-fonts-Type1 \
+    xorg-x11-fonts-misc -y
+
+yum install xorg-x11-server-Xvfb
+echo &quot;[google-chrome]&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+echo &quot;name=google-chrome&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+echo &quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+echo &quot;enabled=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+echo &quot;gpgcheck=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+echo &quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo
+yum -y install google-chrome-stable
+
+xvfb-run --server-args='-screen 0, 1024x768x16' google-chrome --headless --disable-gpu -remote-debugging-port=9222
+</code></pre>
+
+<h2 id="遇到的问题">遇到的问题</h2>
+
+<h3 id="chromedriver-版本问题">chromedriver 版本问题</h3>
+
+<p>目前 <code>chromedriver</code> 最新版本2.31，但是该版本与centos7的glibc不兼容，所以降级选择 2.30</p>
+
+<h3 id="selenium-配置">selenium 配置</h3>
+
+<p>主要测试了下面的配置</p>
+
+<pre><code class="language-python">options.binary_location = '/opt/google/chrome/chrome'
+options.add_argument('headless')
+options.add_argument('disable-gpu')
+# options.add_argument('window-size=1200x600')
+self.driver = webdriver.Chrome(chrome_options=options)
+</code></pre>
+
+<h2 id="refs">refs</h2>
+
+<p><a href="https://gist.github.com/addyosmani/5336747">So, you want to run Chrome headless.</a>
+<a href="https://intoli.com/blog/running-selenium-with-headless-chrome/">Running Selenium with the new headless Chrome</a>
+<a href="https://segmentfault.com/a/1190000010003991">(3)Web自动化之Headless Chrome开发工具库 - 堆栈HeapStack - SegmentFault</a>
+<a href="https://lightless.me/archives/first-glance-at-chrome-headless-browser.html">初见 Chrome Headless Browser - 不发光的博客</a></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/chrome/">chrome</a>, 
+            
+                <a href="/tags/headless/">headless</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=selenium%20with%20chrome%20headless%20on%20CentOS%207&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fselenium-with-chrome-headless-on-centos-7%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fselenium-with-chrome-headless-on-centos-7%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fselenium-with-chrome-headless-on-centos-7%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+
