@@ -412,7 +412,7 @@ func (s *TestSuite) TestAddTwo(c *C) {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;using github.com/stretchr/testify&lt;/p&gt;
+&lt;p&gt;using github.com/stretchr/testify library&lt;/p&gt;
 
 &lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
