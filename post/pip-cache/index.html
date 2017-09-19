@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>使用缓存服务器加速 python pip 方式 安装包 &middot; Ruhm</title>
+        <meta name="description" content="使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
+搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
+客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
+[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/&#43;simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
+使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
+ use system http/s proxy settings from devpi-server. fixes issue58.
+ 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="使用缓存服务器加速 python pip 方式 安装包">
+<meta property="og:description" content="使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
+搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
+客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
+[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/&#43;simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
+使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
+ use system http/s proxy settings from devpi-server. fixes issue58.
+ 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/pip-cache/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">使用缓存服务器加速 python pip 方式 安装包</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2016-05-12" itemprop="datePublished">Thu, May 12, 2016</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#使用缓存服务器加速-python-pip-方式-安装包">使用缓存服务器加速 python pip 方式 安装包</a>
+<ul>
+<li><a href="#pip-的问题">pip 的问题</a></li>
+<li><a href="#搭建过程">搭建过程</a></li>
+<li><a href="#客户端配置">客户端配置</a></li>
+<li><a href="#使用过程中遇到的问题">使用过程中遇到的问题</a>
+<ul>
+<li><a href="#devpi-server-配置网络代理">devpi-server 配置网络代理</a></li>
+</ul></li>
+<li><a href="#参考">参考：</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="使用缓存服务器加速-python-pip-方式-安装包">使用缓存服务器加速 python pip 方式 安装包</h1>
+
+<h2 id="pip-的问题">pip 的问题</h2>
+
+<p>从 <code>pypi.python.org</code> 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，<a href="http://wing2south.com/post/devpi-best-private-pypi-server/">这篇文章作者做了整理</a>，并且推荐使用 devpi。</p>
+
+<h2 id="搭建过程">搭建过程</h2>
+
+<p>参考官方提供的安装文档：<a href="http://doc.devpi.net/latest/quickstart-pypimirror.html#installing-devpi-server">Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation</a>，这里不再赘述。</p>
+
+<h2 id="客户端配置">客户端配置</h2>
+
+<p>创建 <code>$HOME/.pip/pip.conf</code> 文件，内容如下</p>
+
+<pre><code>[global]
+timeout = 60
+index-url = http://devpi.xxx.com/root/pypi/+simple/
+[install]
+trusted-host = devpi.xxx.com
+</code></pre>
+
+<p>PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 <code>read timeout</code> 的问题</p>
+
+<h2 id="使用过程中遇到的问题">使用过程中遇到的问题</h2>
+
+<h3 id="devpi-server-配置网络代理">devpi-server 配置网络代理</h3>
+
+<p>devpi-server <a href="http://doc.devpi.net/latest/announce/1.2.html">在 v1.2 版本就支持系统的代理配置</a></p>
+
+<blockquote>
+<p>use system http/s proxy settings from devpi-server. fixes issue58.</p>
+</blockquote>
+
+<p>但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 <code>$HOME/.bash_profile</code> 文件里，要定义在 systemd unit 文件里，看下面的例子</p>
+
+<pre><code>[root@devpi ~]# cat /etc/systemd/system/devpi.service
+[Unit]
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Environment=http_proxy=http://proxy.xx.corp.com:1080
+Environment=https_proxy=http://proxy.xx.corp.com:1080
+Type=forking
+PIDFile=/root/.devpi/server/.xproc/devpi-server/xprocess.PID
+Restart=always
+ExecStart=/usr/bin/devpi-server --host=0.0.0.0 --port 80  --start
+ExecStop=/usr/bin/devpi-server --host=0.0.0.0 --port 80 --stop
+User=root
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<h2 id="参考">参考：</h2>
+
+<ul>
+<li><a href="http://wing2south.com/post/devpi-best-private-pypi-server/">devpi —— 架设私有 pypi 的最佳选择</a></li>
+</ul>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/python/">python</a>, 
+            
+                <a href="/tags/pip/">pip</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=%e4%bd%bf%e7%94%a8%e7%bc%93%e5%ad%98%e6%9c%8d%e5%8a%a1%e5%99%a8%e5%8a%a0%e9%80%9f%20python%20pip%20%e6%96%b9%e5%bc%8f%20%e5%ae%89%e8%a3%85%e5%8c%85&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fpip-cache%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fpip-cache%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fpip-cache%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+

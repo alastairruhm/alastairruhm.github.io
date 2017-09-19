@@ -67,6 +67,11 @@
   </url>
   
   <url>
+    <loc>https://blog.ruhm.me/post/pip-cache/</loc>
+    <lastmod>2016-05-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.ruhm.me/tags/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -153,6 +158,12 @@
   <url>
     <loc>https://blog.ruhm.me/tags/nosql/</loc>
     <lastmod>2016-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.ruhm.me/tags/pip/</loc>
+    <lastmod>2016-05-12T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
