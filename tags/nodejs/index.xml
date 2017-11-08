@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nodejs on RUHM BLOG SITE</title>
+    <link>https://blog.ruhm.me/tags/nodejs/index.xml</link>
+    <description>Recent content in Nodejs on RUHM BLOG SITE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://blog.ruhm.me/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>如何在 sequelize raw query 中如何避免 SQL injection</title>
+      <link>https://blog.ruhm.me/post/sequelize-raw-query-practices/</link>
+      <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/sequelize-raw-query-practices/</guid>
+      <description>
+
+&lt;h1 id=&#34;如何在-sequelize-raw-query-中如何避免-sql-injection&#34;&gt;如何在 sequelize  raw query 中如何避免 SQL injection&lt;/h1&gt;
+
+&lt;p&gt;tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。&lt;/p&gt;
+
+&lt;p&gt;由于 &lt;code&gt;sequelize&lt;/code&gt; 能力有限，一些复杂的查询需求还难通过 &lt;code&gt;sequelize&lt;/code&gt; 的 op 的组合来实现，比如 &lt;code&gt;postgresql&lt;/code&gt; 中的&lt;code&gt;select distinct on (field)&lt;/code&gt;这样的语法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT DISTINCT ON (&amp;quot;fault_id&amp;quot;) event.* from event
+AND &amp;quot;tenant_id&amp;quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \
+AND (deleted_at &amp;gt; CURRENT_TIMESTAMP or deleted_at is null) \
+ORDER BY fault_id, occur_time desc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因此，我们会考虑使用 &lt;code&gt;Sequelize.query()&lt;/code&gt; 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&#39;boom&#39;;
+yield Sequelize.query(`SELECT *  from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&amp;quot;boom&#39;;delete from user;&amp;quot;;
+yield Sequelize.query(`SELECT *  from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;不过 sequelize 已经考虑到这些风险，我们可以通过 replacements 这个参数（相当于预处理）来解决这个问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&amp;quot;boom&#39;;delete from user;&amp;quot;;
+yield Sequelize.query(`SELECT * from event from &amp;quot;name&amp;quot;= :name`, {
+	replacements: {name: name}
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;replacements 中的参数值中的特殊字符，比如 &amp;lsquo; (single quote) 会被转义。&lt;/p&gt;
+
+&lt;p&gt;结论：当我们在 sequelize 中使用 raw query 时，要使用 replacements 参数来给SQL中的变量赋值，避免SQL注入风险。&lt;/p&gt;
+
+&lt;p&gt;-&amp;gt; reference:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sequelize/sequelize/issues/1099&#34;&gt;Sequelize doesn&amp;rsquo;t have protection for sql injection in queries raw · Issue #1099 · sequelize/sequelize&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/12316953/insert-text-with-single-quotes-in-postgresql&#34;&gt;Insert text with single quotes in PostgreSQL - Stack Overflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

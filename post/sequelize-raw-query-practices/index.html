@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>如何在 sequelize raw query 中如何避免 SQL injection &middot; Ruhm</title>
+        <meta name="description" content="如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。
+由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的select distinct on (field)这样的语法
+SELECT DISTINCT ON (&quot;fault_id&quot;) event.* from event AND &quot;tenant_id&quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \ AND (deleted_at &gt; CURRENT_TIMESTAMP or deleted_at is null) \ ORDER BY fault_id, occur_time desc  因此，我们会考虑使用 Sequelize.query() 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：
+const name=&#39;boom&#39;; yield Sequelize.query(`SELECT * from event from &quot;name&quot;= &#39;${name}&#39;`, {});  上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.18" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="如何在 sequelize raw query 中如何避免 SQL injection">
+<meta property="og:description" content="如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。
+由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的select distinct on (field)这样的语法
+SELECT DISTINCT ON (&quot;fault_id&quot;) event.* from event AND &quot;tenant_id&quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \ AND (deleted_at &gt; CURRENT_TIMESTAMP or deleted_at is null) \ ORDER BY fault_id, occur_time desc  因此，我们会考虑使用 Sequelize.query() 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：
+const name=&#39;boom&#39;; yield Sequelize.query(`SELECT * from event from &quot;name&quot;= &#39;${name}&#39;`, {});  上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/sequelize-raw-query-practices/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">如何在 sequelize raw query 中如何避免 SQL injection</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2017-09-17" itemprop="datePublished">Sun, Sep 17, 2017</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#如何在-sequelize-raw-query-中如何避免-sql-injection">如何在 sequelize  raw query 中如何避免 SQL injection</a></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h1 id="如何在-sequelize-raw-query-中如何避免-sql-injection">如何在 sequelize  raw query 中如何避免 SQL injection</h1>
+
+<p>tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。</p>
+
+<p>由于 <code>sequelize</code> 能力有限，一些复杂的查询需求还难通过 <code>sequelize</code> 的 op 的组合来实现，比如 <code>postgresql</code> 中的<code>select distinct on (field)</code>这样的语法</p>
+
+<pre><code class="language-sql">SELECT DISTINCT ON (&quot;fault_id&quot;) event.* from event
+AND &quot;tenant_id&quot;= '93283d50c03f11e7a2c0a7b189d903d8' \
+AND (deleted_at &gt; CURRENT_TIMESTAMP or deleted_at is null) \
+ORDER BY fault_id, occur_time desc
+</code></pre>
+
+<p>因此，我们会考虑使用 <code>Sequelize.query()</code> 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：</p>
+
+<pre><code class="language-js">const name='boom';
+yield Sequelize.query(`SELECT *  from event from &quot;name&quot;= '${name}'`, {});
+</code></pre>
+
+<p>上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：</p>
+
+<pre><code class="language-js">const name=&quot;boom';delete from user;&quot;;
+yield Sequelize.query(`SELECT *  from event from &quot;name&quot;= '${name}'`, {});
+</code></pre>
+
+<p>不过 sequelize 已经考虑到这些风险，我们可以通过 replacements 这个参数（相当于预处理）来解决这个问题。</p>
+
+<pre><code class="language-js">const name=&quot;boom';delete from user;&quot;;
+yield Sequelize.query(`SELECT * from event from &quot;name&quot;= :name`, {
+	replacements: {name: name}
+});
+</code></pre>
+
+<p>replacements 中的参数值中的特殊字符，比如 &lsquo; (single quote) 会被转义。</p>
+
+<p>结论：当我们在 sequelize 中使用 raw query 时，要使用 replacements 参数来给SQL中的变量赋值，避免SQL注入风险。</p>
+
+<p>-&gt; reference:</p>
+
+<ul>
+<li><a href="https://github.com/sequelize/sequelize/issues/1099">Sequelize doesn&rsquo;t have protection for sql injection in queries raw · Issue #1099 · sequelize/sequelize</a></li>
+<li><a href="https://stackoverflow.com/questions/12316953/insert-text-with-single-quotes-in-postgresql">Insert text with single quotes in PostgreSQL - Stack Overflow</a></li>
+</ul>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/nodejs/">nodejs</a>, 
+            
+                <a href="/tags/sequelize/">sequelize</a>, 
+            
+                <a href="/tags/sql/">sql</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=%e5%a6%82%e4%bd%95%e5%9c%a8%20sequelize%20raw%20query%20%e4%b8%ad%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%20SQL%20injection&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fsequelize-raw-query-practices%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fsequelize-raw-query-practices%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fsequelize-raw-query-practices%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+
