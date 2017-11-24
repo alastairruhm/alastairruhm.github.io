@@ -2,12 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/post/index.xml</link>
+    <link>https://blog.ruhm.me/post/</link>
     <description>Recent content in Posts on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 17 Sep 2017 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.ruhm.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://blog.ruhm.me/post/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>如何在 sequelize raw query 中如何避免 SQL injection</title>
@@ -15,51 +17,10 @@
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/sequelize-raw-query-practices/</guid>
-      <description>
-
-&lt;h1 id=&#34;如何在-sequelize-raw-query-中如何避免-sql-injection&#34;&gt;如何在 sequelize  raw query 中如何避免 SQL injection&lt;/h1&gt;
-
-&lt;p&gt;tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。&lt;/p&gt;
-
-&lt;p&gt;由于 &lt;code&gt;sequelize&lt;/code&gt; 能力有限，一些复杂的查询需求还难通过 &lt;code&gt;sequelize&lt;/code&gt; 的 op 的组合来实现，比如 &lt;code&gt;postgresql&lt;/code&gt; 中的&lt;code&gt;select distinct on (field)&lt;/code&gt;这样的语法&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT DISTINCT ON (&amp;quot;fault_id&amp;quot;) event.* from event
-AND &amp;quot;tenant_id&amp;quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \
-AND (deleted_at &amp;gt; CURRENT_TIMESTAMP or deleted_at is null) \
-ORDER BY fault_id, occur_time desc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;因此，我们会考虑使用 &lt;code&gt;Sequelize.query()&lt;/code&gt; 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&#39;boom&#39;;
-yield Sequelize.query(`SELECT *  from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&amp;quot;boom&#39;;delete from user;&amp;quot;;
-yield Sequelize.query(`SELECT *  from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;不过 sequelize 已经考虑到这些风险，我们可以通过 replacements 这个参数（相当于预处理）来解决这个问题。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;const name=&amp;quot;boom&#39;;delete from user;&amp;quot;;
-yield Sequelize.query(`SELECT * from event from &amp;quot;name&amp;quot;= :name`, {
-	replacements: {name: name}
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;replacements 中的参数值中的特殊字符，比如 &amp;lsquo; (single quote) 会被转义。&lt;/p&gt;
-
-&lt;p&gt;结论：当我们在 sequelize 中使用 raw query 时，要使用 replacements 参数来给SQL中的变量赋值，避免SQL注入风险。&lt;/p&gt;
-
-&lt;p&gt;-&amp;gt; reference:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/sequelize/sequelize/issues/1099&#34;&gt;Sequelize doesn&amp;rsquo;t have protection for sql injection in queries raw · Issue #1099 · sequelize/sequelize&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/12316953/insert-text-with-single-quotes-in-postgresql&#34;&gt;Insert text with single quotes in PostgreSQL - Stack Overflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。
+由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的select distinct on (field)这样的语法
+SELECT DISTINCT ON (&amp;quot;fault_id&amp;quot;) event.* from event AND &amp;quot;tenant_id&amp;quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \ AND (deleted_at &amp;gt; CURRENT_TIMESTAMP or deleted_at is null) \ ORDER BY fault_id, occur_time desc  因此，我们会考虑使用 Sequelize.query() 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：
+const name=&#39;boom&#39;; yield Sequelize.query(`SELECT * from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});  上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：</description>
     </item>
     
     <item>
@@ -68,333 +29,14 @@ yield Sequelize.query(`SELECT * from event from &amp;quot;name&amp;quot;= :name`
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
-      <description>
-
-&lt;p&gt;[toc]&lt;/p&gt;
-
-&lt;h1 id=&#34;python-正则表达式和内置-re-模块小结&#34;&gt;python 正则表达式和内置 re 模块小结&lt;/h1&gt;
-
-&lt;h2 id=&#34;什么是正则表达式&#34;&gt;什么是正则表达式&lt;/h2&gt;
-
-&lt;p&gt;正则表达式（regular expression）是可以匹配文本片段的模式&lt;/p&gt;
-
-&lt;h2 id=&#34;表达式全集&#34;&gt;表达式全集&lt;/h2&gt;
-
-&lt;p&gt;正则表达式有多种不同的风格，下表列出了适用于 &lt;code&gt;Python&lt;/code&gt; 或 &lt;code&gt;Perl&lt;/code&gt; 等编程语言的部分元字符以及说明：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://oiitkuz0h.qnssl.com/re.png&#34; alt=&#34;re&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;re-模块&#34;&gt;re 模块&lt;/h2&gt;
-
-&lt;p&gt;在 Python 中，我们可以使用内置的 &lt;code&gt;re&lt;/code&gt; 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;compile&lt;/li&gt;
-&lt;li&gt;match&lt;/li&gt;
-&lt;li&gt;search&lt;/li&gt;
-&lt;li&gt;findall&lt;/li&gt;
-&lt;li&gt;finditer&lt;/li&gt;
-&lt;li&gt;split&lt;/li&gt;
-&lt;li&gt;sub&lt;/li&gt;
-&lt;li&gt;subn&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;re 模块的一般使用步骤如下：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;使用 &lt;code&gt;compile&lt;/code&gt; 函数将正则表达式的字符串形式编译为一个 &lt;code&gt;Pattern&lt;/code&gt; 对象&lt;/li&gt;
-&lt;li&gt;通过 &lt;code&gt;Pattern&lt;/code&gt; 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 &lt;code&gt;Match&lt;/code&gt; 对象）&lt;/li&gt;
-&lt;li&gt;最后使用 &lt;code&gt;Match&lt;/code&gt; 对象提供的属性和方法获得信息，根据需要进行其他的操作&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;compile-函数&#34;&gt;compile 函数&lt;/h3&gt;
-
-&lt;p&gt;compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;re.compile(pattern[, flag])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import re
-# 将正则表达式编译成 Pattern 对象 
-pattern = re.compile(r&#39;\d+&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在上面，我们已将一个正则表达式编译成 &lt;code&gt;Pattern&lt;/code&gt; 对象，接下来，我们就可以利用 pattern 的一系列方法对文本进行匹配查找了。Pattern 对象的一些常用方法和re模块拥有的函数是相似的：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;match 方法&lt;/li&gt;
-&lt;li&gt;search 方法&lt;/li&gt;
-&lt;li&gt;findall 方法&lt;/li&gt;
-&lt;li&gt;finditer 方法&lt;/li&gt;
-&lt;li&gt;split 方法&lt;/li&gt;
-&lt;li&gt;sub 方法&lt;/li&gt;
-&lt;li&gt;subn 方法&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;match-方法&#34;&gt;match 方法&lt;/h4&gt;
-
-&lt;p&gt;match 方法用于查找字符串的*头部*（也可以指定起始位置），它是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; import re
-&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(r&#39;\d+&#39;)                    # 用于匹配至少一个数字
-&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;)        # 查找头部，没有匹配
-&amp;gt;&amp;gt;&amp;gt; print m
-None
-&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;, 2, 10) # 从&#39;e&#39;的位置开始匹配，没有匹配
-&amp;gt;&amp;gt;&amp;gt; print m
-None
-&amp;gt;&amp;gt;&amp;gt; m = pattern.match(&#39;one12twothree34four&#39;, 3, 10) # 从&#39;1&#39;的位置开始匹配，正好匹配
-&amp;gt;&amp;gt;&amp;gt; print m                                         # 返回一个 Match 对象
-&amp;lt;_sre.SRE_Match object at 0x10a42aac0&amp;gt;
-&amp;gt;&amp;gt;&amp;gt; m.group(0)   # 可省略 0
-&#39;12&#39;
-&amp;gt;&amp;gt;&amp;gt; m.start(0)   # 可省略 0
-3
-&amp;gt;&amp;gt;&amp;gt; m.end(0)     # 可省略 0
-5
-&amp;gt;&amp;gt;&amp;gt; m.span(0)    # 可省略 0
-(3, 5)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在上面，当匹配成功时返回一个 Match 对象，其中：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；&lt;/li&gt;
-&lt;li&gt;start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；&lt;/li&gt;
-&lt;li&gt;end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；&lt;/li&gt;
-&lt;li&gt;span([group]) 方法返回 (start(group), end(group))。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&#34;search-方法&#34;&gt;search 方法&lt;/h4&gt;
-
-&lt;p&gt;search 方法用于查找字符串的*任何位置*，它也是一次匹配，只要找到了一个匹配的结果就返回，而不是查找所有匹配的结果。当匹配成功时，返回一个 Match 对象，如果没有匹配上，则返回 None。例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; import re
-&amp;gt;&amp;gt;&amp;gt; pattern = re.compile(&#39;\d+&#39;)
-&amp;gt;&amp;gt;&amp;gt; m = pattern.search(&#39;one12twothree34four&#39;)  # 这里如果使用 match 方法则不匹配
-&amp;gt;&amp;gt;&amp;gt; m
-&amp;lt;_sre.SRE_Match object at 0x10cc03ac0&amp;gt;
-&amp;gt;&amp;gt;&amp;gt; m.group()
-&#39;12&#39;
-&amp;gt;&amp;gt;&amp;gt; m = pattern.search(&#39;one12twothree34four&#39;, 10, 30)  # 指定字符串区间
-&amp;gt;&amp;gt;&amp;gt; m
-&amp;lt;_sre.SRE_Match object at 0x10cc03b28&amp;gt;
-&amp;gt;&amp;gt;&amp;gt; m.group()
-&#39;34&#39;
-&amp;gt;&amp;gt;&amp;gt; m.span()
-(13, 15)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;findall-方法&#34;&gt;findall 方法&lt;/h4&gt;
-
-&lt;p&gt;上面的 match 和 search 方法都是一次匹配，只要找到了一个匹配的结果就返回。然而，在大多数时候，我们需要搜索整个字符串，获得所有匹配的结果。findall 以*列表形式*返回全部能匹配的子串，如果没有匹配，则返回一个空列表。例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
- 
-pattern = re.compile(r&#39;\d+&#39;)   # 查找数字
-result1 = pattern.findall(&#39;hello 123456 789&#39;)
-result2 = pattern.findall(&#39;one1two2three3four4&#39;, 0, 10)
- 
-print result1  # [&#39;123456&#39;, &#39;789&#39;]
-print result2  # [&#39;1&#39;, &#39;2&#39;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;finditer-方法&#34;&gt;finditer 方法&lt;/h4&gt;
-
-&lt;p&gt;finditer 方法的行为跟 findall 的行为类似，也是搜索整个字符串，获得所有匹配的结果。但它返回一个顺序访问每一个匹配结果（Match 对象）的迭代器（所以对复杂度有要求的程序，优先考虑选用 finditer 避免在内存中加载大列表）。例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# -*- coding: utf-8 -*-
-import re
- 
-pattern = re.compile(r&#39;\d+&#39;)
-result_iter1 = pattern.finditer(&#39;hello 123456 789&#39;)
-result_iter2 = pattern.finditer(&#39;one1two2three3four4&#39;, 0, 10)
-print type(result_iter1)
-print type(result_iter2)
-print &#39;result1...&#39;
-for m1 in result_iter1:   # m1 是 Match 对象
-    print &#39;matching string: {}, position: {}&#39;.format(m1.group(), m1.span())
-print &#39;result2...&#39;
-for m2 in result_iter2:
-    print &#39;matching string: {}, position: {}&#39;.format(m2.group(), m2.span())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行结果&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;lt;type &#39;callable-iterator&#39;&amp;gt;
-&amp;lt;type &#39;callable-iterator&#39;&amp;gt;
-result1...
-matching string: 123456, position: (6, 12)
-matching string: 789, position: (13, 16)
-result2...
-matching string: 1, position: (3, 4)
-matching string: 2, position: (7, 8)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;split-方法&#34;&gt;split 方法&lt;/h4&gt;
-
-&lt;p&gt;split 方法按照能够匹配的子串将字符串分割后返回列表。例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
- 
-p = re.compile(r&#39;[\s\,\;]+&#39;)
-print p.split(&#39;a,b;; c   d&#39;)   # [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;sub-方法&#34;&gt;sub 方法&lt;/h4&gt;
-
-&lt;p&gt;sub 方法用于替换。它的语法如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;sub(repl, string[, count])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;其中，repl 可以是字符串也可以是一个函数：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如果 repl 是字符串，则会使用 repl 去替换字符串每一个匹配的子串，并返回替换后的字符串，另外，repl 还可以使用 \id 的形式来引用分组，但不能使用编号 0；&lt;/li&gt;
-&lt;li&gt;如果 repl 是函数，这个方法应当只接受一个参数（Match 对象），并返回一个字符串用于替换（返回的字符串中不能再引用分组）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;例子：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import re
- 
-p = re.compile(r&#39;(\w+) (\w+)&#39;)
-s = &#39;hello 123, hello 456&#39;
-def func(m):
-    return &#39;hi&#39; + &#39; &#39; + m.group(2)
-print p.sub(r&#39;hello world&#39;, s)  # 使用 &#39;hello world&#39; 替换 &#39;hello 123&#39; 和 &#39;hello 456&#39;
-print p.sub(r&#39;\2 \1&#39;, s)        # 引用分组
-print p.sub(func, s)
-print p.sub(func, s, 1)         # 最多替换一次
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;执行结果：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;hello world, hello world
-123 hello, 456 hello
-hi 123, hi 456
-hi 123, hello 456
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;subn-方法&#34;&gt;subn 方法&lt;/h4&gt;
-
-&lt;p&gt;subn 方法跟 sub 方法的行为类似，也用于替换。不过它返回一个元组，第一个元素是使用 sub 方法的结果，第二个元素返回原字符串被替换的次数。&lt;/p&gt;
-
-&lt;h3 id=&#34;其他函数&#34;&gt;其他函数&lt;/h3&gt;
-
-&lt;p&gt;使用 compile 函数生成的 Pattern 对象的一系列方法跟 re 模块的多数函数是对应的，只是使用上有细微差别。&lt;/p&gt;
-
-&lt;p&gt;比如，match 函数不能指定匹配的字符串的区间，只能搜索头部；search 和 findall 也都不能指定匹配的字符串的区间&lt;/p&gt;
-
-&lt;h3 id=&#34;选择哪种方式&#34;&gt;选择哪种方式&lt;/h3&gt;
-
-&lt;p&gt;从上文可以看到，使用 re 模块有两种方式：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;使用 re.compile 函数生成一个 Pattern 对象，然后使用 Pattern 对象的一系列方法对文本进行匹配查找；&lt;/li&gt;
-&lt;li&gt;直接使用 re.match, re.search 和 re.findall 等函数直接对文本匹配查找；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果一个正则表达式需要用到多次（比如上面的 \d+），在多种场合经常需要被用到，出于效率的考虑，我们应该预先编译该正则表达式，生成一个 Pattern 对象，再使用该对象的一系列方法对需要匹配的文件进行匹配；而如果直接使用 re.match, re.search 等函数，每次传入一个正则表达式，它都会被编译一次，效率就会大打折扣。&lt;/p&gt;
-
-&lt;p&gt;结论：首选第一种方式，特别是在对效率要求高，尽量避免大量重复编译的的场景中，&lt;/p&gt;
-
-&lt;h2 id=&#34;常见问题&#34;&gt;常见问题&lt;/h2&gt;
-
-&lt;h3 id=&#34;中文匹配&#34;&gt;中文匹配&lt;/h3&gt;
-
-&lt;h4 id=&#34;python2&#34;&gt;python2&lt;/h4&gt;
-
-&lt;p&gt;在某些情况下，我们想匹配文本中的汉字，有一点需要注意的是，中文的 unicode 编码范围 主要在 &lt;code&gt;[\u4e00-\u9fa5]&lt;/code&gt;，这里说主要是因为这个范围并不完整，比如没有包括全角（中文）标点，不过，在大部分情况下，应该是够用的。&lt;/p&gt;
-
-&lt;p&gt;假设现在想把字符串 title = u&amp;rsquo;你好，hello，世界&amp;rsquo; 中的中文提取出来，可以这么做：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# -*- coding: utf-8 -*-
-import re
-title = u&#39;你好，hello，世界&#39;
-pattern = re.compile(ur&#39;[\u4e00-\u9fa5]+&#39;)
-result = pattern.findall(title)
-print result
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h4 id=&#34;python3&#34;&gt;python3&lt;/h4&gt;
-
-&lt;p&gt;直接使用 &lt;code&gt;\w+&lt;/code&gt; 匹配&lt;/p&gt;
-
-&lt;h3 id=&#34;贪婪匹配和非贪婪匹配&#34;&gt;贪婪匹配和非贪婪匹配&lt;/h3&gt;
-
-&lt;p&gt;*python 默认就是贪婪匹配*，也就是匹配尽可能多的字符。举例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; re.match(r&#39;^(\d+)(0*)$&#39;, &#39;102300&#39;).groups()
-(&#39;102300&#39;, &#39;&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由于\d+采用贪婪匹配，直接把后面的0全部匹配了，结果0*只能匹配空字符串了。&lt;/p&gt;
-
-&lt;p&gt;必须让\d+采用非贪婪匹配（也就是尽可能少匹配），才能把后面的0匹配出来，加个?就可以让\d+采用非贪婪匹配&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; re.match(r&#39;^(\d+?)(0*)$&#39;, &#39;102300&#39;).groups()
-(&#39;1023&#39;, &#39;00&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;使用-r-前缀-避免转义&#34;&gt;使用 &lt;code&gt;r&lt;/code&gt; 前缀，避免转义&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;s = &#39;ABC\\-001&#39; # Python的字符串
-# 对应的正则表达式字符串变成：
-# &#39;ABC\-001&#39;
-
-s = r&#39;ABC\-001&#39; # Python的字符串
-# 对应的正则表达式字符串不变：
-# &#39;ABC\-001&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;预先编译&#34;&gt;预先编译&lt;/h3&gt;
-
-&lt;p&gt;当我们在Python中使用正则表达式时，re模块内部会做两件事情：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;编译正则表达式，如果正则表达式的字符串本身不合法，会报错；&lt;/li&gt;
-&lt;li&gt;用编译后的正则表达式去匹配字符串。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果一个正则表达式要重复使用成千上万次，出于效率的考虑，我们可以预编译该正则表达式，接下来重复使用时就不需要编译这个步骤了，直接匹配：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; import re
-# 编译:
-&amp;gt;&amp;gt;&amp;gt; re_telephone = re.compile(r&#39;^(\d{3})-(\d{3,8})$&#39;)
-# 使用：
-&amp;gt;&amp;gt;&amp;gt; re_telephone.match(&#39;010-12345&#39;).groups()
-(&#39;010&#39;, &#39;12345&#39;)
-&amp;gt;&amp;gt;&amp;gt; re_telephone.match(&#39;010-8086&#39;).groups()
-(&#39;010&#39;, &#39;8086&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;避免多个模糊匹配的模块叠加在一起&#34;&gt;避免多个模糊匹配的模块叠加在一起&lt;/h3&gt;
-
-&lt;p&gt;避免使用 \s*.*这样的组合，因为这种组合会导致正则引擎匹配时间指数增加。&lt;/p&gt;
-
-&lt;h2 id=&#34;更高级的模块-regex&#34;&gt;更高级的模块 Regex&lt;/h2&gt;
-
-&lt;p&gt;当然，re 这个内置模块有一些缺陷的。这里有个模块&lt;a href=&#34;https://pypi.python.org/pypi/regex&#34;&gt;regex 2016.12.27&lt;/a&gt;提供了新的实现，目的是为了替换&lt;code&gt;re&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;这篇文章&lt;a href=&#34;http://www.rexegg.com/regex-python.html&#34;&gt;Python Regex Tutorial&lt;/a&gt;介绍了re模块具体有哪些缺陷，以及为什么 regex 是所有替代品中最好的一个。&lt;/p&gt;
-
-&lt;h2 id=&#34;扩展阅读&#34;&gt;扩展阅读&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.cnblogs.com/belid/archive/2013/04/27/python.html&#34;&gt;python 贪婪和非贪婪、多行匹配正则表达式小结&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.lfhacks.com/tech/python-re-single-multiline&#34;&gt;Python 正则表达式里的单行s和多行m模式&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://docs.python.org/3.5/howto/regex.html#&#34;&gt;Regular Expression HOWTO — Python 3.5.2 documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/regex/&#34;&gt;regex 2016.12.27 : Python Package Index&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.rexegg.com/regex-python.html&#34;&gt;Python Regex Tutorial&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/00143193331387014ccd1040c814dee8b2164bb4f064cff000&#34;&gt;正则表达式 - 廖雪峰的官方网站&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://funhacks.net/2016/12/27/regular_expression/&#34;&gt;Python 正则表达式 re 模块简明笔记 · FunHacks&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://deerchao.net/tutorials/regex/regex.htm&#34;&gt;正则表达式30分钟入门教程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>[toc]
+python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
+表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
+re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
+ compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
+ 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
+re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
+import re # 将正则表达式编译成 Pattern 对象 pattern = re.</description>
     </item>
     
     <item>
@@ -403,74 +45,8 @@ s = r&#39;ABC\-001&#39; # Python的字符串
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
-      <description>
-
-&lt;h1 id=&#34;golang-test-techniques&#34;&gt;golang test techniques&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func twoSum(nums []int, target int) []int {
-	for i := 0; i &amp;lt; len(nums); i++ {
-		for j := i + 1; j &amp;lt; len(nums); j++ {
-			if nums[i]+nums[j] == target {
-				return []int{i, j}
-			}
-		}
-	}
-	return []int{0, 0}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;table driven test&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func TestAddTwo(t *testing.T) {
-	var addTwoTests = []struct {
-		nums     []int
-		target   int
-		expected []int
-	}{
-		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
-		{[]int{3, 2, 4}, 6, []int{1, 2}},
-	}
-
-	for _, tt := range addTwoTests {
-		if result := twoSum(tt.nums, tt.target); !reflect.DeepEqual(result, tt.expected) {
-			t.Fatalf(&amp;quot;should be %v, but is:%v\n&amp;quot;, tt.expected, result)
-		}
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;gocheck&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-go&#34;&gt;func Test(t *testing.T) { TestingT(t) }
-
-type TestSuite struct{}
-
-var _ = Suite(&amp;amp;TestSuite{})
-
-func (s *TestSuite) TestAddTwo(c *C) {
-
-	var addTwoTests = []struct {
-		nums     []int
-		target   int
-		expected []int
-	}{
-		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
-		{[]int{3, 2, 4}, 6, []int{1, 2}},
-	}
-
-	for _, tt := range addTwoTests {
-		result := twoSum(tt.nums, tt.target)
-		c.Check(result, DeepEquals, tt.expected)
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;using github.com/stretchr/testify library&lt;/p&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://www.qcloud.com/community/article/921985001483606833?fromSource=gwzcw.84785.84785.84785&#34;&gt;go 单元测试进阶篇 - 腾云阁 - 腾讯云&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} }  table driven test
+func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0, 1}}, {[]int{3, 2, 4}, 6, []int{1, 2}}, } for _, tt := range addTwoTests { if result := twoSum(tt.</description>
     </item>
     
     <item>
@@ -479,72 +55,12 @@ func (s *TestSuite) TestAddTwo(c *C) {
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;kubernetes-集群监控方案研究&#34;&gt;kubernetes 集群监控方案研究&lt;/h1&gt;
-
-&lt;h2 id=&#34;kubernetes-时代的监控新的特点&#34;&gt;kubernetes 时代的监控新的特点&lt;/h2&gt;
-
-&lt;p&gt;监控 kubernetes 和传统监控上的一些差异&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式&lt;/li&gt;
-&lt;li&gt;与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身&lt;/li&gt;
-&lt;li&gt;容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用&lt;/li&gt;
-&lt;li&gt;适应分布式集群监控的特点&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;kubernetes-系统中有哪些指标需要监控&#34;&gt;kubernetes 系统中有哪些指标需要监控&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;通常的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等&lt;/li&gt;
-&lt;li&gt;容器的原生监控指标&lt;/li&gt;
-&lt;li&gt;应用程序监控指标&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;既有方案比较&#34;&gt;既有方案比较&lt;/h2&gt;
-
-&lt;h3 id=&#34;方案一-heapster-influxdb-grafana&#34;&gt;方案一：Heapster + influxDB + Grafana&lt;/h3&gt;
-
-&lt;p&gt;首先这里的 Heapster 是什么？&lt;/p&gt;
-
-&lt;p&gt;Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。&lt;/p&gt;
-
-&lt;p&gt;Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。&lt;/p&gt;
-
-&lt;p&gt;该方案的优点是 &lt;code&gt;heapster&lt;/code&gt; 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，&lt;code&gt;heapster&lt;/code&gt; 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。&lt;/p&gt;
-
-&lt;h3 id=&#34;方案二-prometheus-exporter-grafana&#34;&gt;方案二：prometheus + (*)-exporter + Grafana&lt;/h3&gt;
-
-&lt;p&gt;之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;kubernetes 原生支持 prometheus：apiserver 服务的 &lt;code&gt;http://master_ip:8080/metrics&lt;/code&gt; endpoint 将集群中的监控数据暴露出来，prometheus 可以通过 pull 获取&lt;/li&gt;
-&lt;li&gt;cAdvisor 原生支持 prometheus：cAdvisor 已经集成在 kubelet 服务中，prometheus 可以从 &lt;code&gt;http://node_ip:4194/metrics&lt;/code&gt; 获取监控数据&lt;/li&gt;
-&lt;li&gt;prometheus 通过配置 &lt;kubernetes_sd_configs&gt;，支持将 kubernetes 作为一种服务发现机制&lt;/li&gt;
-&lt;li&gt;kubernetes 可以通过 daemonset 这种资源类型来部署 &lt;code&gt;node-exporter&lt;/code&gt;，收集每个 node 通用的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kube-state-metrics: kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等5、&lt;/li&gt;
-&lt;li&gt;应用的监控则可以通过在 Pod 部署时加入相应类型的 exporter 容器来向容器外暴露监控指标，比如在一个运行 mongodb 的 pod 中，加入一个 &lt;code&gt;mongo_exporter&lt;/code&gt;暴露mongodb的监控指标给 prometheus&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这套方案的优点则是 Prometheus 是一个通用的监控系统，可以自由扩展，并且拥有 alertmanager 这样的功能完整的告警组件；而在 pod 中加入一个新的容器来向外暴露监控指标的部署方式又和 k8s 结合的很好。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.kubernetes.io/2017/05/kubernetes-monitoring-guide.html&#34;&gt;Kubernetes: Kubernetes: a monitoring guide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;datadog 系列文章
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-era/&#34;&gt;Monitoring in the Kubernetes era&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-performance-metrics/#correlate-with-events&#34;&gt;Monitoring Kubernetes performance metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/how-to-collect-and-graph-kubernetes-metrics/#adding-kube-state-metrics&#34;&gt;How to collect and graph Kubernetes metrics&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://dockone.io/article/1881&#34;&gt;Kubernetes监控之Heapster介绍 - DockOne.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.slideshare.net/brianbrazil/monitoring-kubernetes-with-prometheus-kubernetes-ireland-2016&#34;&gt;Monitoring Kubernetes with Prometheus (Kubernetes Ireland, 2016)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异
+ Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身 容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用 适应分布式集群监控的特点  kubernetes 系统中有哪些指标需要监控  通常的资源指标，如CPU，内存使用量和磁盘IO kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等 容器的原生监控指标 应用程序监控指标  既有方案比较 方案一：Heapster + influxDB + Grafana 首先这里的 Heapster 是什么？
+Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。
+Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。
+该方案的优点是 heapster 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，heapster 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。
+方案二：prometheus + (*)-exporter + Grafana 之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点</description>
     </item>
     
     <item>
@@ -553,149 +69,13 @@ func (s *TestSuite) TestAddTwo(c *C) {
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/prometheus-intro/</guid>
-      <description>
-
-&lt;h1 id=&#34;prometheus-监控系统介绍与实践总结&#34;&gt;prometheus 监控系统介绍与实践总结&lt;/h1&gt;
-
-&lt;p&gt;关键词：&lt;code&gt;prometheus&lt;/code&gt;、&lt;code&gt;时间序列数据&lt;/code&gt;、&lt;code&gt;push/pull模型&lt;/code&gt;、&lt;code&gt;容器监控&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;最近，由于在调研容器平台的原因，关注了一些互联网企业的技术博客，阅读了许多容器平台相关技术栈的文章，在他们的技术栈中反复提到了 &lt;code&gt;prometheus&lt;/code&gt;这个监控系统，非常好奇它有什么神奇之处，众多架构师对它趋之若鹜，所以在前一周做了一些研究和实践，在这里分享给大家。第一部分主要对 prometheus 做了简单介绍，这一部分主要是官网的资料和一些技术博客的分享；第二部分是基于 &lt;code&gt;prometheus&lt;/code&gt; 的&lt;code&gt;MySQL&lt;/code&gt;主从结构监控的demo实践和 &lt;code&gt;prometheus&lt;/code&gt; 适用场景的一些思考，主要是基于我个人研究和实践的基础上的结论；&lt;/p&gt;
-
-&lt;h2 id=&#34;prometheus-简单介绍&#34;&gt;prometheus 简单介绍&lt;/h2&gt;
-
-&lt;h3 id=&#34;prometheus-是什么&#34;&gt;prometheus 是什么？&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;Prometheus 是由 SoundCloud 开源监控告警解决方案，从 2012 年开始编写代码，再到 2015 年 github 上开源以来，已经吸引了 9k+ 关注，以及很多大公司的使用；2016 年 Prometheus 成为继 k8s 后，第二名 CNCF(Cloud Native Computing Foundation) 成员。&lt;/p&gt;
-
-&lt;p&gt;作为新一代开源解决方案，很多理念与 Google SRE 运维之道不谋而合。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&#34;它有什么特点&#34;&gt;它有什么特点？&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;自定义多维数据模型(时序列数据由metric名和一组key/value标签组成)&lt;/li&gt;
-&lt;li&gt;非常高效的存储 平均一个采样数据占 ~3.5 bytes左右，320万的时间序列，每30秒采样，保持60天，消耗磁盘大概228G。&lt;/li&gt;
-&lt;li&gt;在多维度上灵活且强大的查询语言(PromQl)&lt;/li&gt;
-&lt;li&gt;不依赖分布式存储，支持单主节点工作&lt;/li&gt;
-&lt;li&gt;通过基于HTTP的pull方式采集时序数据&lt;/li&gt;
-&lt;li&gt;可以通过push gateway进行时序列数据推送(pushing)&lt;/li&gt;
-&lt;li&gt;可以通过服务发现或者静态配置去获取要采集的目标服务器&lt;/li&gt;
-&lt;li&gt;多种可视化图表及仪表盘支持&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上面基本是我从官网上翻译过来的，这其中有几个关键词&lt;/p&gt;
-
-&lt;h4 id=&#34;关键词-时间序列数据&#34;&gt;关键词：&lt;em&gt;时间序列数据&lt;/em&gt;&lt;/h4&gt;
-
-&lt;p&gt;Prometheus 所有的存储都是按时间序列去实现的，相同的 metrics(指标名称) 和 label(一个或多个标签) 组成一条时间序列，不同的label表示不同的时间序列。&lt;/p&gt;
-
-&lt;p&gt;每条时间序列是由唯一的 指标名称 和 一组 标签 （key=value）的形式组成。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;指标名称&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一般是给监测对像起一名字，例如 http_requests_total 这样，它有一些命名规则，可以包字母数字之类的的。通常是以应用名称开头监测对像数值类型单位这样。例如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt; - push_total
- - userlogin_mysql_duration_seconds
- - app_memory_usage_bytes
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;标签&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;就是对一条时间序列不同维度的识别了，例如 一个http请求用的是POST还是GET，它的endpoint是什么，这时候就要用标签去标记了。最终形成的标识便是这样了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;http_requests_total{method=&amp;quot;POST&amp;quot;,endpoint=&amp;quot;/api/tracks&amp;quot;}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果以传统数据库的理解来看这条语句，则可以考虑 http_requests_total是表名，标签是字段，而timestamp是主键，还有一个float64字段是值了。（Prometheus里面所有值都是按float64存储）&lt;/p&gt;
-
-&lt;h4 id=&#34;关键词-push-vs-pull-model&#34;&gt;关键词：&lt;em&gt;push vs pull model&lt;/em&gt;&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://oiitkuz0h.qnssl.com/push_vs_pull.png&#34; alt=&#34;push_vs_pull&#34; /&gt;
-(图片来自 google 搜索)&lt;/p&gt;
-
-&lt;p&gt;我们目前比较熟悉的监控系统系统，基本上都是第一种 &lt;code&gt;push&lt;/code&gt;类型的，监控系统被动接受来自agent主动上报的各项健康指标数据，典型的监控系统是&lt;code&gt;zabbix&lt;/code&gt;、&lt;code&gt;open-falcon&lt;/code&gt;；还有一种就是基于&lt;code&gt;pull&lt;/code&gt;模型的，被监控系统向外暴露系统指标，监控系统主动去通过某些方式（通常是http）拉取到这些指标，最典型的是 &lt;code&gt;prometheus&lt;/code&gt;；&lt;/p&gt;
-
-&lt;p&gt;下面是这两种方案的对比：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://oiitkuz0h.qnssl.com/push_vs_pull_comparision.png&#34; alt=&#34;push_vs_pull_comparision&#34; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;核心组件&#34;&gt;核心组件&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Prometheus Server， 主要用于抓取数据和存储时序数据，另外还提供查询和 Alert Rule 配置管理。&lt;/li&gt;
-&lt;li&gt;client libraries，用于对接 Prometheus Server, 可以查询和上报数据。&lt;/li&gt;
-&lt;li&gt;push gateway ，用于批量，短期的监控数据的汇总节点，主要用于业务数据汇报等。&lt;/li&gt;
-&lt;li&gt;各种汇报数据的 exporters ，例如汇报机器数据的 node_exporter, 汇报 MongoDB 信息的 MongoDB exporter 等等。&lt;/li&gt;
-&lt;li&gt;用于告警通知管理的 alertmanager 。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;基础架构&#34;&gt;基础架构&lt;/h3&gt;
-
-&lt;p&gt;官方的架构图如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://oiitkuz0h.qnssl.com/prometheus_arch.png&#34; alt=&#34;prometheus_arch&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;大致使用逻辑是这样：
-1. Prometheus server 定期从静态配置的 targets 或者服务发现的 targets 拉取数据。
-2. 当新拉取的数据大于配置内存缓存区的时候，Prometheus 会将数据持久化到磁盘（如果使用 remote storage 将持久化到云端）。
-3. Prometheus 可以配置 rules，然后定时查询数据，当条件触发的时候，会将 alert 推送到配置的 Alertmanager。
-4. Alertmanager 收到警告的时候，可以根据配置，聚合，去重，降噪，最后发送警告。&lt;/p&gt;
-
-&lt;h2 id=&#34;实践总结以及监控系统的思考&#34;&gt;实践总结以及监控系统的思考&lt;/h2&gt;
-
-&lt;h3 id=&#34;实践总结&#34;&gt;实践总结&lt;/h3&gt;
-
-&lt;p&gt;基于 &lt;a href=&#34;https://www.percona.com/blog/2016/02/29/graphing-mysql-performance-with-prometheus-and-grafana/&#34;&gt;percona 官方监控 mysql 的例子&lt;/a&gt;做了一个 MySQL 主从架构的监控实践，这里就不再赘述其搭建过程了，直接谈谈这次实践遇到的问题及心得体会：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;如果要加入新的 &lt;code&gt;targets&lt;/code&gt;（或者叫被监控节点），必须修改prometheus配置文件然后重启服务才能加载，另外，所有的配置都是在配置文件中完成的，这一点在 易用性上比 zabbix 差了很多；；&lt;/li&gt;
-&lt;li&gt;需要为不同的监控启动不同的 exporter 服务，例如，如果要监控机器的指标，就需要启动&lt;code&gt;Node exporter&lt;/code&gt;服务，需要监控 MySQL 性能指标&lt;code&gt;MySQL server exporter&lt;/code&gt;服务，并且需要暴露在不同的端口上，这样来看，运维上不易管理；&lt;/li&gt;
-&lt;li&gt;查询语言PromQL强大，通过简单的表达式就可以计算集群指标；&lt;/li&gt;
-&lt;li&gt;Grafana 有官方的 Prometheus dashboard ，可视化方面并不逊色；&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&#34;prometheus-适用场景思考&#34;&gt;prometheus 适用场景思考&lt;/h3&gt;
-
-&lt;p&gt;相比于老牌监控系统，prometheus 还有很多不足，并且基于 pull 的模型并不是监控系统的「银弹」，那么它适合哪些环境下的监控呢？我们可以从它的特征来分析：&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;纯数字时间序列数据监控
-Prometheus在记录纯数字时间序列方面表现非常好，而并不适用于 API 可用性检测等 long-time job 类型的监控；&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;集群服务监控
-prometheus 提供的强大灵活的查询语言PromQL ，用于计算集群服务的相关指标&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;基于 k8s 平台的容器监控
-上面提到，prometheus 可以通过服务发现或者静态配置去获取要采集的目标服务器，所以对于 k8s，可以通过 &lt;code&gt;&amp;lt;kubernetes_sd_config&amp;gt;&lt;/code&gt;配置项动态获取kubernetes中定义的 pods 暴露出来的监控指标，而不需要关心 k8s 的调度；另一方面，k8s 提供了&lt;code&gt;Daemon Sets&lt;/code&gt;用于在在所有nodes都运行一个&lt;code&gt;node exporter&lt;/code&gt;来监控 nodes的机器性能指标，从这一点来说，k8s 和 prometheus 集成度还是很高的，所以很多自建的容器平台都选择了 prometheus 作为监控的基础组件。&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;所以我的结论是，&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;基础监控，比如机器各项性能指标监控等还是交给push模型的监控系统提供来做，毕竟成熟且周边生态更完善，对于紫金的监控体系中，交给 Zabbix 就可以了；&lt;/li&gt;
-&lt;li&gt;prometheus 基于 pull 模型的特点非常适合 应用性能监控（APM），通常应用的开发者最清楚哪些指标是最能体现应用性能的，他可以通过 prometheus 提供的 client library 向外暴露出系统的性能指标，配置好 prometheus 的targets和alert rules就可以很好地监控起来了。一个非常经典的例子是 gitlab 的 omnibus 安装包，它将 prometheus 服务内嵌进来，将 gitlab 服务的各项性能指标都暴露给 prometheus 收集，我们只需要在 Grafana 中导入一个dashboard 就可以对 gitlab 的监控指标可视化；&lt;/li&gt;
-&lt;li&gt;假设要建设k8s容器平台，监控系统组件优先考虑 premetheus 和  cAdvisor 的组合。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;以上，谢谢阅读。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://prometheus.io/&#34;&gt;Prometheus - Monitoring system &amp;amp; time series database&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s/5zHd7KyrAlB0GfgC3-x9-Q&#34;&gt;使用Prometheus监控服务器性能&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://dockone.io/article/2322&#34;&gt;DockOne微信分享（一一七）：沪江容器化运维实践 - DockOne.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://zhuanlan.zhihu.com/p/24811652&#34;&gt;基于Prometheus的分布式在线服务监控实践 - 知乎专栏&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://dockone.io/article/397&#34;&gt;五个Docker监控工具的对比 - DockOne.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.gitbook.com/book/songjiayang/prometheus/details&#34;&gt;Prometheus 实战 · GitBook&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控
+最近，由于在调研容器平台的原因，关注了一些互联网企业的技术博客，阅读了许多容器平台相关技术栈的文章，在他们的技术栈中反复提到了 prometheus这个监控系统，非常好奇它有什么神奇之处，众多架构师对它趋之若鹜，所以在前一周做了一些研究和实践，在这里分享给大家。第一部分主要对 prometheus 做了简单介绍，这一部分主要是官网的资料和一些技术博客的分享；第二部分是基于 prometheus 的MySQL主从结构监控的demo实践和 prometheus 适用场景的一些思考，主要是基于我个人研究和实践的基础上的结论；
+prometheus 简单介绍 prometheus 是什么？  Prometheus 是由 SoundCloud 开源监控告警解决方案，从 2012 年开始编写代码，再到 2015 年 github 上开源以来，已经吸引了 9k+ 关注，以及很多大公司的使用；2016 年 Prometheus 成为继 k8s 后，第二名 CNCF(Cloud Native Computing Foundation) 成员。
+作为新一代开源解决方案，很多理念与 Google SRE 运维之道不谋而合。
+ 它有什么特点？  自定义多维数据模型(时序列数据由metric名和一组key/value标签组成) 非常高效的存储 平均一个采样数据占 ~3.5 bytes左右，320万的时间序列，每30秒采样，保持60天，消耗磁盘大概228G。 在多维度上灵活且强大的查询语言(PromQl) 不依赖分布式存储，支持单主节点工作 通过基于HTTP的pull方式采集时序数据 可以通过push gateway进行时序列数据推送(pushing) 可以通过服务发现或者静态配置去获取要采集的目标服务器 多种可视化图表及仪表盘支持  上面基本是我从官网上翻译过来的，这其中有几个关键词
+关键词：时间序列数据 Prometheus 所有的存储都是按时间序列去实现的，相同的 metrics(指标名称) 和 label(一个或多个标签) 组成一条时间序列，不同的label表示不同的时间序列。
+每条时间序列是由唯一的 指标名称 和 一组 标签 （key=value）的形式组成。</description>
     </item>
     
     <item>
@@ -704,59 +84,8 @@ prometheus 提供的强大灵活的查询语言PromQL ，用于计算集群服�
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</guid>
-      <description>
-
-&lt;h1 id=&#34;selenium-with-chrome-headless-on-centos-7&#34;&gt;selenium with chrome headless on centos 7&lt;/h1&gt;
-
-&lt;p&gt;&lt;code&gt;chrome&lt;/code&gt; 在 17年4月开始支持 headless 模式(v59)， &lt;code&gt;phantomjs&lt;/code&gt; 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下&lt;code&gt;chrome headless&lt;/code&gt;模式在&lt;code&gt;centos&lt;/code&gt;系统上的可行性。&lt;/p&gt;
-
-&lt;h2 id=&#34;关于chrome安装&#34;&gt;关于chrome安装&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;yum install  \
-    ipa-gothic-fonts \
-    xorg-x11-fonts-100dpi \
-    xorg-x11-fonts-75dpi \
-    xorg-x11-utils \
-    xorg-x11-fonts-cyrillic \
-    xorg-x11-fonts-Type1 \
-    xorg-x11-fonts-misc -y
-
-yum install xorg-x11-server-Xvfb
-echo &amp;quot;[google-chrome]&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-echo &amp;quot;name=google-chrome&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-echo &amp;quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-echo &amp;quot;enabled=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-echo &amp;quot;gpgcheck=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-echo &amp;quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo
-yum -y install google-chrome-stable
-
-xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;遇到的问题&#34;&gt;遇到的问题&lt;/h2&gt;
-
-&lt;h3 id=&#34;chromedriver-版本问题&#34;&gt;chromedriver 版本问题&lt;/h3&gt;
-
-&lt;p&gt;目前 &lt;code&gt;chromedriver&lt;/code&gt; 最新版本2.31，但是该版本与centos7的glibc不兼容，所以降级选择 2.30&lt;/p&gt;
-
-&lt;h3 id=&#34;selenium-配置&#34;&gt;selenium 配置&lt;/h3&gt;
-
-&lt;p&gt;主要测试了下面的配置&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;options.binary_location = &#39;/opt/google/chrome/chrome&#39;
-options.add_argument(&#39;headless&#39;)
-options.add_argument(&#39;disable-gpu&#39;)
-# options.add_argument(&#39;window-size=1200x600&#39;)
-self.driver = webdriver.Chrome(chrome_options=options)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;refs&#34;&gt;refs&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gist.github.com/addyosmani/5336747&#34;&gt;So, you want to run Chrome headless.&lt;/a&gt;
-&lt;a href=&#34;https://intoli.com/blog/running-selenium-with-headless-chrome/&#34;&gt;Running Selenium with the new headless Chrome&lt;/a&gt;
-&lt;a href=&#34;https://segmentfault.com/a/1190000010003991&#34;&gt;(3)Web自动化之Headless Chrome开发工具库 - 堆栈HeapStack - SegmentFault&lt;/a&gt;
-&lt;a href=&#34;https://lightless.me/archives/first-glance-at-chrome-headless-browser.html&#34;&gt;初见 Chrome Headless Browser - 不发光的博客&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless模式在centos系统上的可行性。
+关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &amp;quot;[google-chrome]&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;name=google-chrome&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;enabled=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgcheck=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.</description>
     </item>
     
     <item>
@@ -765,83 +94,18 @@ self.driver = webdriver.Chrome(chrome_options=options)
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/push-vs-pull-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;监控系统-push-和-pull-模型&#34;&gt;监控系统 push 和 pull 模型&lt;/h1&gt;
-
-&lt;h2 id=&#34;push-模型&#34;&gt;Push 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;var fooCount = 0
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount += 1
-    metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType}
-}
-
-var metricsChan = make(chan Metrics, 1000)
-
-func metricsPusher() { // run as a goroutine
-    for m := range metricsChan {
-        // send m to the monitoring system
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;push 模型需要处理的一些问题&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Service Discovery: How does the application know where the monitoring system is located? For example, if you are reporting metrics to a StatsD server, all your app instances should know the StatsD server hostname/IP.&lt;/li&gt;
-&lt;li&gt;Retry Policy: The sender should have some logic to handle intermittent network disruptions and delays.&lt;/li&gt;
-&lt;li&gt;Backlog Management: In the pseudo-code above, the buffered channel had a size of 1000. When dealing with high metric volume, the sender should actively manage this backlog. Cases like production rate higher than dispatch rate, backlog filling up and memory consumption of backlog should be handled.&lt;/li&gt;
-&lt;li&gt;Batching: For most systems, it is efficient to batch multiple requests into one, thereby avoiding multiple round trips. The sender should make use of batching if possible.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;pull-模型&#34;&gt;Pull 模型&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;import _ &amp;quot;expvar&amp;quot;
-
-var fooCount = expvar.NewInt(&amp;quot;foo.count&amp;quot;)
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount.Add(1)
-}
-
-func main() {
-    http.ListenAndServe(&amp;quot;:8080&amp;quot;, nil)
-    // http://localhost:8080/debug/vars has the metrics
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;pull 模型的一些不同于 push 的特点：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Lower Application Cost: The cost of memory and CPU at application side is proportional to the number of metrics, not the rate of production of metrics.&lt;/li&gt;
-&lt;li&gt;No Application-side Service Discovery: The task of discovering the HTTP endpoints to be monitored is shifted to the monitoring system side.&lt;/li&gt;
-&lt;li&gt;Risk of Lost Outliers: If an outlier occurs within two pulls, it will be missed by the monitoring system.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;No Events&lt;/strong&gt;: Typically, it is not possible to report one-shot events (like a “reload” or “deploy”) using the pull mechanism.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;两类模型的代表&#34;&gt;两类模型的代表&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;prometheus 是典型的基于 pull 模型的监控系统，但是它也可以通过 pushgateway 组件支持 push 模型&lt;/li&gt;
-&lt;li&gt;StatsD has mostly become the defacto standard for the push method of reporting metrics.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Golang 标准库中的 expvar 包常用来暴露 app 中的 metrics&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;furthur-reading&#34;&gt;furthur reading&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.opsdash.com/blog/golang-app-monitoring-statsd-expvar-prometheus.html&#34;&gt;Go App Monitoring: expvar, Prometheus and StatsD - OpsDash&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.influxdata.com/monitoring-with-push-vs-pull-influxdb-adds-pull-support-with-kapacitor/&#34;&gt;InfluxData Kapacitor 1.3 | Monitoring Push vs Pull and The Support of Both&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gocn.io/question/373&#34;&gt;监控系统中到底是pull还是push方案好？ - Go 技术社区 - golang&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount += 1 metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } }  push 模型需要处理的一些问题
+ Service Discovery: How does the application know where the monitoring system is located?</description>
+    </item>
+    
+    <item>
+      <title>sync.Once 实现 golang 中的单例模式</title>
+      <link>https://blog.ruhm.me/post/go-single-instance/</link>
+      <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
+      <description> sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。
+import ( &amp;quot;sync&amp;quot; ) type singleton struct { } var instance *singleton var once sync.Once func GetInstance() *singleton { once.Do(func() { instance = &amp;amp;singleton{} }) return instance }  </description>
     </item>
     
     <item>
@@ -850,44 +114,9 @@ func main() {
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/go-log-pratice/</guid>
-      <description>
-
-&lt;h1 id=&#34;golang-应用日志实践&#34;&gt;golang 应用日志实践&lt;/h1&gt;
-
-&lt;p&gt;这里可以分为命令行应用和服务端应用两类情况&lt;/p&gt;
-
-&lt;h2 id=&#34;命令行客户端应用&#34;&gt;命令行客户端应用&lt;/h2&gt;
-
-&lt;p&gt;典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用将会同时输出到标准输出和写入日志文件&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;var formatStdout = logging.MustStringFormatter(
-	`%{color}%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}%{color:reset}`,
-)
-
-var formatLogfile = logging.MustStringFormatter(
-	`%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}`,
-)
-
-func initLog() {
-	logFile, err := os.OpenFile(viper.GetString(&amp;quot;log.file&amp;quot;), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640)
-	if err != nil {
-		fmt.Println(err)
-		panic(err)
-	}
-	backendLogFile := logging.NewLogBackend(logFile, &amp;quot;&amp;quot;, 0)
-	backendStdout := logging.NewLogBackend(os.Stdout, &amp;quot;&amp;quot;, 0)
-
-	backendLogFileFormatter := logging.NewBackendFormatter(backendLogFile, formatLogfile)
-	backendStdoutFormatter := logging.NewBackendFormatter(backendStdout, formatStdout)
-
-	logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;持续服务类型应用&#34;&gt;持续服务类型应用&lt;/h2&gt;
-
-&lt;p&gt;典型就是 web 应用，通常我们通过 supervisord 部署，所以我们可以选择在应用中直接输出到 stderr 或者 stdout，通过 supervisord 配置日志文件&lt;/p&gt;
-</description>
+      <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况
+命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用将会同时输出到标准输出和写入日志文件
+var formatStdout = logging.MustStringFormatter( `%{color}%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}%{color:reset}`, ) var formatLogfile = logging.MustStringFormatter( `%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}`, ) func initLog() { logFile, err := os.OpenFile(viper.GetString(&amp;quot;log.file&amp;quot;), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640) if err != nil { fmt.Println(err) panic(err) } backendLogFile := logging.NewLogBackend(logFile, &amp;quot;&amp;quot;, 0) backendStdout := logging.NewLogBackend(os.Stdout, &amp;quot;&amp;quot;, 0) backendLogFileFormatter := logging.NewBackendFormatter(backendLogFile, formatLogfile) backendStdoutFormatter := logging.NewBackendFormatter(backendStdout, formatStdout) logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter) }  持续服务类型应用 典型就是 web 应用，通常我们通过 supervisord 部署，所以我们可以选择在应用中直接输出到 stderr 或者 stdout，通过 supervisord 配置日志文件</description>
     </item>
     
     <item>
@@ -896,16 +125,7 @@ func initLog() {
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
-      <description>
-
-&lt;h1 id=&#34;golang-notes-package&#34;&gt;golang notes: package&lt;/h1&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://thenewstack.io/understanding-golang-packages/&#34;&gt;Understanding Golang Packages - The New Stack&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description> golang notes: package 参考  Understanding Golang Packages - The New Stack  </description>
     </item>
     
     <item>
@@ -914,67 +134,11 @@ func initLog() {
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/graph-database-neo4j-notes/</guid>
-      <description>
-
-&lt;h1 id=&#34;图数据库-neo4j-笔记&#34;&gt;图数据库 Neo4j 笔记&lt;/h1&gt;
-
-&lt;h2 id=&#34;图数据库&#34;&gt;图数据库&lt;/h2&gt;
-
-&lt;p&gt;图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;当前有流行图形数据库：Neo4j、FlockDB、AllegroGraph、GraphDB、InfiniteGraph、OrientDB、InfoGrid和HypergraphDB等&lt;/li&gt;
-&lt;li&gt;另有自称比MongoDB和Neo4j性能更佳的多模型数据库ArangoDB,见nosql-tests&lt;/li&gt;
-&lt;li&gt;关系型数据库用于存储“关系型”数据的效果并不好，其查询复杂、缓慢、超出预期，而图形数据库的独特设计恰恰弥补了这个缺陷。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;neo4j&#34;&gt;Neo4j&lt;/h2&gt;
-
-&lt;p&gt;Neo4j是一个用Java实现、完全兼容ACID的图形数据库。数据以一种针对图形网络进行过优化的格式保存在磁盘上。Neo4j的内核是一种极快的图形引擎，具有数据库产品期望的所有特性，如恢复、两阶段提交、符合XA等。自2003年起，Neo4j就已经被作为24/7的产品使用。
-Neo4j是目前主流的一个图数据库，相比传统的关系型数据库，它可以快速的进行基于人际社交网络类的查询查询和检索;它同时提供了&lt;code&gt;cypher&lt;/code&gt;语言来方便进行图数据库的操作和查询，该查询语言类似SQL语言。
-Neo4j的数据并非保存在表或集合中，而是保存为节点以及节点之间的关系。在Neo4j中，*节点以及关系都能够包含保存值的属性*，此外：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;可以为节点设置零或多个标签（例如Author或Book）&lt;/li&gt;
-&lt;li&gt;每个关系都对应一种类型（例如WROTE或FRIEND_OF）&lt;/li&gt;
-&lt;li&gt;关系总是从一个节点指向另一个节点（但可以在不考虑指向性的情况下进行查询）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;为什么选择-neo4j&#34;&gt;为什么选择 Neo4j？&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;自带一套易于学习的查询语言（&lt;code&gt;Cypher&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;不使用&lt;code&gt;schema&lt;/code&gt;，因此可以满足你的任何形式的需求&lt;/li&gt;
-&lt;li&gt;与关系型数据库相比，对于高度关联的数据（图形数据）的查询快速要快上许多&lt;/li&gt;
-&lt;li&gt;实体与关系结构非常自然地切合人类的直观感受&lt;/li&gt;
-&lt;li&gt;支持兼容ACID的事务操作&lt;/li&gt;
-&lt;li&gt;提供了一个高可用性模型，以支持大规模数据量的查询，支持备份、数据局部性以及冗余&lt;/li&gt;
-&lt;li&gt;提供了一个可视化的查询控制台&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;什么时候不应使用neo4j&#34;&gt;什么时候不应使用Neo4j？&lt;/h2&gt;
-
-&lt;p&gt;作为一个图形NoSQL数据库，Neo4j提供了大量的功能，但没有什么解决方案是完美的。在以下这些用例中，Neo4j就不是非常适合的选择：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;记录大量基于事件的数据（例如日志条目或传感器数据）&lt;/li&gt;
-&lt;li&gt;对大规模分布式数据进行处理，类似于Hadoop&lt;/li&gt;
-&lt;li&gt;二进制数据存储&lt;/li&gt;
-&lt;li&gt;适合于保存在关系型数据库中的结构化数据&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;neo4j图模型&#34;&gt;Neo4j图模型&lt;/h2&gt;
-
-&lt;p&gt;Neo4J中的图形模型要点：&lt;code&gt;Nodes&lt;/code&gt;与&lt;code&gt;Relationships&lt;/code&gt;可以被赋予&lt;code&gt;Properties(key-value)&lt;/code&gt;; Nodes可按label分组；Relationships可赋予direction和type并最终构成数据形态；Neo4j可存储10亿级别的数据量
-Neo4J使用以下索引机制：一个超级参考节点通过一条特殊类别的边线“REFERENCE”与所有节点相连。这实际上允许创建多个索引，借以通过不同的边线类别对其加以区分。Neo4J还提供了一些特殊功能，如列出特定节点的相邻诸节点或是两节点间长度最短的诸类路径等。注意要使用上述各类“遍历”功能，Neo4J要求指定路径中经过的边线类别。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.infoq.com/articles/full-stack-web-development-using-neo4j&#34;&gt;Full Stack Web Development Using Neo4j&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://geosmart.github.io/2016/01/25/Neo4j%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&#34;&gt;Neo4j图数据库学习笔记 | Geosmart&amp;rsquo;s Notes&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description> 图数据库 Neo4j 笔记 图数据库 图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。
+ 当前有流行图形数据库：Neo4j、FlockDB、AllegroGraph、GraphDB、InfiniteGraph、OrientDB、InfoGrid和HypergraphDB等 另有自称比MongoDB和Neo4j性能更佳的多模型数据库ArangoDB,见nosql-tests 关系型数据库用于存储“关系型”数据的效果并不好，其查询复杂、缓慢、超出预期，而图形数据库的独特设计恰恰弥补了这个缺陷。  Neo4j Neo4j是一个用Java实现、完全兼容ACID的图形数据库。数据以一种针对图形网络进行过优化的格式保存在磁盘上。Neo4j的内核是一种极快的图形引擎，具有数据库产品期望的所有特性，如恢复、两阶段提交、符合XA等。自2003年起，Neo4j就已经被作为24/7的产品使用。 Neo4j是目前主流的一个图数据库，相比传统的关系型数据库，它可以快速的进行基于人际社交网络类的查询查询和检索;它同时提供了cypher语言来方便进行图数据库的操作和查询，该查询语言类似SQL语言。 Neo4j的数据并非保存在表或集合中，而是保存为节点以及节点之间的关系。在Neo4j中，*节点以及关系都能够包含保存值的属性*，此外：
+ 可以为节点设置零或多个标签（例如Author或Book） 每个关系都对应一种类型（例如WROTE或FRIEND_OF） 关系总是从一个节点指向另一个节点（但可以在不考虑指向性的情况下进行查询）  为什么选择 Neo4j？  自带一套易于学习的查询语言（Cypher） 不使用schema，因此可以满足你的任何形式的需求 与关系型数据库相比，对于高度关联的数据（图形数据）的查询快速要快上许多 实体与关系结构非常自然地切合人类的直观感受 支持兼容ACID的事务操作 提供了一个高可用性模型，以支持大规模数据量的查询，支持备份、数据局部性以及冗余 提供了一个可视化的查询控制台  什么时候不应使用Neo4j？ 作为一个图形NoSQL数据库，Neo4j提供了大量的功能，但没有什么解决方案是完美的。在以下这些用例中，Neo4j就不是非常适合的选择：
+ 记录大量基于事件的数据（例如日志条目或传感器数据） 对大规模分布式数据进行处理，类似于Hadoop 二进制数据存储 适合于保存在关系型数据库中的结构化数据  Neo4j图模型 Neo4J中的图形模型要点：Nodes与Relationships可以被赋予Properties(key-value); Nodes可按label分组；Relationships可赋予direction和type并最终构成数据形态；Neo4j可存储10亿级别的数据量 Neo4J使用以下索引机制：一个超级参考节点通过一条特殊类别的边线“REFERENCE”与所有节点相连。这实际上允许创建多个索引，借以通过不同的边线类别对其加以区分。Neo4J还提供了一些特殊功能，如列出特定节点的相邻诸节点或是两节点间长度最短的诸类路径等。注意要使用上述各类“遍历”功能，Neo4J要求指定路径中经过的边线类别。
+参考  Full Stack Web Development Using Neo4j Neo4j图数据库学习笔记 | Geosmart&amp;rsquo;s Notes  </description>
     </item>
     
     <item>
@@ -983,156 +147,11 @@ Neo4J使用以下索引机制：一个超级参考节点通过一条特殊类别
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
-      <description>
-
-&lt;h1 id=&#34;centos-上搭建-grafana-开发环境&#34;&gt;CentOS 上搭建 grafana 开发环境&lt;/h1&gt;
-
-&lt;p&gt;主要过程参考&lt;a href=&#34;https://github.com/grafana/grafana&#34;&gt;grafana/grafana&lt;/a&gt; 的github主页&lt;/p&gt;
-
-&lt;h2 id=&#34;环境要求&#34;&gt;环境要求&lt;/h2&gt;
-
-&lt;h3 id=&#34;设置代理-必须-多个包依赖的源需要fq才能访问&#34;&gt;设置代理（必须，多个包依赖的源需要FQ才能访问）&lt;/h3&gt;
-
-&lt;h3 id=&#34;预先安装依赖&#34;&gt;预先安装依赖&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;yum install -y git bison gcc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;需要预先安装-go1-7-官方要求-go-1-6-编译存在问题&#34;&gt;需要预先安装 go1.7（官方要求，go 1.6 编译存在问题）&lt;/h3&gt;
-
-&lt;p&gt;这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-source /root/.gvm/scripts/gvm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果要安装 go1.7，必须先安装 go1.4编译自举&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gvm install go1.4 --source=http://xxx.xxx/go.git
-gvm use go1.4
-export GOROOT_BOOTSTRAP=$GOROOT
-gvm install go1.7 --source=http://xxxx.com/ops/go.git
-gvm use go1.7 --default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;gvm 其他指令见 &lt;a href=&#34;https://github.com/moovweb/gvm&#34;&gt;moovweb/gvm: Go Version Manager&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;需要预先安装-node-v4-npm-v2-5-0-grunt-v0-4-5&#34;&gt;需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5)&lt;/h3&gt;
-
-&lt;p&gt;这里通过 &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;creationix/nvm: Node Version Manager&lt;/a&gt; 安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装无误后，通过 nvm 安装 node&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nvm install v5.11.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装好之后检查 node 和 npm 版本&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm -v
-node -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;组织项目结构&#34;&gt;组织项目结构&lt;/h2&gt;
-
-&lt;h3 id=&#34;创建-go-开发目录&#34;&gt;创建 go 开发目录&lt;/h3&gt;
-
-&lt;p&gt;首先确认 go 版本是 1.7&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;创建项目目录结构&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~
-mkdir -p ~/repo/grafana
-cd ~/repo/grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;创建 golang 隔离开发环境&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gvm pkgset create --local
-gvm pkgset use --local
-go get github.com/grafana/grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;后端编译&#34;&gt;后端编译&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana/src/github.com/grafana/grafana
-go run build.go setup
-go run build.go build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;前端编译&#34;&gt;前端编译&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install bzip2  # phantomjs 解压缩
-cnpm install -g grunt-cli # to do only once to install grunt command line interface
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里 npm 配置淘宝的镜像源 &lt;a href=&#34;https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**&#34;&gt;https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;配置完后，我们使用 cnpm 安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cnpm install
-cnpm run build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;项目开发&#34;&gt;项目开发&lt;/h2&gt;
-
-&lt;h3 id=&#34;开发支持工具&#34;&gt;开发支持工具&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana
-gvm pkgset use --local
-go get github.com/Unknwon/bra
-
-cd ~/repo/grafana/src/github.com/grafana/grafana
-bra run
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;保持这个命令行，任何 golang 代码的变动都会被检测到，然后 bra 会自动执行编译和执行&lt;/p&gt;
-
-&lt;p&gt;另启动一个命令行&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana/src/github.com/grafana/grafana
-grunt watch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;grunt 会检测前端代码的变动并执行编译&lt;/p&gt;
-
-&lt;h2 id=&#34;生成-rpm-包&#34;&gt;生成 rpm 包&lt;/h2&gt;
-
-&lt;p&gt;生成 rpm 包需要 &lt;a href=&#34;https://github.com/jordansissel/fpm&#34;&gt;fpm&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install ruby-devel gcc make rpm-build fontconfig # gem 安装 fpm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里要将Ruby源替换为 ruby-china 的，按照&lt;a href=&#34;https://ruby.taobao.org/&#34;&gt;这个链接&lt;/a&gt;的提示配置&lt;/p&gt;
-
-&lt;p&gt;注意：fpm 必须安装 v1.4 版本的，否则可能安装会有问题&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install fpm -v 1.4 -V
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;fpm 安装好之后就可以制作分发包了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go run build.go package latest
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;生成的包在 dist 目录中&lt;/p&gt;
-
-&lt;p&gt;打包的细节可以看官方的 &lt;a href=&#34;https://github.com/grafana/grafana-packer&#34;&gt;grafana-packer&lt;/a&gt; 仓库的 &lt;a href=&#34;https://github.com/grafana/grafana-packer/blob/master/build.sh&#34;&gt;build.sh&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;几个要注意的点&#34;&gt;几个要注意的点&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;依赖的组件的各版本一定要和README文件中一致，如果不知道具体版本，可以去 circle CI配置里看，比如 node js 版本这里用的是 5.11.1 ，而如果直接安装最新版 v7.0.0，会导致编译失败 - 准则：任何搞不清楚版本的组件都去CI配置里面找版本号&lt;/li&gt;
-&lt;li&gt;npm 使用 ruby-china 源，目前来看，没有 side-effect&lt;/li&gt;
-&lt;li&gt;gem 源用淘宝的&lt;/li&gt;
-&lt;li&gt;golang 的安装则比较简单了，通过 govendor 做了第三方包的版本锁定，安装的时候直接从 vendor 目录导入，所以只需要安装 golang 时需要FQ&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
+环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
+bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
+gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
+需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装</description>
     </item>
     
     <item>
@@ -1141,87 +160,10 @@ grunt watch
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
-      <description>
-
-&lt;h1 id=&#34;git-通过代理加速&#34;&gt;git 通过代理加速&lt;/h1&gt;
-
-&lt;p&gt;github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比&lt;/p&gt;
-
-&lt;h2 id=&#34;https&#34;&gt;https&lt;/h2&gt;
-
-&lt;p&gt;github 允许用户通过 &lt;code&gt;https&lt;/code&gt; 端口使用 &lt;code&gt;ssh&lt;/code&gt;，可以通过下面的指令测试&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ssh -T -p 443 git@ssh.github.com
-Hi username! You&#39;ve successfully authenticated, but GitHub does not
-provide shell access.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果测试不通过，就需要修改配置文件 &lt;code&gt;~/.ssh/config&lt;/code&gt;，增加&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Host github.com
-  Hostname ssh.github.com
-  Port 443
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;优点&#34;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;http&lt;/code&gt; 和 &lt;code&gt;https&lt;/code&gt; 代理是非常常见的，比如我一般都是对系统全局代理&lt;/li&gt;
-&lt;li&gt;配置比较简单&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;缺点&#34;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;因为走的是 &lt;code&gt;https&lt;/code&gt; 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。&lt;a href=&#34;https://help.github.com/articles/caching-your-github-password-in-git/&#34;&gt;Caching your GitHub password in Git - User Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;另外如果开启了 &lt;code&gt;two-factor authentication&lt;/code&gt;，还需要提供 &lt;code&gt;personal access token&lt;/code&gt;。&lt;a href=&#34;https://help.github.com/articles/https-cloning-errors/#provide-access-token-if-2fa-enabled&#34;&gt;Provide access token if 2FA enabled - User Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;更多详情参考 &lt;a href=&#34;https://help.github.com/articles/using-ssh-over-the-https-port/&#34;&gt;Using SSH over the HTTPS port - User Documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;ssh&#34;&gt;ssh&lt;/h2&gt;
-
-&lt;p&gt;前提：需要一个 socks5 代理&lt;/p&gt;
-
-&lt;p&gt;如果是直接通过 &lt;code&gt;ssh&lt;/code&gt; 协议访问，则需要按照以下步骤配置&lt;/p&gt;
-
-&lt;p&gt;在 &lt;code&gt;/usr/local/bin&lt;/code&gt; 增加一个文件，名为 &lt;code&gt;git-proxy-wrapper&lt;/code&gt;，增加 +x 权限&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ruhm@mac:~$ cat /usr/local/bin/git-proxy-wrapper
-#! /bin/bash
-nc -xlocalhost:1080 -X5 $*
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意，上面需要本机在 &lt;code&gt;1080&lt;/code&gt; 端口打开 &lt;code&gt;socks5&lt;/code&gt; 代理，端口可以自定义&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;~/.ssh/config&lt;/code&gt; 配置文件中内容如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Host github.com
-    hostname github.com
-    User xxxxx
-    IdentityFile ~/.ssh/xxxxxx
-    ProxyCommand /usr/local/sbin/git-proxy-wrapper &#39;%h %p&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;优点-1&#34;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ssh 认证不需要提供用户名和密码&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;缺点-1&#34;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;需要一个 &lt;code&gt;socks5&lt;/code&gt; 代理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.zhihu.com/question/23315073&#34;&gt;有何方法可以给github远程仓库的push提速？ - 知乎&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/goncha/4591538&#34;&gt;Git and socks5 proxy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>git 通过代理加速 github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比
+https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
+ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
+Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation</description>
     </item>
     
     <item>
@@ -1230,243 +172,11 @@ nc -xlocalhost:1080 -X5 $*
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
-      <description>
-
-&lt;h1 id=&#34;如何组织go代码&#34;&gt;如何组织Go代码&lt;/h1&gt;
-
-&lt;p&gt;最近正在使用 &lt;code&gt;golang&lt;/code&gt; 编写一个 &lt;code&gt;command line application&lt;/code&gt;，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 &lt;a href=&#34;https://talks.golang.org/2014/organizeio.slide#1。&#34;&gt;https://talks.golang.org/2014/organizeio.slide#1。&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;包&#34;&gt;包&lt;/h2&gt;
-
-&lt;h3 id=&#34;go-程序都是由包构成&#34;&gt;Go 程序都是由包构成&lt;/h3&gt;
-
-&lt;p&gt;所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 &lt;code&gt;package&lt;/code&gt; 语句，程序执行则是从 &lt;code&gt;main&lt;/code&gt; 包开始的。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;package main
-
-import &amp;quot;fmt&amp;quot;
-
-func main() {
-    fmt.Println(&amp;quot;Hello, world!&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;对于一个非常简单的 &lt;code&gt;Go&lt;/code&gt; 程序，只需要一个 &lt;code&gt;main&lt;/code&gt; 包即可。&lt;/p&gt;
-
-&lt;p&gt;上面的 &lt;code&gt;hello world&lt;/code&gt; 应用程序导入了&lt;code&gt;fmt&lt;/code&gt;包，而函数&lt;code&gt;Println&lt;/code&gt;在包&lt;code&gt;fmt&lt;/code&gt;中定义。&lt;/p&gt;
-
-&lt;h3 id=&#34;示例包-fmt&#34;&gt;示例包：fmt&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;// Package fmt implements formatted I/O.
-package fmt
-
-// Println formats using the default formats for its
-// operands and writes to standard output.
-func Println(a ...interface{}) (n int, err error) {
-    ...
-}
-
-func newPrinter() *pp {
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;Println&lt;/code&gt; 函数是可被导出的。（可被导出的函数）首字母大写，意味着它可以被其他包访问。&lt;code&gt;newPrinter&lt;/code&gt;函数是不可导出的，首字母小写，它只能在 &lt;code&gt;fmt&lt;/code&gt;包内访问。&lt;/p&gt;
-
-&lt;h3 id=&#34;包的大小&#34;&gt;包的大小&lt;/h3&gt;
-
-&lt;p&gt;包可大可小，甚至可能由多个源码文件组成，这些文件需要在同一个目录内。&lt;/p&gt;
-
-&lt;p&gt;Go 源码 net/http 包导出 100 个命名（共 18 个文件），而 errors 包只导出 1 个名字（只有 1 文件）。&lt;/p&gt;
-
-&lt;h3 id=&#34;包命名规范&#34;&gt;包命名规范&lt;/h3&gt;
-
-&lt;p&gt;包名要简短和有意义。 &lt;code&gt;_&lt;/code&gt; 下划线会使包名变长，不要使用。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;* io/ioutil not io/util
-* suffixarray not suffix_array
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;不要太过于概括，比如 &lt;code&gt;util&lt;/code&gt; 意义就很模糊&lt;/p&gt;
-
-&lt;p&gt;包名是类型和方法的一部分，比如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;buf := new(bytes.Buffer)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个例子中就不需要取名为 &lt;code&gt;bytes.BytesBuffer&lt;/code&gt;，过于冗余&lt;/p&gt;
-
-&lt;h3 id=&#34;测试包&#34;&gt;测试包&lt;/h3&gt;
-
-&lt;p&gt;测试文件和源码文件所处的目录应该同级，测试文件名均已 &lt;code&gt;_test.go&lt;/code&gt; 结尾，如下例：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-golang&#34;&gt;package fmt
-
-import &amp;quot;testing&amp;quot;
-
-var fmtTests = []fmtTest{
-    {&amp;quot;%d&amp;quot;, 12345, &amp;quot;12345&amp;quot;},
-    {&amp;quot;%v&amp;quot;, 12345, &amp;quot;12345&amp;quot;},
-    {&amp;quot;%t&amp;quot;, true, &amp;quot;true&amp;quot;},
-}
-
-func TestSprintf(t *testing.T) {
-    for _, tt := range fmtTests {
-        if s := Sprintf(tt.fmt, tt.val); s != tt.out {
-            t.Errorf(&amp;quot;...&amp;quot;)
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;代码组织&#34;&gt;代码组织&lt;/h2&gt;
-
-&lt;h3 id=&#34;工作目录&#34;&gt;工作目录&lt;/h3&gt;
-
-&lt;p&gt;Go 相关工具可以很容易的区分出工作空间，构建时候不需要依赖 Makefile 等类似文件 ，按照目录划分好就可以工作。例如&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$GOPATH/
-    src/
-        github.com/user/repo/
-            mypkg/
-                mysrc1.go
-                mysrc2.go
-            cmd/mycmd/
-                main.go
-    bin/
-        mycmd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;创建工作目录&#34;&gt;创建工作目录&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;mkdir /tmp/gows
-GOPATH=/tmp/gows
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;$GOPATH 环境变量前面以及提到，后续的安装和构建包都依赖这个环境变量&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ go get github.com/dsymonds/fixhub/cmd/fixhub
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;go get&lt;/code&gt; 命令则会远程仓库下载源码到自己的工作目录内（需要相关的版本工具，比如：git）&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;go install&lt;/code&gt; 命令则可以编译和分发文件到 $GOPATH/bin/fixhub 位置。&lt;/p&gt;
-
-&lt;p&gt;现在这个工作目录如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$GOPATH/
-    bin/fixhub                              # installed binary
-    pkg/darwin_amd64/                       # compiled archives
-        code.google.com/p/goauth2/oauth.a
-        github.com/...
-    src/                                    # source repositories
-        code.google.com/p/goauth2/
-            .hg
-            oauth                           # used by package go-github
-            ...
-        github.com/
-            golang/lint/...                 # used by package fixhub
-                .git
-            google/go-github/...            # used by package fixhub
-                .git
-            dsymonds/fixhub/
-                .git
-                client.go
-                cmd/fixhub/fixhub.go        # package main
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;为什么预先定义目录结构&#34;&gt;为什么预先定义目录结构&lt;/h3&gt;
-
-&lt;p&gt;通过目录结构来区分，可以免去配置的麻烦，不像其他语言会依赖 Makefile 或 build.xml 文件。&lt;/p&gt;
-
-&lt;p&gt;减少配置的时间，可以更多的时间去码字，另外大部分用户目录结构都类似，这样也更有利于去分享代码。&lt;/p&gt;
-
-&lt;h3 id=&#34;go-工具箱&#34;&gt;Go 工具箱&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;$ go help
-Go is a tool for managing Go source code.
-
-Usage:
-
-go command [arguments]
-
-The commands are:
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;常用的功能参数如：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;build       compile packages and dependencies
-get         download and install packages and dependencies
-install     compile and install packages and dependencies
-test        test packages
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;还有一些其他有用的功能参数，比如：&lt;code&gt;vet&lt;/code&gt; 和 &lt;code&gt;fmt&lt;/code&gt;。&lt;/p&gt;
-
-&lt;h2 id=&#34;依赖管理&#34;&gt;依赖管理&lt;/h2&gt;
-
-&lt;p&gt;默认情况下 &lt;code&gt;go get&lt;/code&gt; 都会去下载最新的代码然后构建，除非被中断。&lt;/p&gt;
-
-&lt;p&gt;在开发环境下这个没什么影响，但肯定不适用于生产环境。&lt;/p&gt;
-
-&lt;h3 id=&#34;版本控制&#34;&gt;版本控制&lt;/h3&gt;
-
-&lt;p&gt;两种方式：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;vendoring&lt;/li&gt;
-&lt;li&gt;gopkg.in&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;命名规范&#34;&gt;命名规范&lt;/h2&gt;
-
-&lt;p&gt;程序其实就是一堆名字的构成。&lt;/p&gt;
-
-&lt;p&gt;简单来说，长的名字浪费空间，而且在可读性方面很重要，好的名字一眼就能看意图。&lt;/p&gt;
-
-&lt;h3 id=&#34;命名风格&#34;&gt;命名风格&lt;/h3&gt;
-
-&lt;p&gt;使用驼峰 camelCase，而不是下划线 _underscores 连接。
-局部变量尽量短，短，短，1-2 个字符的情况很常见。
-包的名字一般来说，都是小写字母。
-全局变量应该使用一个更长更有意义的名字。&lt;/p&gt;
-
-&lt;p&gt;不建议这样：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;bytes.Buffer&lt;/code&gt;，不要 &lt;code&gt;bytes.ByteBuffer&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;zip.Reader&lt;/code&gt;，不要 &lt;code&gt;zip.ZipReader&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;errors.New&lt;/code&gt;，不要 &lt;code&gt;errors.NewError&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;r&lt;/code&gt; 不要用在 &lt;code&gt;bytesReader&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;i&lt;/code&gt; 不要用在 &lt;code&gt;loopIterator&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;文档&#34;&gt;文档&lt;/h3&gt;
-
-&lt;p&gt;文档位置在模块或者导出的名字前面：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// Join concatenates the elements of elem to create a single string.
-// The separator string sep is placed between elements in the resulting string.
-func Join(elem []string, sep string) string {
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;通过 godoc 在 web 查看该函数时候，文档位置位于函数原型下方（图略）。&lt;/p&gt;
-
-&lt;h3 id=&#34;文档书写&#34;&gt;文档书写&lt;/h3&gt;
-
-&lt;p&gt;使用英语书写文档句子和段落&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// Join concatenates…         good
-// This function…             bad
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;包文档位于模块最上面：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;// Package fmt…
-	package fmt
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 https://talks.golang.org/2014/organizeio.slide#1。
+包 Go 程序都是由包构成 所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 package 语句，程序执行则是从 main 包开始的。
+package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, world!&amp;quot;) }  对于一个非常简单的 Go 程序，只需要一个 main 包即可。
+上面的 hello world 应用程序导入了fmt包，而函数Println在包fmt中定义。
+示例包：fmt // Package fmt implements formatted I/O. package fmt // Println formats using the default formats for its // operands and writes to standard output. func Println(a ...interface{}) (n int, err error) { .</description>
     </item>
     
     <item>
@@ -1475,24 +185,8 @@ func Join(elem []string, sep string) string {
       <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</guid>
-      <description>
-
-&lt;h1 id=&#34;pyenv-通过国内镜像安装-python&#34;&gt;pyenv 通过国内镜像安装 python&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-
-export v=3.5.1
-wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;TIPS:&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;这里使用的是搜狐的镜像源：&lt;a href=&#34;http://mirrors.sohu.com/python/&#34;&gt;http://mirrors.sohu.com/python/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;下载python压缩包放到~/.pyenv/cache文件夹下面&lt;/li&gt;
-&lt;li&gt;执行 pyenv install 版本号 安装对应的python版本&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description> pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v  TIPS:
+ 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下载python压缩包放到~/.pyenv/cache文件夹下面 执行 pyenv install 版本号 安装对应的python版本  </description>
     </item>
     
     <item>
@@ -1501,152 +195,27 @@ wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv
       <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
-      <description>
-
-&lt;h1 id=&#34;git-多账号处理&#34;&gt;git 多账号处理&lt;/h1&gt;
-
-&lt;p&gt;主要分两种场景&lt;/p&gt;
-
-&lt;h2 id=&#34;1-不同网站的2个git账号使用相同的邮箱&#34;&gt;1. 不同网站的2个git账号使用相同的邮箱&lt;/h2&gt;
-
-&lt;p&gt;对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可以都是 xxxx#gmail.com，这个时候由于唯一性的认证是邮箱，所以 ssh config 的配置如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;host github
-  hostname github.com
-host coding
-  hostname coding.net
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;假设都是默认使用的 id_rsa ，不需要指定key的位置。&lt;/p&gt;
-
-&lt;h2 id=&#34;2-同一个网站有2个账号&#34;&gt;2. 同一个网站有2个账号&lt;/h2&gt;
-
-&lt;p&gt;比如有两个github账号&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;host github.com-userA
-    hostname github.com
-    User userA
-    IdentityFile ~/.ssh/github_userA_rsa
-
-host github.com-userB
-    hostname github.com
-    User userB
-    IdentityFile ~/.ssh/github_userB_rsa
+      <description>git 多账号处理 主要分两种场景
+1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可以都是 xxxx#gmail.com，这个时候由于唯一性的认证是邮箱，所以 ssh config 的配置如下
+host github hostname github.com host coding hostname coding.net  假设都是默认使用的 id_rsa ，不需要指定key的位置。
+2. 同一个网站有2个账号 比如有两个github账号
+host github.com-userA hostname github.com User userA IdentityFile ~/.ssh/github_userA_rsa host github.com-userB hostname github.com User userB IdentityFile ~/.ssh/github_userB_rsa  这种情况在 push/pull 的时候要注意取消 global 的账户配置
+1.取消global的配置 git config --global --unset user.name git config --global --unset user.email 2.设置每个项目repo的git的user.email, 比如 git config user.email &amp;quot;userA@xx.com&amp;quot; git config user.name &amp;quot;userA&amp;quot;  如何验证 通过指令 ssh -T, 需要详细信息则 ssh -vT</description>
+    </item>
     
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这种情况在 push/pull 的时候要注意取消 global 的账户配置&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;1.取消global的配置
-git config --global --unset user.name
-git config --global --unset user.email
-
-2.设置每个项目repo的git的user.email, 比如
-git config  user.email &amp;quot;userA@xx.com&amp;quot;
-git config  user.name &amp;quot;userA&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;如何验证&#34;&gt;如何验证&lt;/h2&gt;
-
-&lt;p&gt;通过指令 &lt;code&gt;ssh -T&lt;/code&gt;, 需要详细信息则 &lt;code&gt;ssh -vT&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# ssh -T git@github.com
-ssh -T Hi alastairruhm! You&#39;ve successfully authenticated, but GitHub does not provide shell access.
-# ssh -T git@git.coding.net
-Hello ruhm! You&#39;ve connected to Coding.net via SSH successfully!
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;q-a&#34;&gt;Q&amp;amp;A&lt;/h2&gt;
-
-&lt;h3 id=&#34;如果发现-push-提交的-user-name-是错误的-如何修复&#34;&gt;如果发现 push 提交的 user.name 是错误的，如何修复？&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;参考：[Changing author info - User Documentation](https://help.github.com/articles/changing-author-info/)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;过多的秘钥导致服务器触发最大认证次数而登录失败的问题&#34;&gt;过多的秘钥导致服务器触发最大认证次数而登录失败的问题&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;```
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Next authentication method: publickey
-debug1: Offering RSA public key: /Users/leon/.ssh/id_rsa
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Offering RSA public key: /Users/leon/.ssh/gitcafe_ras
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Offering RSA public key: /Users/leon/.ssh/github_rsa
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Offering RSA public key: /Users/leon/.ssh/zijin-root-server
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Offering RSA public key: /Users/leon/.ssh/gitlab_rsa
-debug1: Authentications that can continue: publickey,gssapi-keyex,gssapi-with-mic,password
-debug1: Offering RSA public key: /Users/leon/.ssh/github_alastairruhm_rsa
-Received disconnect from 10.34.50.193: 2: Too many authentication failures for root
-Disconnected from 10.34.50.193
-```
-
-这个时候，先查看系统 ssh-key 代理
-
-```
-ssh-add -l
-2048 SHA256:xxxx /Users/leon/.ssh/id_rsa (RSA)
-2048 SHA256:xxxx /Users/leon/.ssh/gitcafe_ras (RSA)
-4096 SHA256:xxxx /Users/leon/.ssh/github_rsa (RSA)
-2048 SHA256:xxxx /Users/leon/.ssh/zj-root-server (RSA)
-4096 SHA256:xxxx /Users/leon/.ssh/gitlab_rsa (RSA)
-2048 SHA256:xxxx /Users/leon/.ssh/github_alastairruhm_rsa (RSA)
-2048 SHA256:xxxx /Users/leon/.ssh/google_compute_engine (RSA)
-```
-
-删除全部代理
-
-```
-ssh-add -D
-```
-
-如果是OSX，再通过将私钥加入agent管理
-
-```
-ssh-add -K /Users/leon/.ssh/google_compute_engine
-...
-```
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;如何避免本地git提交使用错误的账号&#34;&gt;如何避免本地git提交使用错误的账号&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Require setting user.name and email per-repo:
-$ git config --global user.useConfigOnly true
-
-# Remove email address from global config:
-$ git config --global --unset-all user.email
-$ git config --global --unset-all user.name
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样之后的 commit，如果没有设置 name和email，就会出现如下错误&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ git commit -m &amp;quot;test&amp;quot;
-
-*** Please tell me who you are.
-
-Run
-
-  git config --global user.email &amp;quot;you@example.com&amp;quot;
-  git config --global user.name &amp;quot;Your Name&amp;quot;
-
-to set your account&#39;s default identity.
-Omit --global to set the identity only in this repository.
-
-fatal: no name was given and auto-detection is disabled
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;参考链接&#34;&gt;参考链接：&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/suziewong/4378434&#34;&gt;Git的多账号如何处理？ 1.同一台电脑多个git（不同网站的）账号 2.同一台电脑多个git（同一个网站的比如github的）多个账号&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://tmyam.github.io/blog/2014/05/07/duo-githubzhang-hu-she-zhi/&#34;&gt;一个客户端设置多个github账号 - tmyam&amp;rsquo;s blog&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://help.github.com/articles/setting-your-username-in-git/&#34;&gt;Setting your username in Git - User Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/xirong/my-git/blob/master/use-gitlab-github-together.md&#34;&gt;my-git/use-gitlab-github-together.md at master · xirong/my-git&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://orrsella.com/2013/08/10/git-using-different-user-emails-for-different-repositories/&#34;&gt;Git: Using Different User Emails for Different Repositories – Orr Sella&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+    <item>
+      <title>使用缓存服务器加速 python pip 方式 安装包</title>
+      <link>https://blog.ruhm.me/post/pip-cache/</link>
+      <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
+      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
+搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
+客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
+[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/+simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
+使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
+ use system http/s proxy settings from devpi-server. fixes issue58.
+ 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.</description>
     </item>
     
   </channel>

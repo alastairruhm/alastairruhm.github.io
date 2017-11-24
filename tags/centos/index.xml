@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Centos on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/centos/index.xml</link>
+    <link>https://blog.ruhm.me/tags/centos/</link>
     <description>Recent content in Centos on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.ruhm.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ruhm.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
@@ -14,156 +17,11 @@
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
-      <description>
-
-&lt;h1 id=&#34;centos-上搭建-grafana-开发环境&#34;&gt;CentOS 上搭建 grafana 开发环境&lt;/h1&gt;
-
-&lt;p&gt;主要过程参考&lt;a href=&#34;https://github.com/grafana/grafana&#34;&gt;grafana/grafana&lt;/a&gt; 的github主页&lt;/p&gt;
-
-&lt;h2 id=&#34;环境要求&#34;&gt;环境要求&lt;/h2&gt;
-
-&lt;h3 id=&#34;设置代理-必须-多个包依赖的源需要fq才能访问&#34;&gt;设置代理（必须，多个包依赖的源需要FQ才能访问）&lt;/h3&gt;
-
-&lt;h3 id=&#34;预先安装依赖&#34;&gt;预先安装依赖&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;yum install -y git bison gcc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;需要预先安装-go1-7-官方要求-go-1-6-编译存在问题&#34;&gt;需要预先安装 go1.7（官方要求，go 1.6 编译存在问题）&lt;/h3&gt;
-
-&lt;p&gt;这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-source /root/.gvm/scripts/gvm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果要安装 go1.7，必须先安装 go1.4编译自举&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gvm install go1.4 --source=http://xxx.xxx/go.git
-gvm use go1.4
-export GOROOT_BOOTSTRAP=$GOROOT
-gvm install go1.7 --source=http://xxxx.com/ops/go.git
-gvm use go1.7 --default
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;gvm 其他指令见 &lt;a href=&#34;https://github.com/moovweb/gvm&#34;&gt;moovweb/gvm: Go Version Manager&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;需要预先安装-node-v4-npm-v2-5-0-grunt-v0-4-5&#34;&gt;需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5)&lt;/h3&gt;
-
-&lt;p&gt;这里通过 &lt;a href=&#34;https://github.com/creationix/nvm&#34;&gt;creationix/nvm: Node Version Manager&lt;/a&gt; 安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装无误后，通过 nvm 安装 node&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;nvm install v5.11.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;安装好之后检查 node 和 npm 版本&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm -v
-node -v
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;组织项目结构&#34;&gt;组织项目结构&lt;/h2&gt;
-
-&lt;h3 id=&#34;创建-go-开发目录&#34;&gt;创建 go 开发目录&lt;/h3&gt;
-
-&lt;p&gt;首先确认 go 版本是 1.7&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go version
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;创建项目目录结构&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~
-mkdir -p ~/repo/grafana
-cd ~/repo/grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;创建 golang 隔离开发环境&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gvm pkgset create --local
-gvm pkgset use --local
-go get github.com/grafana/grafana
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;后端编译&#34;&gt;后端编译&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana/src/github.com/grafana/grafana
-go run build.go setup
-go run build.go build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;前端编译&#34;&gt;前端编译&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install bzip2  # phantomjs 解压缩
-cnpm install -g grunt-cli # to do only once to install grunt command line interface
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里 npm 配置淘宝的镜像源 &lt;a href=&#34;https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**&#34;&gt;https://npm.taobao.org/，配置过程略；**注意这里使用alias的方式配置，不要使用安装cnpm的方式，否则可能会引起内存泄漏的问题（未确认原因）。**&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;配置完后，我们使用 cnpm 安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cnpm install
-cnpm run build
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;项目开发&#34;&gt;项目开发&lt;/h2&gt;
-
-&lt;h3 id=&#34;开发支持工具&#34;&gt;开发支持工具&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana
-gvm pkgset use --local
-go get github.com/Unknwon/bra
-
-cd ~/repo/grafana/src/github.com/grafana/grafana
-bra run
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;保持这个命令行，任何 golang 代码的变动都会被检测到，然后 bra 会自动执行编译和执行&lt;/p&gt;
-
-&lt;p&gt;另启动一个命令行&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;cd ~/repo/grafana/src/github.com/grafana/grafana
-grunt watch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;grunt 会检测前端代码的变动并执行编译&lt;/p&gt;
-
-&lt;h2 id=&#34;生成-rpm-包&#34;&gt;生成 rpm 包&lt;/h2&gt;
-
-&lt;p&gt;生成 rpm 包需要 &lt;a href=&#34;https://github.com/jordansissel/fpm&#34;&gt;fpm&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install ruby-devel gcc make rpm-build fontconfig # gem 安装 fpm
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这里要将Ruby源替换为 ruby-china 的，按照&lt;a href=&#34;https://ruby.taobao.org/&#34;&gt;这个链接&lt;/a&gt;的提示配置&lt;/p&gt;
-
-&lt;p&gt;注意：fpm 必须安装 v1.4 版本的，否则可能安装会有问题&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gem install fpm -v 1.4 -V
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;fpm 安装好之后就可以制作分发包了。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go run build.go package latest
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;生成的包在 dist 目录中&lt;/p&gt;
-
-&lt;p&gt;打包的细节可以看官方的 &lt;a href=&#34;https://github.com/grafana/grafana-packer&#34;&gt;grafana-packer&lt;/a&gt; 仓库的 &lt;a href=&#34;https://github.com/grafana/grafana-packer/blob/master/build.sh&#34;&gt;build.sh&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;几个要注意的点&#34;&gt;几个要注意的点&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;依赖的组件的各版本一定要和README文件中一致，如果不知道具体版本，可以去 circle CI配置里看，比如 node js 版本这里用的是 5.11.1 ，而如果直接安装最新版 v7.0.0，会导致编译失败 - 准则：任何搞不清楚版本的组件都去CI配置里面找版本号&lt;/li&gt;
-&lt;li&gt;npm 使用 ruby-china 源，目前来看，没有 side-effect&lt;/li&gt;
-&lt;li&gt;gem 源用淘宝的&lt;/li&gt;
-&lt;li&gt;golang 的安装则比较简单了，通过 govendor 做了第三方包的版本锁定，安装的时候直接从 vendor 目录导入，所以只需要安装 golang 时需要FQ&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
+环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
+bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
+gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
+需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装</description>
     </item>
     
   </channel>

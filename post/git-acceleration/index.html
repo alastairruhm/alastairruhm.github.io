@@ -10,7 +10,7 @@ ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authentica
 Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.18" />
+        <meta name="generator" content="Hugo 0.31" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="git 通过代理加速">

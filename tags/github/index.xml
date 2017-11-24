@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Github on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/github/index.xml</link>
+    <link>https://blog.ruhm.me/tags/github/</link>
     <description>Recent content in Github on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.ruhm.me/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ruhm.me/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>git 通过代理加速</title>
@@ -14,87 +17,10 @@
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
-      <description>
-
-&lt;h1 id=&#34;git-通过代理加速&#34;&gt;git 通过代理加速&lt;/h1&gt;
-
-&lt;p&gt;github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比&lt;/p&gt;
-
-&lt;h2 id=&#34;https&#34;&gt;https&lt;/h2&gt;
-
-&lt;p&gt;github 允许用户通过 &lt;code&gt;https&lt;/code&gt; 端口使用 &lt;code&gt;ssh&lt;/code&gt;，可以通过下面的指令测试&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ssh -T -p 443 git@ssh.github.com
-Hi username! You&#39;ve successfully authenticated, but GitHub does not
-provide shell access.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果测试不通过，就需要修改配置文件 &lt;code&gt;~/.ssh/config&lt;/code&gt;，增加&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Host github.com
-  Hostname ssh.github.com
-  Port 443
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;优点&#34;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;http&lt;/code&gt; 和 &lt;code&gt;https&lt;/code&gt; 代理是非常常见的，比如我一般都是对系统全局代理&lt;/li&gt;
-&lt;li&gt;配置比较简单&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;缺点&#34;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;因为走的是 &lt;code&gt;https&lt;/code&gt; 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。&lt;a href=&#34;https://help.github.com/articles/caching-your-github-password-in-git/&#34;&gt;Caching your GitHub password in Git - User Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;另外如果开启了 &lt;code&gt;two-factor authentication&lt;/code&gt;，还需要提供 &lt;code&gt;personal access token&lt;/code&gt;。&lt;a href=&#34;https://help.github.com/articles/https-cloning-errors/#provide-access-token-if-2fa-enabled&#34;&gt;Provide access token if 2FA enabled - User Documentation&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;更多详情参考 &lt;a href=&#34;https://help.github.com/articles/using-ssh-over-the-https-port/&#34;&gt;Using SSH over the HTTPS port - User Documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;ssh&#34;&gt;ssh&lt;/h2&gt;
-
-&lt;p&gt;前提：需要一个 socks5 代理&lt;/p&gt;
-
-&lt;p&gt;如果是直接通过 &lt;code&gt;ssh&lt;/code&gt; 协议访问，则需要按照以下步骤配置&lt;/p&gt;
-
-&lt;p&gt;在 &lt;code&gt;/usr/local/bin&lt;/code&gt; 增加一个文件，名为 &lt;code&gt;git-proxy-wrapper&lt;/code&gt;，增加 +x 权限&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ruhm@mac:~$ cat /usr/local/bin/git-proxy-wrapper
-#! /bin/bash
-nc -xlocalhost:1080 -X5 $*
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;注意，上面需要本机在 &lt;code&gt;1080&lt;/code&gt; 端口打开 &lt;code&gt;socks5&lt;/code&gt; 代理，端口可以自定义&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;~/.ssh/config&lt;/code&gt; 配置文件中内容如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Host github.com
-    hostname github.com
-    User xxxxx
-    IdentityFile ~/.ssh/xxxxxx
-    ProxyCommand /usr/local/sbin/git-proxy-wrapper &#39;%h %p&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;优点-1&#34;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;ssh 认证不需要提供用户名和密码&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;缺点-1&#34;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;需要一个 &lt;code&gt;socks5&lt;/code&gt; 代理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.zhihu.com/question/23315073&#34;&gt;有何方法可以给github远程仓库的push提速？ - 知乎&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://gist.github.com/goncha/4591538&#34;&gt;Git and socks5 proxy&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>git 通过代理加速 github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比
+https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
+ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
+Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation</description>
     </item>
     
   </channel>

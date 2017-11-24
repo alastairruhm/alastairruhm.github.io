@@ -2,11 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/kubernetes/index.xml</link>
+    <link>https://blog.ruhm.me/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="https://blog.ruhm.me/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ruhm.me/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
@@ -14,72 +17,12 @@
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
-      <description>
-
-&lt;h1 id=&#34;kubernetes-集群监控方案研究&#34;&gt;kubernetes 集群监控方案研究&lt;/h1&gt;
-
-&lt;h2 id=&#34;kubernetes-时代的监控新的特点&#34;&gt;kubernetes 时代的监控新的特点&lt;/h2&gt;
-
-&lt;p&gt;监控 kubernetes 和传统监控上的一些差异&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式&lt;/li&gt;
-&lt;li&gt;与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身&lt;/li&gt;
-&lt;li&gt;容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用&lt;/li&gt;
-&lt;li&gt;适应分布式集群监控的特点&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;kubernetes-系统中有哪些指标需要监控&#34;&gt;kubernetes 系统中有哪些指标需要监控&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;通常的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等&lt;/li&gt;
-&lt;li&gt;容器的原生监控指标&lt;/li&gt;
-&lt;li&gt;应用程序监控指标&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;既有方案比较&#34;&gt;既有方案比较&lt;/h2&gt;
-
-&lt;h3 id=&#34;方案一-heapster-influxdb-grafana&#34;&gt;方案一：Heapster + influxDB + Grafana&lt;/h3&gt;
-
-&lt;p&gt;首先这里的 Heapster 是什么？&lt;/p&gt;
-
-&lt;p&gt;Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。&lt;/p&gt;
-
-&lt;p&gt;Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。&lt;/p&gt;
-
-&lt;p&gt;该方案的优点是 &lt;code&gt;heapster&lt;/code&gt; 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，&lt;code&gt;heapster&lt;/code&gt; 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。&lt;/p&gt;
-
-&lt;h3 id=&#34;方案二-prometheus-exporter-grafana&#34;&gt;方案二：prometheus + (*)-exporter + Grafana&lt;/h3&gt;
-
-&lt;p&gt;之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;kubernetes 原生支持 prometheus：apiserver 服务的 &lt;code&gt;http://master_ip:8080/metrics&lt;/code&gt; endpoint 将集群中的监控数据暴露出来，prometheus 可以通过 pull 获取&lt;/li&gt;
-&lt;li&gt;cAdvisor 原生支持 prometheus：cAdvisor 已经集成在 kubelet 服务中，prometheus 可以从 &lt;code&gt;http://node_ip:4194/metrics&lt;/code&gt; 获取监控数据&lt;/li&gt;
-&lt;li&gt;prometheus 通过配置 &lt;kubernetes_sd_configs&gt;，支持将 kubernetes 作为一种服务发现机制&lt;/li&gt;
-&lt;li&gt;kubernetes 可以通过 daemonset 这种资源类型来部署 &lt;code&gt;node-exporter&lt;/code&gt;，收集每个 node 通用的资源指标，如CPU，内存使用量和磁盘IO&lt;/li&gt;
-&lt;li&gt;kube-state-metrics: kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等5、&lt;/li&gt;
-&lt;li&gt;应用的监控则可以通过在 Pod 部署时加入相应类型的 exporter 容器来向容器外暴露监控指标，比如在一个运行 mongodb 的 pod 中，加入一个 &lt;code&gt;mongo_exporter&lt;/code&gt;暴露mongodb的监控指标给 prometheus&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这套方案的优点则是 Prometheus 是一个通用的监控系统，可以自由扩展，并且拥有 alertmanager 这样的功能完整的告警组件；而在 pod 中加入一个新的容器来向外暴露监控指标的部署方式又和 k8s 结合的很好。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考资料&#34;&gt;参考资料&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.kubernetes.io/2017/05/kubernetes-monitoring-guide.html&#34;&gt;Kubernetes: Kubernetes: a monitoring guide&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;datadog 系列文章
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-era/&#34;&gt;Monitoring in the Kubernetes era&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/monitoring-kubernetes-performance-metrics/#correlate-with-events&#34;&gt;Monitoring Kubernetes performance metrics&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.datadoghq.com/blog/how-to-collect-and-graph-kubernetes-metrics/#adding-kube-state-metrics&#34;&gt;How to collect and graph Kubernetes metrics&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://dockone.io/article/1881&#34;&gt;Kubernetes监控之Heapster介绍 - DockOne.io&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.slideshare.net/brianbrazil/monitoring-kubernetes-with-prometheus-kubernetes-ireland-2016&#34;&gt;Monitoring Kubernetes with Prometheus (Kubernetes Ireland, 2016)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异
+ Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身 容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用 适应分布式集群监控的特点  kubernetes 系统中有哪些指标需要监控  通常的资源指标，如CPU，内存使用量和磁盘IO kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等 容器的原生监控指标 应用程序监控指标  既有方案比较 方案一：Heapster + influxDB + Grafana 首先这里的 Heapster 是什么？
+Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。
+Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。
+该方案的优点是 heapster 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，heapster 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。
+方案二：prometheus + (*)-exporter + Grafana 之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点</description>
     </item>
     
   </channel>
