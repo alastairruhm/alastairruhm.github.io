@@ -6,10 +6,22 @@
     <description>Recent content in Golang on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 25 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ruhm.me/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
+      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
+      <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
+      <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。
+思路大致是这样：
+ 创建项目在 GOPATH 中的目录的 symbolic link ，指向 gitlab-runner 在该项目上执行 CI 时的工作目录 切换到这个链接目录，执行每个 stage 的任务  具体的 .gitlab-ci.yaml 文件内容如下：
+before_script: - export GO_PROJECT_NAMESPACE=&amp;quot;$GOPATH/src/gitexample.com/$CI_PROJECT_NAMESPACE&amp;quot; - echo $GO_PROJECT_NAMESPACE - mkdir -p $GO_PROJECT_NAMESPACE - ln -srf $(pwd) $GO_PROJECT_NAMESPACE - export GO_PROJECT_PATH=&amp;quot;$GO_PROJECT_NAMESPACE/$CI_PROJECT_NAME&amp;quot; - echo $GO_PROJECT_PATH - cd $GO_PROJECT_PATH stages: - build - test - release build: stage: build script: - go build test: stage: test script: - go test -v .</description>
+    </item>
     
     <item>
       <title>golang test techniques</title>

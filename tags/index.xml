@@ -57,9 +57,18 @@
     </item>
     
     <item>
+      <title>Gitlab</title>
+      <link>https://blog.ruhm.me/tags/gitlab/</link>
+      <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/tags/gitlab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Golang</title>
       <link>https://blog.ruhm.me/tags/golang/</link>
-      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/tags/golang/</guid>
       <description></description>
