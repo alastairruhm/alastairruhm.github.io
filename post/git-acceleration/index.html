@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>git 通过代理加速 &middot; Ruhm</title>
-        <meta name="description" content="git 通过代理加速 github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比
+        <meta name="description" content="git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。
 https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
 ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
 Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation">
@@ -14,7 +14,7 @@ Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理�
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="git 通过代理加速">
-<meta property="og:description" content="git 通过代理加速 github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比
+<meta property="og:description" content="git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。
 https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
 ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
 Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation">
@@ -104,7 +104,7 @@ Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理�
 <li><a href="#优点-1">优点</a></li>
 <li><a href="#缺点-1">缺点</a></li>
 </ul></li>
-<li><a href="#参考">参考</a></li>
+<li><a href="#refs">refs</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -119,7 +119,7 @@ Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理�
 
 <h1 id="git-通过代理加速">git 通过代理加速</h1>
 
-<p>github 访问受限，导致 clone / push 等操作速度很慢。以下是两个加速的方法以及缺陷和对比</p>
+<p>github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。</p>
 
 <h2 id="https">https</h2>
 
@@ -189,7 +189,7 @@ nc -xlocalhost:1080 -X5 $*
 <li>需要一个 <code>socks5</code> 代理</li>
 </ul>
 
-<h2 id="参考">参考</h2>
+<h2 id="refs">refs</h2>
 
 <ul>
 <li><a href="https://www.zhihu.com/question/23315073">有何方法可以给github远程仓库的push提速？ - 知乎</a></li>
