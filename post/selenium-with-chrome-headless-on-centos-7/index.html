@@ -8,7 +8,7 @@
 关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &quot;[google-chrome]&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;name=google-chrome&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;enabled=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgcheck=1&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo echo &quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&quot; &gt;&gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.31" />
+        <meta name="generator" content="Hugo 0.37.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="selenium with chrome headless on CentOS 7">
@@ -222,7 +222,7 @@ self.driver = webdriver.Chrome(chrome_options=options)
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2018 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>

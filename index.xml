@@ -6,10 +6,21 @@
     <description>Recent content on RUHM BLOG SITE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 Dec 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ruhm.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>flink 在 OSX 系统上以 local 方式运行</title>
+      <link>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</link>
+      <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</guid>
+      <description>安装
+$ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16  启动
+$ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local.  </description>
+    </item>
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>

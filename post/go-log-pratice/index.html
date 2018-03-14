@@ -9,7 +9,7 @@
 var formatStdout = logging.MustStringFormatter( `%{color}%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}%{color:reset}`, ) var formatLogfile = logging.MustStringFormatter( `%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}`, ) func initLog() { logFile, err := os.OpenFile(viper.GetString(&quot;log.file&quot;), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640) if err != nil { fmt.Println(err) panic(err) } backendLogFile := logging.NewLogBackend(logFile, &quot;&quot;, 0) backendStdout := logging.NewLogBackend(os.Stdout, &quot;&quot;, 0) backendLogFileFormatter := logging.NewBackendFormatter(backendLogFile, formatLogfile) backendStdoutFormatter := logging.NewBackendFormatter(backendStdout, formatStdout) logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter) }  持续服务类型应用 典型就是 web 应用，通常我们通过 supervisord 部署，所以我们可以选择在应用中直接输出到 stderr 或者 stdout，通过 supervisord 配置日志文件">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <meta name="generator" content="Hugo 0.31" />
+        <meta name="generator" content="Hugo 0.37.1" />
         <meta name="robots" content="index,follow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="golang 应用日志实践">
@@ -202,7 +202,7 @@ func initLog() {
                 </div>
 
                 <p class="footer-copyright">
-                    <span>&copy; 2017 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                    <span>&copy; 2018 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
                 </p>
                 <p class="footer-copyright">
                     <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
