@@ -48,6 +48,15 @@
     </item>
     
     <item>
+      <title>Datadog</title>
+      <link>https://blog.ruhm.me/tags/datadog/</link>
+      <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/tags/datadog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Flink</title>
       <link>https://blog.ruhm.me/tags/flink/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
@@ -125,6 +134,15 @@
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>https://blog.ruhm.me/tags/heapster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jvm</title>
+      <link>https://blog.ruhm.me/tags/jvm/</link>
+      <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/tags/jvm/</guid>
       <description></description>
     </item>
     

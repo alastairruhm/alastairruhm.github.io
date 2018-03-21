@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>datadog 关于 JVM 监控的分析 &middot; Ruhm</title>
+        <meta name="description" content="datadog 监控 JVM 或者基于 JVM 的应用的方式  datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local 原理：datadog 调用一个名为 JMXFetch 的轻量级 java 插件连接 MBean server，从而获取到这些指标。这个插件通过运行在 agent 上的 Dogstatsd Server 将采集到的指标数据发送到 datadog agent。 这种方式同样在以下监控中得以应用，ActiveMQ, Cassandra, Solr, and Tomcat，可以看得出，这些应用都基于 jmx 来注册自定义的应用状态数据。  jmx 监控的典型配置 如下是一个完整的配置文件内容
+ bean 的一个 attribute 对应到 datadog 的监控体系里，就是一个 metric 如果这个 attribute 的类型不是 simple 的，而是 Composite（本质上是一个 hashmap），那么这个 attribute 的每一个 key 对应的才是 metric，在下面的配置中，&rdquo;java.lang:type=MemoryPool,name=PS Old Gen&rdquo; 这个 bean 的 Usage 就是一个 Composite 类型的数据  instances: - host: localhost port: 9999 tools_jar_path: /usr/java/jdk1.">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.37.1" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta property="og:title" content="datadog 关于 JVM 监控的分析">
+<meta property="og:description" content="datadog 监控 JVM 或者基于 JVM 的应用的方式  datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local 原理：datadog 调用一个名为 JMXFetch 的轻量级 java 插件连接 MBean server，从而获取到这些指标。这个插件通过运行在 agent 上的 Dogstatsd Server 将采集到的指标数据发送到 datadog agent。 这种方式同样在以下监控中得以应用，ActiveMQ, Cassandra, Solr, and Tomcat，可以看得出，这些应用都基于 jmx 来注册自定义的应用状态数据。  jmx 监控的典型配置 如下是一个完整的配置文件内容
+ bean 的一个 attribute 对应到 datadog 的监控体系里，就是一个 metric 如果这个 attribute 的类型不是 simple 的，而是 Composite（本质上是一个 hashmap），那么这个 attribute 的每一个 key 对应的才是 metric，在下面的配置中，&rdquo;java.lang:type=MemoryPool,name=PS Old Gen&rdquo; 这个 bean 的 Usage 就是一个 Composite 类型的数据  instances: - host: localhost port: 9999 tools_jar_path: /usr/java/jdk1.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ruhm.me/post/datadog_jvm_monitor/">
+        <link rel="stylesheet" href="https://blog.ruhm.me/dist/styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                            </h1>
+                        
+                        <a class="button-square" href="https://blog.ruhm.me/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alastairruhm">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alastairruhm">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Stack Overflow" title="Stack Overflow" href="https://stackoverflow.com/users/5827468/alastair-ruhm">
+                                <i class="fa fa-stack-overflow"></i>
+                            </a>
+                        
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Email" title="Email" href="mailto:alastairruhm@gmail.com">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">datadog 关于 JVM 监控的分析</h1>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2018-01-07" itemprop="datePublished">Sun, Jan 7, 2018</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="https://schema.org/Person">
+            <span itemprop="name">
+                <a href="https://google.com/&#43;XXX" itemprop="url" rel="author">Ruhm</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        
+    <div id="toc" class="well col-md-4 col-sm-6">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#datadog-监控-jvm-或者基于-jvm-的应用的方式">datadog 监控 JVM 或者基于 JVM 的应用的方式</a></li>
+<li><a href="#jmx-监控的典型配置">jmx 监控的典型配置</a></li>
+<li><a href="#如何查询注册到-jmx-的-bean">如何查询注册到 JMX 的 bean</a>
+<ul>
+<li><a href="#1-查询当前-jmx-有哪些-bean">1. 查询当前 jmx 有哪些 bean</a></li>
+<li><a href="#2-查询某个-bean-的复合类型-attribute-的-key">2. 查询某个 bean 的复合类型 attribute 的 key</a></li>
+</ul></li>
+<li><a href="#参考">参考</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+
+
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h2 id="datadog-监控-jvm-或者基于-jvm-的应用的方式">datadog 监控 JVM 或者基于 JVM 的应用的方式</h2>
+
+<ul>
+<li>datadog 监控 java 应用主要通过采集 JMX 指标：<a href="https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local">https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local</a></li>
+<li>原理：datadog 调用一个名为 JMXFetch 的轻量级 java 插件连接 MBean server，从而获取到这些指标。这个插件通过运行在 agent 上的 Dogstatsd Server 将采集到的指标数据发送到 datadog agent。</li>
+<li>这种方式同样在以下监控中得以应用，ActiveMQ, Cassandra, Solr, and Tomcat，可以看得出，这些应用都基于 jmx 来注册自定义的应用状态数据。</li>
+</ul>
+
+<h2 id="jmx-监控的典型配置">jmx 监控的典型配置</h2>
+
+<p>如下是一个完整的配置文件内容</p>
+
+<ol>
+<li>bean 的一个 attribute 对应到 datadog 的监控体系里，就是一个 metric</li>
+<li>如果这个 attribute 的类型不是 simple 的，而是 <code>Composite</code>（本质上是一个 hashmap），那么这个 attribute 的每一个 key 对应的才是 metric，在下面的配置中，&rdquo;java.lang:type=MemoryPool,name=PS Old Gen&rdquo; 这个 bean 的 Usage 就是一个 Composite 类型的数据</li>
+</ol>
+
+<pre><code class="language-yaml">instances:
+  - host: localhost
+    port: 9999
+    tools_jar_path: /usr/java/jdk1.7.0_65/lib/tools.jar
+init_config:
+  conf:
+  - include:
+      domain: &quot;java.lang&quot;
+      bean: &quot;java.lang:type=MemoryPool,name=PS Old Gen&quot;
+      attribute:
+        Usage.max:
+          alias: &quot;jvm.memory.pools.ps_old_gen.max&quot;
+          metric_type: &quot;gauge&quot;
+        Usage.used:
+          alias: &quot;jvm.memory.pools.ps_old_gen.used&quot;
+          metric_type: &quot;gauge&quot;
+        Usage.committed:
+          alias: &quot;jvm.memory.pools.ps_old_gen.committed&quot;
+          metric_type: &quot;gauge&quot;
+        Usage.init:
+          alias: &quot;jvm.memory.pools.ps_old_gen.init&quot;
+          metric_type: &quot;gauge&quot;
+</code></pre>
+
+<p><em>这里要特别注意的是对于 ActiveMQ, Cassandra, Solr, and Tomcat 这几种集成监控的配置文件也可以通过JMX的配置语法来扩展。</em></p>
+
+<h2 id="如何查询注册到-jmx-的-bean">如何查询注册到 JMX 的 bean</h2>
+
+<h3 id="1-查询当前-jmx-有哪些-bean">1. 查询当前 jmx 有哪些 bean</h3>
+
+<pre><code>/etc/init.d/datadog-agent jmx list_everything
+</code></pre>
+
+<h3 id="2-查询某个-bean-的复合类型-attribute-的-key">2. 查询某个 bean 的复合类型 attribute 的 key</h3>
+
+<p>这里只能通过 <code>jmxterm-1.0-DATADOG-uber.jar</code>来查询：<a href="https://docs.datadoghq.com/integrations/faq/collecting-composite-type-jmx-attributes/">https://docs.datadoghq.com/integrations/faq/collecting-composite-type-jmx-attributes/</a></p>
+
+<p>下面列出了 jmxterm 的命令行调用及结果，通常的过程是</p>
+
+<ol>
+<li>先通过 beans 命令查询到有哪些 bean</li>
+<li>再通过 info 命令查询该 bean 有哪些 attribute</li>
+<li>最后通过 get 命令查询某个复合类型的 attribute 有哪些 key</li>
+</ol>
+
+<pre><code>java -jar /opt/datadog-agent/agent/checks/libs/jmxterm-1.0-DATADOG-uber.jar -l localhost:9999
+
+$&gt;beans -b java.lang:name=PS Old Gen,type=MemoryPool
+#domain = java.lang:
+java.lang:name=Code Cache,type=MemoryPool
+java.lang:name=CodeCacheManager,type=MemoryManager
+java.lang:name=PS Eden Space,type=MemoryPool
+java.lang:name=PS MarkSweep,type=GarbageCollector
+java.lang:name=PS Old Gen,type=MemoryPool
+java.lang:name=PS Perm Gen,type=MemoryPool
+java.lang:name=PS Scavenge,type=GarbageCollector
+java.lang:name=PS Survivor Space,type=MemoryPool
+java.lang:type=ClassLoading
+java.lang:type=Compilation
+java.lang:type=Memory
+java.lang:type=OperatingSystem
+java.lang:type=Runtime
+java.lang:type=Threading
+
+$&gt;info -b java.lang:name=PS\ Old\ Gen,type=MemoryPool
+#mbean = java.lang:name=PS Old Gen,type=MemoryPool
+#class name = sun.management.MemoryPoolImpl
+# attributes
+  %0   - CollectionUsage (javax.management.openmbean.CompositeData, r)
+  %1   - CollectionUsageThreshold (long, rw)
+  %2   - CollectionUsageThresholdCount (long, r)
+  %3   - CollectionUsageThresholdExceeded (boolean, r)
+  %4   - CollectionUsageThresholdSupported (boolean, r)
+  %5   - MemoryManagerNames ([Ljava.lang.String;, r)
+  %6   - Name (java.lang.String, r)
+  %7   - ObjectName (javax.management.ObjectName, r)
+  %8   - PeakUsage (javax.management.openmbean.CompositeData, r)
+  %9   - Type (java.lang.String, r)
+  %10  - Usage (javax.management.openmbean.CompositeData, r)
+  %11  - UsageThreshold (long, rw)
+  %12  - UsageThresholdCount (long, r)
+  %13  - UsageThresholdExceeded (boolean, r)
+  %14  - UsageThresholdSupported (boolean, r)
+  %15  - Valid (boolean, r)
+# operations
+  %0   - void resetPeakUsage()
+#there's no notifications
+
+get -b java.lang:name=PS\ Old\ Gen,type=MemoryPool Usage
+#mbean = java.lang:name=PS Old Gen,type=MemoryPool:
+Usage = {
+  committed = 716177408;
+  init = 716177408;
+  max = 716177408;
+  used = 410159232;
+ };
+</code></pre>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li>官方文档  <a href="https://docs.datadoghq.com/integrations/java/">https://docs.datadoghq.com/integrations/java/</a></li>
+<li>jmxterm  <a href="https://www.datadoghq.com/blog/easy-jmx-discovery-browsing-open-source-agent/#jmxterm-command-line-jmx-console">https://www.datadoghq.com/blog/easy-jmx-discovery-browsing-open-source-agent/#jmxterm-command-line-jmx-console</a></li>
+</ul>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+            
+                <a href="/tags/datadog/">datadog</a>, 
+            
+                <a href="/tags/jvm/">jvm</a>
+            
+        </p>
+    
+
+    <div class="share">
+        
+            <a class="icon-twitter" href="https://twitter.com/share?text=datadog%20%e5%85%b3%e4%ba%8e%20JVM%20%e7%9b%91%e6%8e%a7%e7%9a%84%e5%88%86%e6%9e%90&url=https%3a%2f%2fblog.ruhm.me%2fpost%2fdatadog_jvm_monitor%2f"
+                onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fa fa-twitter"></i>
+                <span class="hidden">Twitter</span>
+            </a>
+        
+
+        
+            <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fblog.ruhm.me%2fpost%2fdatadog_jvm_monitor%2f"
+                onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                <i class="fa fa-facebook"></i>
+                <span class="hidden">Facebook</span>
+            </a>
+        
+
+        
+            <a class="icon-google-plus" href="https://plus.google.com/share?url=https%3a%2f%2fblog.ruhm.me%2fpost%2fdatadog_jvm_monitor%2f"
+              onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+              <i class="fa fa-google-plus"></i>
+                <span class="hidden">Google+</span>
+            </a>
+        
+        
+    </div>
+</footer>
+
+        
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="RUHM BLOG SITE" href="https://blog.ruhm.me/">RUHM BLOG SITE</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2018 / Powered by <a href="https://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://blog.ruhm.me/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+        <script src="https://blog.ruhm.me/js/jquery.fitvids.js"></script>
+        <script src="https://blog.ruhm.me/js/scripts.js"></script>
+    </body>
+</html>
+

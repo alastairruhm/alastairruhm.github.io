@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jvm on RUHM BLOG SITE</title>
+    <link>https://blog.ruhm.me/tags/jvm/</link>
+    <description>Recent content in Jvm on RUHM BLOG SITE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.ruhm.me/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>datadog 关于 JVM 监控的分析</title>
+      <link>https://blog.ruhm.me/post/datadog_jvm_monitor/</link>
+      <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/datadog_jvm_monitor/</guid>
+      <description>datadog 监控 JVM 或者基于 JVM 的应用的方式  datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local 原理：datadog 调用一个名为 JMXFetch 的轻量级 java 插件连接 MBean server，从而获取到这些指标。这个插件通过运行在 agent 上的 Dogstatsd Server 将采集到的指标数据发送到 datadog agent。 这种方式同样在以下监控中得以应用，ActiveMQ, Cassandra, Solr, and Tomcat，可以看得出，这些应用都基于 jmx 来注册自定义的应用状态数据。  jmx 监控的典型配置 如下是一个完整的配置文件内容
+ bean 的一个 attribute 对应到 datadog 的监控体系里，就是一个 metric 如果这个 attribute 的类型不是 simple 的，而是 Composite（本质上是一个 hashmap），那么这个 attribute 的每一个 key 对应的才是 metric，在下面的配置中，&amp;rdquo;java.lang:type=MemoryPool,name=PS Old Gen&amp;rdquo; 这个 bean 的 Usage 就是一个 Composite 类型的数据  instances: - host: localhost port: 9999 tools_jar_path: /usr/java/jdk1.</description>
+    </item>
+    
+  </channel>
+</rss>
