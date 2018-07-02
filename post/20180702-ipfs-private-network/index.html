@@ -76,7 +76,7 @@
 
 <meta itemprop="datePublished" content="2018-07-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-07-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="278">
+<meta itemprop="wordCount" content="423">
 
 
 
@@ -172,6 +172,8 @@
 <ul>
 <li><a href="#注意事项">注意事项</a></li>
 <li><a href="#步骤">步骤</a></li>
+<li><a href="#check">check</a></li>
+<li><a href="#test">test</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -203,21 +205,59 @@
 <li>ipfs 各节点已经安装好了 go 语言环境和 ipfs 命令行应用</li>
 </ol>
 
-<p>首先生成需要共享的私钥，在 10.0.0.1 上，执行</p>
+<p>首先node1/node2都需要初始化私有仓库</p>
 
-<pre><code class="language-golang">go get github.com/Kubuxu/go-ipfs-swarm-key-gen/ipfs-swarm-key-gen
+<pre><code class="language-bash">ipfs init
+</code></pre>
+
+<p>生成私钥，以下指令均在 node1 执行：</p>
+
+<pre><code class="language-bash">go get github.com/Kubuxu/go-ipfs-swarm-key-gen/ipfs-swarm-key-gen
 ipfs-swarm-key-gen &gt; ~/.ipfs/swarm.key
+</code></pre>
+
+<p>私钥发送到 node2 上，</p>
+
+<pre><code>scp ~/.ipfs/swarm.key root@10.0.0.2:~/.ipfs/swarm.key
 </code></pre>
 
 <p>删除默认的 Bootstrap 的节点配置</p>
 
-<pre><code>ipfs bootstrap rm --all
+<pre><code class="language-bash">ipfs bootstrap rm --all
 </code></pre>
 
 <p>添加内网的 ipfs 节点 10.0.0.2，注意如果不知道 node2 的 id ，可以通过 <code>ipfs id</code> 获取</p>
 
-<pre><code>ipfs bootstrap add /ip4/10.0.0.2/tcp/4001/ipfs/QmSoLV4Bbm51jM9C4gDYZQ9Cy3U6aXMJDAbzgu2fzaDs64
+<pre><code class="language-bash">ipfs bootstrap add /ip4/10.0.0.2/tcp/4001/ipfs/QmXpfNVt2YE6ofYnsc1GFpxK7hRQ8du7NsR9YXgGzWrqni
 </code></pre>
+
+<p>设置环境变量LIBP2P_FORCE_PNET为1。</p>
+
+<pre><code class="language-bash">export LIBP2P_FORCE_PNET=1
+</code></pre>
+
+<p>启动节点</p>
+
+<pre><code class="language-bash">ipfs daemon
+</code></pre>
+
+<p>对于 node2 节点，执行</p>
+
+<pre><code class="language-bash">ipfs bootstrap rm --all
+ipfs daemon
+</code></pre>
+
+<h2 id="check">check</h2>
+
+<p>在 node1 上执行，如果有如下的记录则测试网络正常</p>
+
+<pre><code>$ ipfs swarm peers
+/ip4/10.0.0.2/tcp/4001/ipfs/QmXpfNVt2YE6ofYnsc1GFpxK7hRQ8du7NsR9YXgGzWrqni
+</code></pre>
+
+<h2 id="test">test</h2>
+
+<p>在 node1 添加一个测试文件，然后在 node2 使用 <code>ipfs cat</code>命令是否能够成功获取文件内容。</p>
 
     </div>
 
