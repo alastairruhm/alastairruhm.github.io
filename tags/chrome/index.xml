@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Chrome on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/chrome/</link>
-    <description>Recent content in Chrome on RUHM BLOG SITE</description>
+    <title>Chrome on Into the Unknown</title>
+    <link>/tags/chrome/</link>
+    <description>Recent content in Chrome on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 12 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>selenium with chrome headless on CentOS 7</title>
-      <link>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</link>
+      <link>/post/selenium-with-chrome-headless-on-centos-7/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</guid>
-      <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless模式在centos系统上的可行性。
-关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &amp;quot;[google-chrome]&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;name=google-chrome&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;enabled=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgcheck=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.</description>
+      <guid>/post/selenium-with-chrome-headless-on-centos-7/</guid>
+      <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless</description>
     </item>
     
   </channel>

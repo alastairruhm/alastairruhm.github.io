@@ -1,310 +1,310 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/</link>
-    <description>Recent content in Tags on RUHM BLOG SITE</description>
+    <title>Tags on Into the Unknown</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 12 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>https://blog.ruhm.me/tags/</link>
+      <link>/tags/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/</guid>
+      <guid>/tags/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bigdata</title>
-      <link>https://blog.ruhm.me/tags/bigdata/</link>
+      <link>/tags/bigdata/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/bigdata/</guid>
+      <guid>/tags/bigdata/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Centos</title>
-      <link>https://blog.ruhm.me/tags/centos/</link>
+      <title>CentOS</title>
+      <link>/tags/centos/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/centos/</guid>
+      <guid>/tags/centos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Chrome</title>
-      <link>https://blog.ruhm.me/tags/chrome/</link>
+      <link>/tags/chrome/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/chrome/</guid>
+      <guid>/tags/chrome/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Datadog</title>
-      <link>https://blog.ruhm.me/tags/datadog/</link>
+      <link>/tags/datadog/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/datadog/</guid>
+      <guid>/tags/datadog/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Flink</title>
-      <link>https://blog.ruhm.me/tags/flink/</link>
+      <link>/tags/flink/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/flink/</guid>
+      <guid>/tags/flink/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Git</title>
-      <link>https://blog.ruhm.me/tags/git/</link>
+      <link>/tags/git/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/git/</guid>
+      <guid>/tags/git/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Github</title>
-      <link>https://blog.ruhm.me/tags/github/</link>
+      <link>/tags/github/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/github/</guid>
+      <guid>/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Gitlab</title>
-      <link>https://blog.ruhm.me/tags/gitlab/</link>
+      <link>/tags/gitlab/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/gitlab/</guid>
+      <guid>/tags/gitlab/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Golang</title>
-      <link>https://blog.ruhm.me/tags/golang/</link>
+      <link>/tags/golang/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/golang/</guid>
+      <guid>/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Grafana</title>
-      <link>https://blog.ruhm.me/tags/grafana/</link>
+      <link>/tags/grafana/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/grafana/</guid>
+      <guid>/tags/grafana/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Graph Database</title>
-      <link>https://blog.ruhm.me/tags/graph-database/</link>
+      <title>Graph database</title>
+      <link>/tags/graph-database/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/graph-database/</guid>
+      <guid>/tags/graph-database/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Headless</title>
-      <link>https://blog.ruhm.me/tags/headless/</link>
+      <link>/tags/headless/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/headless/</guid>
+      <guid>/tags/headless/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Heapster</title>
-      <link>https://blog.ruhm.me/tags/heapster/</link>
+      <link>/tags/heapster/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/heapster/</guid>
+      <guid>/tags/heapster/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Jvm</title>
-      <link>https://blog.ruhm.me/tags/jvm/</link>
+      <link>/tags/jvm/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/jvm/</guid>
+      <guid>/tags/jvm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://blog.ruhm.me/tags/kubernetes/</link>
+      <link>/tags/kubernetes/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/kubernetes/</guid>
+      <guid>/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Memo</title>
-      <link>https://blog.ruhm.me/tags/memo/</link>
+      <link>/tags/memo/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/memo/</guid>
+      <guid>/tags/memo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Monitor</title>
-      <link>https://blog.ruhm.me/tags/monitor/</link>
+      <link>/tags/monitor/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/monitor/</guid>
+      <guid>/tags/monitor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Neo4j</title>
-      <link>https://blog.ruhm.me/tags/neo4j/</link>
+      <link>/tags/neo4j/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/neo4j/</guid>
+      <guid>/tags/neo4j/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nodejs</title>
-      <link>https://blog.ruhm.me/tags/nodejs/</link>
+      <link>/tags/nodejs/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/nodejs/</guid>
+      <guid>/tags/nodejs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nosql</title>
-      <link>https://blog.ruhm.me/tags/nosql/</link>
+      <link>/tags/nosql/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/nosql/</guid>
+      <guid>/tags/nosql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pip</title>
-      <link>https://blog.ruhm.me/tags/pip/</link>
+      <link>/tags/pip/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/pip/</guid>
+      <guid>/tags/pip/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Prometheus</title>
-      <link>https://blog.ruhm.me/tags/prometheus/</link>
+      <link>/tags/prometheus/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/prometheus/</guid>
+      <guid>/tags/prometheus/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Proxy</title>
-      <link>https://blog.ruhm.me/tags/proxy/</link>
+      <link>/tags/proxy/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/proxy/</guid>
+      <guid>/tags/proxy/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Pyenv</title>
-      <link>https://blog.ruhm.me/tags/pyenv/</link>
+      <link>/tags/pyenv/</link>
       <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/pyenv/</guid>
+      <guid>/tags/pyenv/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>https://blog.ruhm.me/tags/python/</link>
+      <link>/tags/python/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/python/</guid>
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Regex</title>
-      <link>https://blog.ruhm.me/tags/regex/</link>
+      <link>/tags/regex/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/regex/</guid>
+      <guid>/tags/regex/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sequelize</title>
-      <link>https://blog.ruhm.me/tags/sequelize/</link>
+      <link>/tags/sequelize/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/sequelize/</guid>
+      <guid>/tags/sequelize/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sql</title>
-      <link>https://blog.ruhm.me/tags/sql/</link>
+      <link>/tags/sql/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/sql/</guid>
+      <guid>/tags/sql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Test</title>
-      <link>https://blog.ruhm.me/tags/test/</link>
+      <link>/tags/test/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/test/</guid>
+      <guid>/tags/test/</guid>
       <description></description>
     </item>
     
     <item>
       <title>单例模式</title>
-      <link>https://blog.ruhm.me/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+      <link>/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>正则表达式</title>
-      <link>https://blog.ruhm.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <link>/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <guid>/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>监控</title>
-      <link>https://blog.ruhm.me/tags/%E7%9B%91%E6%8E%A7/</link>
+      <link>/tags/%E7%9B%91%E6%8E%A7/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/tags/%E7%9B%91%E6%8E%A7/</guid>
+      <guid>/tags/%E7%9B%91%E6%8E%A7/</guid>
       <description></description>
     </item>
     

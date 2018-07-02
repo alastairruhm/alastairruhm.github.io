@@ -1,55 +1,41 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/python/</link>
-    <description>Recent content in Python on RUHM BLOG SITE</description>
+    <title>Python on Into the Unknown</title>
+    <link>/tags/python/</link>
+    <description>Recent content in Python on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 20 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>python 正则表达式和内置 re 模块小结</title>
-      <link>https://blog.ruhm.me/post/python-regex-notes/</link>
+      <link>/post/python-regex-notes/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
-      <description>[toc]
-python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
-表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
-re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
- compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
- 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
-re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
-import re # 将正则表达式编译成 Pattern 对象 pattern = re.</description>
+      <guid>/post/python-regex-notes/</guid>
+      <description>[toc] python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式 表达式全集 正则表达式有</description>
     </item>
     
     <item>
       <title>pyenv 通过国内镜像安装 python</title>
-      <link>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</link>
+      <link>/post/pyenv-install-python-with-mirror/</link>
       <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</guid>
-      <description> pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v  TIPS:
- 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下载python压缩包放到~/.pyenv/cache文件夹下面 执行 pyenv install 版本号 安装对应的python版本  </description>
+      <guid>/post/pyenv-install-python-with-mirror/</guid>
+      <description>pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v TIPS: 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下</description>
     </item>
     
     <item>
       <title>使用缓存服务器加速 python pip 方式 安装包</title>
-      <link>https://blog.ruhm.me/post/pip-cache/</link>
+      <link>/post/pip-cache/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
-      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
-搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
-客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
-[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/+simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
-使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
- use system http/s proxy settings from devpi-server. fixes issue58.
- 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.</description>
+      <guid>/post/pip-cache/</guid>
+      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建</description>
     </item>
     
   </channel>

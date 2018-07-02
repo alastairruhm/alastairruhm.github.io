@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pip on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/pip/</link>
-    <description>Recent content in Pip on RUHM BLOG SITE</description>
+    <title>Pip on Into the Unknown</title>
+    <link>/tags/pip/</link>
+    <description>Recent content in Pip on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Thu, 12 May 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/pip/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/pip/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>使用缓存服务器加速 python pip 方式 安装包</title>
-      <link>https://blog.ruhm.me/post/pip-cache/</link>
+      <link>/post/pip-cache/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
-      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
-搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
-客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
-[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/+simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
-使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
- use system http/s proxy settings from devpi-server. fixes issue58.
- 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.</description>
+      <guid>/post/pip-cache/</guid>
+      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建</description>
     </item>
     
   </channel>

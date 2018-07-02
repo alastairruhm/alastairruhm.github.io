@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>单例模式 on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
-    <description>Recent content in 单例模式 on RUHM BLOG SITE</description>
+    <title>单例模式 on Into the Unknown</title>
+    <link>/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 单例模式 on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 05 Jun 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>sync.Once 实现 golang 中的单例模式</title>
-      <link>https://blog.ruhm.me/post/go-single-instance/</link>
+      <link>/post/go-single-instance/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
-      <description> sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。
-import ( &amp;quot;sync&amp;quot; ) type singleton struct { } var instance *singleton var once sync.Once func GetInstance() *singleton { once.Do(func() { instance = &amp;amp;singleton{} }) return instance }  </description>
+      <guid>/post/go-single-instance/</guid>
+      <description>sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &amp;quot;sync&amp;quot;</description>
     </item>
     
   </channel>

@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>正则表达式 on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
-    <description>Recent content in 正则表达式 on RUHM BLOG SITE</description>
+    <title>正则表达式 on Into the Unknown</title>
+    <link>/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+    <description>Recent content in 正则表达式 on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Sun, 20 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>python 正则表达式和内置 re 模块小结</title>
-      <link>https://blog.ruhm.me/post/python-regex-notes/</link>
+      <link>/post/python-regex-notes/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
-      <description>[toc]
-python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
-表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
-re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
- compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
- 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
-re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
-import re # 将正则表达式编译成 Pattern 对象 pattern = re.</description>
+      <guid>/post/python-regex-notes/</guid>
+      <description>[toc] python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式 表达式全集 正则表达式有</description>
     </item>
     
   </channel>

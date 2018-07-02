@@ -1,43 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Prometheus on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/prometheus/</link>
-    <description>Recent content in Prometheus on RUHM BLOG SITE</description>
+    <title>Prometheus on Into the Unknown</title>
+    <link>/tags/prometheus/</link>
+    <description>Recent content in Prometheus on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
+      <link>/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
-      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异
- Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身 容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用 适应分布式集群监控的特点  kubernetes 系统中有哪些指标需要监控  通常的资源指标，如CPU，内存使用量和磁盘IO kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等 容器的原生监控指标 应用程序监控指标  既有方案比较 方案一：Heapster + influxDB + Grafana 首先这里的 Heapster 是什么？
-Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。
-Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。
-该方案的优点是 heapster 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，heapster 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。
-方案二：prometheus + (*)-exporter + Grafana 之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点</description>
+      <guid>/post/kubernetes-monitoring/</guid>
+      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异 Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统V</description>
     </item>
     
     <item>
       <title>prometheus 监控系统介绍与实践总结</title>
-      <link>https://blog.ruhm.me/post/prometheus-intro/</link>
+      <link>/post/prometheus-intro/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/prometheus-intro/</guid>
-      <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控
-最近，由于在调研容器平台的原因，关注了一些互联网企业的技术博客，阅读了许多容器平台相关技术栈的文章，在他们的技术栈中反复提到了 prometheus这个监控系统，非常好奇它有什么神奇之处，众多架构师对它趋之若鹜，所以在前一周做了一些研究和实践，在这里分享给大家。第一部分主要对 prometheus 做了简单介绍，这一部分主要是官网的资料和一些技术博客的分享；第二部分是基于 prometheus 的MySQL主从结构监控的demo实践和 prometheus 适用场景的一些思考，主要是基于我个人研究和实践的基础上的结论；
-prometheus 简单介绍 prometheus 是什么？  Prometheus 是由 SoundCloud 开源监控告警解决方案，从 2012 年开始编写代码，再到 2015 年 github 上开源以来，已经吸引了 9k+ 关注，以及很多大公司的使用；2016 年 Prometheus 成为继 k8s 后，第二名 CNCF(Cloud Native Computing Foundation) 成员。
-作为新一代开源解决方案，很多理念与 Google SRE 运维之道不谋而合。
- 它有什么特点？  自定义多维数据模型(时序列数据由metric名和一组key/value标签组成) 非常高效的存储 平均一个采样数据占 ~3.5 bytes左右，320万的时间序列，每30秒采样，保持60天，消耗磁盘大概228G。 在多维度上灵活且强大的查询语言(PromQl) 不依赖分布式存储，支持单主节点工作 通过基于HTTP的pull方式采集时序数据 可以通过push gateway进行时序列数据推送(pushing) 可以通过服务发现或者静态配置去获取要采集的目标服务器 多种可视化图表及仪表盘支持  上面基本是我从官网上翻译过来的，这其中有几个关键词
-关键词：时间序列数据 Prometheus 所有的存储都是按时间序列去实现的，相同的 metrics(指标名称) 和 label(一个或多个标签) 组成一条时间序列，不同的label表示不同的时间序列。
-每条时间序列是由唯一的 指标名称 和 一组 标签 （key=value）的形式组成。</description>
+      <guid>/post/prometheus-intro/</guid>
+      <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控 最近，由于在调研容器平台的原因，关注了一</description>
     </item>
     
   </channel>

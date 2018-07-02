@@ -1,92 +1,77 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Golang on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/golang/</link>
-    <description>Recent content in Golang on RUHM BLOG SITE</description>
+    <title>Golang on Into the Unknown</title>
+    <link>/tags/golang/</link>
+    <description>Recent content in Golang on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 25 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
-      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
+      <link>/post/gitlab-ci-for-golang-project/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
-      <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。
-思路大致是这样：
- 创建项目在 GOPATH 中的目录的 symbolic link ，指向 gitlab-runner 在该项目上执行 CI 时的工作目录 切换到这个链接目录，执行每个 stage 的任务  具体的 .gitlab-ci.yaml 文件内容如下：
-before_script: - export GO_PROJECT_NAMESPACE=&amp;quot;$GOPATH/src/gitexample.com/$CI_PROJECT_NAMESPACE&amp;quot; - echo $GO_PROJECT_NAMESPACE - mkdir -p $GO_PROJECT_NAMESPACE - ln -srf $(pwd) $GO_PROJECT_NAMESPACE - export GO_PROJECT_PATH=&amp;quot;$GO_PROJECT_NAMESPACE/$CI_PROJECT_NAME&amp;quot; - echo $GO_PROJECT_PATH - cd $GO_PROJECT_PATH stages: - build - test - release build: stage: build script: - go build test: stage: test script: - go test -v .</description>
+      <guid>/post/gitlab-ci-for-golang-project/</guid>
+      <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。 思路</description>
     </item>
     
     <item>
       <title>golang test techniques</title>
-      <link>https://blog.ruhm.me/post/go-test-technique/</link>
+      <link>/post/go-test-technique/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
-      <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} }  table driven test
-func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0, 1}}, {[]int{3, 2, 4}, 6, []int{1, 2}}, } for _, tt := range addTwoTests { if result := twoSum(tt.</description>
+      <guid>/post/go-test-technique/</guid>
+      <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,</description>
     </item>
     
     <item>
       <title>sync.Once 实现 golang 中的单例模式</title>
-      <link>https://blog.ruhm.me/post/go-single-instance/</link>
+      <link>/post/go-single-instance/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
-      <description> sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。
-import ( &amp;quot;sync&amp;quot; ) type singleton struct { } var instance *singleton var once sync.Once func GetInstance() *singleton { once.Do(func() { instance = &amp;amp;singleton{} }) return instance }  </description>
+      <guid>/post/go-single-instance/</guid>
+      <description>sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &amp;quot;sync&amp;quot;</description>
     </item>
     
     <item>
       <title>golang 应用日志实践</title>
-      <link>https://blog.ruhm.me/post/go-log-pratice/</link>
+      <link>/post/go-log-pratice/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-log-pratice/</guid>
-      <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况
-命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用将会同时输出到标准输出和写入日志文件
-var formatStdout = logging.MustStringFormatter( `%{color}%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}%{color:reset}`, ) var formatLogfile = logging.MustStringFormatter( `%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}`, ) func initLog() { logFile, err := os.OpenFile(viper.GetString(&amp;quot;log.file&amp;quot;), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640) if err != nil { fmt.Println(err) panic(err) } backendLogFile := logging.NewLogBackend(logFile, &amp;quot;&amp;quot;, 0) backendStdout := logging.NewLogBackend(os.Stdout, &amp;quot;&amp;quot;, 0) backendLogFileFormatter := logging.NewBackendFormatter(backendLogFile, formatLogfile) backendStdoutFormatter := logging.NewBackendFormatter(backendStdout, formatStdout) logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter) }  持续服务类型应用 典型就是 web 应用，通常我们通过 supervisord 部署，所以我们可以选择在应用中直接输出到 stderr 或者 stdout，通过 supervisord 配置日志文件</description>
+      <guid>/post/go-log-pratice/</guid>
+      <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况 命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用</description>
     </item>
     
     <item>
       <title>golang notes: package</title>
-      <link>https://blog.ruhm.me/post/golang-notes-package/</link>
+      <link>/post/golang-notes-package/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
-      <description> golang notes: package 参考  Understanding Golang Packages - The New Stack  </description>
+      <guid>/post/golang-notes-package/</guid>
+      <description>golang notes: package 参考 Understanding Golang Packages - The New Stack</description>
     </item>
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
+      <link>/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
-      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
-环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
-bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
-gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
-需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装</description>
+      <guid>/post/grafana-dev-setup/</guid>
+      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     
     <item>
       <title>[翻译] 如何组织Go代码</title>
-      <link>https://blog.ruhm.me/post/organizing-go-code/</link>
+      <link>/post/organizing-go-code/</link>
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
-      <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 https://talks.golang.org/2014/organizeio.slide#1。
-包 Go 程序都是由包构成 所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 package 语句，程序执行则是从 main 包开始的。
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, world!&amp;quot;) }  对于一个非常简单的 Go 程序，只需要一个 main 包即可。
-上面的 hello world 应用程序导入了fmt包，而函数Println在包fmt中定义。
-示例包：fmt // Package fmt implements formatted I/O. package fmt // Println formats using the default formats for its // operands and writes to standard output. func Println(a ...interface{}) (n int, err error) { .</description>
+      <guid>/post/organizing-go-code/</guid>
+      <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目</description>
     </item>
     
   </channel>

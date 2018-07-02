@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/git/</link>
-    <description>Recent content in Git on RUHM BLOG SITE</description>
+    <title>Git on Into the Unknown</title>
+    <link>/tags/git/</link>
+    <description>Recent content in Git on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git 通过代理加速</title>
-      <link>https://blog.ruhm.me/post/git-acceleration/</link>
+      <link>/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
-      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。
-https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
-ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
-Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation</description>
+      <guid>/post/git-acceleration/</guid>
+      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较</description>
     </item>
     
     <item>
       <title>git 多账号处理</title>
-      <link>https://blog.ruhm.me/post/multi-user-in-git/</link>
+      <link>/post/multi-user-in-git/</link>
       <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
-      <description>git 多账号处理 主要分两种场景
-1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可以都是 xxxx#gmail.com，这个时候由于唯一性的认证是邮箱，所以 ssh config 的配置如下
-host github hostname github.com host coding hostname coding.net  假设都是默认使用的 id_rsa ，不需要指定key的位置。
-2. 同一个网站有2个账号 比如有两个github账号
-host github.com-userA hostname github.com User userA IdentityFile ~/.ssh/github_userA_rsa host github.com-userB hostname github.com User userB IdentityFile ~/.ssh/github_userB_rsa  这种情况在 push/pull 的时候要注意取消 global 的账户配置
-1.取消global的配置 git config --global --unset user.name git config --global --unset user.email 2.设置每个项目repo的git的user.email, 比如 git config user.email &amp;quot;userA@xx.com&amp;quot; git config user.name &amp;quot;userA&amp;quot;  如何验证 通过指令 ssh -T, 需要详细信息则 ssh -vT</description>
+      <guid>/post/multi-user-in-git/</guid>
+      <description>git 多账号处理 主要分两种场景 1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可</description>
     </item>
     
   </channel>

@@ -1,254 +1,194 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/post/</link>
-    <description>Recent content in Posts on RUHM BLOG SITE</description>
+    <title>Posts on Into the Unknown</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>flink 在 OSX 系统上以 local 方式运行</title>
-      <link>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</link>
+      <link>/post/20180314-flink-run-in-local-mode-osx/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</guid>
-      <description>安装
-$ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16  启动
-$ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local.  </description>
+      <guid>/post/20180314-flink-run-in-local-mode-osx/</guid>
+      <description>安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local.</description>
     </item>
     
     <item>
       <title>datadog 关于 JVM 监控的分析</title>
-      <link>https://blog.ruhm.me/post/datadog_jvm_monitor/</link>
+      <link>/post/datadog_jvm_monitor/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/datadog_jvm_monitor/</guid>
-      <description>datadog 监控 JVM 或者基于 JVM 的应用的方式  datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/docs/guide/management/agent.html#local 原理：datadog 调用一个名为 JMXFetch 的轻量级 java 插件连接 MBean server，从而获取到这些指标。这个插件通过运行在 agent 上的 Dogstatsd Server 将采集到的指标数据发送到 datadog agent。 这种方式同样在以下监控中得以应用，ActiveMQ, Cassandra, Solr, and Tomcat，可以看得出，这些应用都基于 jmx 来注册自定义的应用状态数据。  jmx 监控的典型配置 如下是一个完整的配置文件内容
- bean 的一个 attribute 对应到 datadog 的监控体系里，就是一个 metric 如果这个 attribute 的类型不是 simple 的，而是 Composite（本质上是一个 hashmap），那么这个 attribute 的每一个 key 对应的才是 metric，在下面的配置中，&amp;rdquo;java.lang:type=MemoryPool,name=PS Old Gen&amp;rdquo; 这个 bean 的 Usage 就是一个 Composite 类型的数据  instances: - host: localhost port: 9999 tools_jar_path: /usr/java/jdk1.</description>
+      <guid>/post/datadog_jvm_monitor/</guid>
+      <description>datadog 监控 JVM 或者基于 JVM 的应用的方式 datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/do</description>
     </item>
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
-      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
+      <link>/post/gitlab-ci-for-golang-project/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
-      <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。
-思路大致是这样：
- 创建项目在 GOPATH 中的目录的 symbolic link ，指向 gitlab-runner 在该项目上执行 CI 时的工作目录 切换到这个链接目录，执行每个 stage 的任务  具体的 .gitlab-ci.yaml 文件内容如下：
-before_script: - export GO_PROJECT_NAMESPACE=&amp;quot;$GOPATH/src/gitexample.com/$CI_PROJECT_NAMESPACE&amp;quot; - echo $GO_PROJECT_NAMESPACE - mkdir -p $GO_PROJECT_NAMESPACE - ln -srf $(pwd) $GO_PROJECT_NAMESPACE - export GO_PROJECT_PATH=&amp;quot;$GO_PROJECT_NAMESPACE/$CI_PROJECT_NAME&amp;quot; - echo $GO_PROJECT_PATH - cd $GO_PROJECT_PATH stages: - build - test - release build: stage: build script: - go build test: stage: test script: - go test -v .</description>
+      <guid>/post/gitlab-ci-for-golang-project/</guid>
+      <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。 思路</description>
     </item>
     
     <item>
       <title>如何在 sequelize raw query 中如何避免 SQL injection</title>
-      <link>https://blog.ruhm.me/post/sequelize-raw-query-practices/</link>
+      <link>/post/sequelize-raw-query-practices/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/sequelize-raw-query-practices/</guid>
-      <description>如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。
-由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的select distinct on (field)这样的语法
-SELECT DISTINCT ON (&amp;quot;fault_id&amp;quot;) event.* from event AND &amp;quot;tenant_id&amp;quot;= &#39;93283d50c03f11e7a2c0a7b189d903d8&#39; \ AND (deleted_at &amp;gt; CURRENT_TIMESTAMP or deleted_at is null) \ ORDER BY fault_id, occur_time desc  因此，我们会考虑使用 Sequelize.query() 原生的查询方式，并且通常会使用 js 的 raw string 来拼接 sql，这里就容易存在 SQL 注入的风险。例如：
-const name=&#39;boom&#39;; yield Sequelize.query(`SELECT * from event from &amp;quot;name&amp;quot;= &#39;${name}&#39;`, {});  上面是正常的情况，假如我们信任某个参数的值，这样的写法问题不大。但是假如有用户恶意输入一些特殊字符，就能攻击系统了。如下：</description>
+      <guid>/post/sequelize-raw-query-practices/</guid>
+      <description>如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。 由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的</description>
     </item>
     
     <item>
       <title>python 正则表达式和内置 re 模块小结</title>
-      <link>https://blog.ruhm.me/post/python-regex-notes/</link>
+      <link>/post/python-regex-notes/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
-      <description>[toc]
-python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式
-表达式全集 正则表达式有多种不同的风格，下表列出了适用于 Python 或 Perl 等编程语言的部分元字符以及说明：
-re 模块 在 Python 中，我们可以使用内置的 re 模块来使用正则表达式。re 模块提供了不少有用的函数，用以匹配字符串，以下列出常用的几个：
- compile match search findall finditer split sub subn  re 模块的一般使用步骤如下：
- 使用 compile 函数将正则表达式的字符串形式编译为一个 Pattern 对象 通过 Pattern 对象提供的一系列方法对文本进行匹配查找，获得匹配结果（一个 Match 对象） 最后使用 Match 对象提供的属性和方法获得信息，根据需要进行其他的操作  compile 函数 compile 函数用于编译正则表达式，生成一个 Pattern 对象，它的一般使用形式如下：
-re.compile(pattern[, flag])  其中，pattern 是一个字符串形式的正则表达式，flag 是一个可选参数，表示匹配模式，比如忽略大小写，多行模式等。
-import re # 将正则表达式编译成 Pattern 对象 pattern = re.</description>
+      <guid>/post/python-regex-notes/</guid>
+      <description>[toc] python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式 表达式全集 正则表达式有</description>
     </item>
     
     <item>
       <title>golang test techniques</title>
-      <link>https://blog.ruhm.me/post/go-test-technique/</link>
+      <link>/post/go-test-technique/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
-      <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} }  table driven test
-func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0, 1}}, {[]int{3, 2, 4}, 6, []int{1, 2}}, } for _, tt := range addTwoTests { if result := twoSum(tt.</description>
+      <guid>/post/go-test-technique/</guid>
+      <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,</description>
     </item>
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
+      <link>/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
-      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异
- Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统VM监控相比，有更多的组件需要监控: 宿主机器, 容器, 容器化的应用和 kubernetes 本身 容器在 kubernetes 中可能发生移动;因此需要监控系统提供服务发现的功能，检测任何来自 pod 和 容器配置的变化，自动适配监控指标的收集，以便持续的监控容器化的应用 适应分布式集群监控的特点  kubernetes 系统中有哪些指标需要监控  通常的资源指标，如CPU，内存使用量和磁盘IO kubernetes 各逻辑对象的状态，比如 pod 状态，deployment 更新的次数等 容器的原生监控指标 应用程序监控指标  既有方案比较 方案一：Heapster + influxDB + Grafana 首先这里的 Heapster 是什么？
-Kubernetes有个出名的监控agent&amp;mdash;cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。在较新的版本中，K8S已经将cAdvisor功能集成到kubelet组件中。每个Node节点可以直接进行web访问。
-Heapster是一个收集者，将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具(如InfluxDB)。
-该方案的优点是 heapster 是 K8s 体系原生的，不需要太多复杂配置就可以完成监控；但是反面来说，heapster 局限于 kubernetes 的监控，而不是出于通用监控的目的，另外，heapster 缺少 alert 组件。
-方案二：prometheus + (*)-exporter + Grafana 之前我分享过 prometheus 是基于 pull 模型的监控系统，那为什么在 Kubernetes 系统的监控中是一个合理的选择，这里有几点</description>
+      <guid>/post/kubernetes-monitoring/</guid>
+      <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异 Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统V</description>
     </item>
     
     <item>
       <title>prometheus 监控系统介绍与实践总结</title>
-      <link>https://blog.ruhm.me/post/prometheus-intro/</link>
+      <link>/post/prometheus-intro/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/prometheus-intro/</guid>
-      <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控
-最近，由于在调研容器平台的原因，关注了一些互联网企业的技术博客，阅读了许多容器平台相关技术栈的文章，在他们的技术栈中反复提到了 prometheus这个监控系统，非常好奇它有什么神奇之处，众多架构师对它趋之若鹜，所以在前一周做了一些研究和实践，在这里分享给大家。第一部分主要对 prometheus 做了简单介绍，这一部分主要是官网的资料和一些技术博客的分享；第二部分是基于 prometheus 的MySQL主从结构监控的demo实践和 prometheus 适用场景的一些思考，主要是基于我个人研究和实践的基础上的结论；
-prometheus 简单介绍 prometheus 是什么？  Prometheus 是由 SoundCloud 开源监控告警解决方案，从 2012 年开始编写代码，再到 2015 年 github 上开源以来，已经吸引了 9k+ 关注，以及很多大公司的使用；2016 年 Prometheus 成为继 k8s 后，第二名 CNCF(Cloud Native Computing Foundation) 成员。
-作为新一代开源解决方案，很多理念与 Google SRE 运维之道不谋而合。
- 它有什么特点？  自定义多维数据模型(时序列数据由metric名和一组key/value标签组成) 非常高效的存储 平均一个采样数据占 ~3.5 bytes左右，320万的时间序列，每30秒采样，保持60天，消耗磁盘大概228G。 在多维度上灵活且强大的查询语言(PromQl) 不依赖分布式存储，支持单主节点工作 通过基于HTTP的pull方式采集时序数据 可以通过push gateway进行时序列数据推送(pushing) 可以通过服务发现或者静态配置去获取要采集的目标服务器 多种可视化图表及仪表盘支持  上面基本是我从官网上翻译过来的，这其中有几个关键词
-关键词：时间序列数据 Prometheus 所有的存储都是按时间序列去实现的，相同的 metrics(指标名称) 和 label(一个或多个标签) 组成一条时间序列，不同的label表示不同的时间序列。
-每条时间序列是由唯一的 指标名称 和 一组 标签 （key=value）的形式组成。</description>
+      <guid>/post/prometheus-intro/</guid>
+      <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控 最近，由于在调研容器平台的原因，关注了一</description>
     </item>
     
     <item>
       <title>selenium with chrome headless on CentOS 7</title>
-      <link>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</link>
+      <link>/post/selenium-with-chrome-headless-on-centos-7/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</guid>
-      <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless模式在centos系统上的可行性。
-关于chrome安装 yum install \ ipa-gothic-fonts \ xorg-x11-fonts-100dpi \ xorg-x11-fonts-75dpi \ xorg-x11-utils \ xorg-x11-fonts-cyrillic \ xorg-x11-fonts-Type1 \ xorg-x11-fonts-misc -y yum install xorg-x11-server-Xvfb echo &amp;quot;[google-chrome]&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;name=google-chrome&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;baseurl=http://dl.google.com/linux/chrome/rpm/stable/\$basearch&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;enabled=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgcheck=1&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo echo &amp;quot;gpgkey=https://dl.google.com/linux/linux_signing_key.pub&amp;quot; &amp;gt;&amp;gt; /etc/yum.repos.d/google-chrome.repo yum -y install google-chrome-stable xvfb-run --server-args=&#39;-screen 0, 1024x768x16&#39; google-chrome --headless --disable-gpu -remote-debugging-port=9222  遇到的问题 chromedriver 版本问题 目前 chromedriver 最新版本2.</description>
+      <guid>/post/selenium-with-chrome-headless-on-centos-7/</guid>
+      <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless</description>
     </item>
     
     <item>
       <title>监控系统 push 和 pull 模型</title>
-      <link>https://blog.ruhm.me/post/push-vs-pull-monitoring/</link>
+      <link>/post/push-vs-pull-monitoring/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/push-vs-pull-monitoring/</guid>
-      <description>监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount += 1 metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } }  push 模型需要处理的一些问题
- Service Discovery: How does the application know where the monitoring system is located?</description>
+      <guid>/post/push-vs-pull-monitoring/</guid>
+      <description>监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount += 1 metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的</description>
     </item>
     
     <item>
       <title>sync.Once 实现 golang 中的单例模式</title>
-      <link>https://blog.ruhm.me/post/go-single-instance/</link>
+      <link>/post/go-single-instance/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
-      <description> sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。
-import ( &amp;quot;sync&amp;quot; ) type singleton struct { } var instance *singleton var once sync.Once func GetInstance() *singleton { once.Do(func() { instance = &amp;amp;singleton{} }) return instance }  </description>
+      <guid>/post/go-single-instance/</guid>
+      <description>sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &amp;quot;sync&amp;quot;</description>
     </item>
     
     <item>
       <title>golang 应用日志实践</title>
-      <link>https://blog.ruhm.me/post/go-log-pratice/</link>
+      <link>/post/go-log-pratice/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/go-log-pratice/</guid>
-      <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况
-命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用将会同时输出到标准输出和写入日志文件
-var formatStdout = logging.MustStringFormatter( `%{color}%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}%{color:reset}`, ) var formatLogfile = logging.MustStringFormatter( `%{time:2006-01-02 15:04:05.000} [%{level:.8s}] %{message}`, ) func initLog() { logFile, err := os.OpenFile(viper.GetString(&amp;quot;log.file&amp;quot;), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640) if err != nil { fmt.Println(err) panic(err) } backendLogFile := logging.NewLogBackend(logFile, &amp;quot;&amp;quot;, 0) backendStdout := logging.NewLogBackend(os.Stdout, &amp;quot;&amp;quot;, 0) backendLogFileFormatter := logging.NewBackendFormatter(backendLogFile, formatLogfile) backendStdoutFormatter := logging.NewBackendFormatter(backendStdout, formatStdout) logging.SetBackend(backendLogFileFormatter, backendStdoutFormatter) }  持续服务类型应用 典型就是 web 应用，通常我们通过 supervisord 部署，所以我们可以选择在应用中直接输出到 stderr 或者 stdout，通过 supervisord 配置日志文件</description>
+      <guid>/post/go-log-pratice/</guid>
+      <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况 命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用</description>
     </item>
     
     <item>
       <title>golang notes: package</title>
-      <link>https://blog.ruhm.me/post/golang-notes-package/</link>
+      <link>/post/golang-notes-package/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
-      <description> golang notes: package 参考  Understanding Golang Packages - The New Stack  </description>
+      <guid>/post/golang-notes-package/</guid>
+      <description>golang notes: package 参考 Understanding Golang Packages - The New Stack</description>
     </item>
     
     <item>
       <title>图数据库 Neo4j 笔记</title>
-      <link>https://blog.ruhm.me/post/graph-database-neo4j-notes/</link>
+      <link>/post/graph-database-neo4j-notes/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/graph-database-neo4j-notes/</guid>
-      <description> 图数据库 Neo4j 笔记 图数据库 图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。
- 当前有流行图形数据库：Neo4j、FlockDB、AllegroGraph、GraphDB、InfiniteGraph、OrientDB、InfoGrid和HypergraphDB等 另有自称比MongoDB和Neo4j性能更佳的多模型数据库ArangoDB,见nosql-tests 关系型数据库用于存储“关系型”数据的效果并不好，其查询复杂、缓慢、超出预期，而图形数据库的独特设计恰恰弥补了这个缺陷。  Neo4j Neo4j是一个用Java实现、完全兼容ACID的图形数据库。数据以一种针对图形网络进行过优化的格式保存在磁盘上。Neo4j的内核是一种极快的图形引擎，具有数据库产品期望的所有特性，如恢复、两阶段提交、符合XA等。自2003年起，Neo4j就已经被作为24/7的产品使用。 Neo4j是目前主流的一个图数据库，相比传统的关系型数据库，它可以快速的进行基于人际社交网络类的查询查询和检索;它同时提供了cypher语言来方便进行图数据库的操作和查询，该查询语言类似SQL语言。 Neo4j的数据并非保存在表或集合中，而是保存为节点以及节点之间的关系。在Neo4j中，*节点以及关系都能够包含保存值的属性*，此外：
- 可以为节点设置零或多个标签（例如Author或Book） 每个关系都对应一种类型（例如WROTE或FRIEND_OF） 关系总是从一个节点指向另一个节点（但可以在不考虑指向性的情况下进行查询）  为什么选择 Neo4j？  自带一套易于学习的查询语言（Cypher） 不使用schema，因此可以满足你的任何形式的需求 与关系型数据库相比，对于高度关联的数据（图形数据）的查询快速要快上许多 实体与关系结构非常自然地切合人类的直观感受 支持兼容ACID的事务操作 提供了一个高可用性模型，以支持大规模数据量的查询，支持备份、数据局部性以及冗余 提供了一个可视化的查询控制台  什么时候不应使用Neo4j？ 作为一个图形NoSQL数据库，Neo4j提供了大量的功能，但没有什么解决方案是完美的。在以下这些用例中，Neo4j就不是非常适合的选择：
- 记录大量基于事件的数据（例如日志条目或传感器数据） 对大规模分布式数据进行处理，类似于Hadoop 二进制数据存储 适合于保存在关系型数据库中的结构化数据  Neo4j图模型 Neo4J中的图形模型要点：Nodes与Relationships可以被赋予Properties(key-value); Nodes可按label分组；Relationships可赋予direction和type并最终构成数据形态；Neo4j可存储10亿级别的数据量 Neo4J使用以下索引机制：一个超级参考节点通过一条特殊类别的边线“REFERENCE”与所有节点相连。这实际上允许创建多个索引，借以通过不同的边线类别对其加以区分。Neo4J还提供了一些特殊功能，如列出特定节点的相邻诸节点或是两节点间长度最短的诸类路径等。注意要使用上述各类“遍历”功能，Neo4J要求指定路径中经过的边线类别。
-参考  Full Stack Web Development Using Neo4j Neo4j图数据库学习笔记 | Geosmart&amp;rsquo;s Notes  </description>
+      <guid>/post/graph-database-neo4j-notes/</guid>
+      <description>图数据库 Neo4j 笔记 图数据库 图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。</description>
     </item>
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
+      <link>/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
-      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
-环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
-bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
-gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
-需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装</description>
+      <guid>/post/grafana-dev-setup/</guid>
+      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     
     <item>
       <title>git 通过代理加速</title>
-      <link>https://blog.ruhm.me/post/git-acceleration/</link>
+      <link>/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
-      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。
-https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
-ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
-Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation</description>
+      <guid>/post/git-acceleration/</guid>
+      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较</description>
     </item>
     
     <item>
       <title>[翻译] 如何组织Go代码</title>
-      <link>https://blog.ruhm.me/post/organizing-go-code/</link>
+      <link>/post/organizing-go-code/</link>
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
-      <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目扩展性很差。经过一番搜索，找到了这个 talk，原文见 https://talks.golang.org/2014/organizeio.slide#1。
-包 Go 程序都是由包构成 所有的 go 的源代码都是一个包的一部分，每一个源码文件在文件开头都有一个 package 语句，程序执行则是从 main 包开始的。
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, world!&amp;quot;) }  对于一个非常简单的 Go 程序，只需要一个 main 包即可。
-上面的 hello world 应用程序导入了fmt包，而函数Println在包fmt中定义。
-示例包：fmt // Package fmt implements formatted I/O. package fmt // Println formats using the default formats for its // operands and writes to standard output. func Println(a ...interface{}) (n int, err error) { .</description>
+      <guid>/post/organizing-go-code/</guid>
+      <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目</description>
     </item>
     
     <item>
       <title>pyenv 通过国内镜像安装 python</title>
-      <link>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</link>
+      <link>/post/pyenv-install-python-with-mirror/</link>
       <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</guid>
-      <description> pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v  TIPS:
- 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下载python压缩包放到~/.pyenv/cache文件夹下面 执行 pyenv install 版本号 安装对应的python版本  </description>
+      <guid>/post/pyenv-install-python-with-mirror/</guid>
+      <description>pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v TIPS: 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下</description>
     </item>
     
     <item>
       <title>git 多账号处理</title>
-      <link>https://blog.ruhm.me/post/multi-user-in-git/</link>
+      <link>/post/multi-user-in-git/</link>
       <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
-      <description>git 多账号处理 主要分两种场景
-1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可以都是 xxxx#gmail.com，这个时候由于唯一性的认证是邮箱，所以 ssh config 的配置如下
-host github hostname github.com host coding hostname coding.net  假设都是默认使用的 id_rsa ，不需要指定key的位置。
-2. 同一个网站有2个账号 比如有两个github账号
-host github.com-userA hostname github.com User userA IdentityFile ~/.ssh/github_userA_rsa host github.com-userB hostname github.com User userB IdentityFile ~/.ssh/github_userB_rsa  这种情况在 push/pull 的时候要注意取消 global 的账户配置
-1.取消global的配置 git config --global --unset user.name git config --global --unset user.email 2.设置每个项目repo的git的user.email, 比如 git config user.email &amp;quot;userA@xx.com&amp;quot; git config user.name &amp;quot;userA&amp;quot;  如何验证 通过指令 ssh -T, 需要详细信息则 ssh -vT</description>
+      <guid>/post/multi-user-in-git/</guid>
+      <description>git 多账号处理 主要分两种场景 1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可</description>
     </item>
     
     <item>
       <title>使用缓存服务器加速 python pip 方式 安装包</title>
-      <link>https://blog.ruhm.me/post/pip-cache/</link>
+      <link>/post/pip-cache/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
-      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，这篇文章作者做了整理，并且推荐使用 devpi。
-搭建过程 参考官方提供的安装文档：Quickstart: running a pypi mirror on your laptop — devpi server-4.0, client-2.6, web-3.1 documentation，这里不再赘述。
-客户端配置 创建 $HOME/.pip/pip.conf 文件，内容如下
-[global] timeout = 60 index-url = http://devpi.xxx.com/root/pypi/+simple/ [install] trusted-host = devpi.xxx.com  PS：如果网络比较差的话，timeout 设置的稍微大一点以免引起安装较大的包时出现 read timeout 的问题
-使用过程中遇到的问题 devpi-server 配置网络代理 devpi-server 在 v1.2 版本就支持系统的代理配置
- use system http/s proxy settings from devpi-server. fixes issue58.
- 但是使用的是 systemd 服务配置后台服务的话，proxy 的配置不能写在 $HOME/.</description>
+      <guid>/post/pip-cache/</guid>
+      <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建</description>
     </item>
     
   </channel>

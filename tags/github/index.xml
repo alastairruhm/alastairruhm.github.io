@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Github on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/github/</link>
-    <description>Recent content in Github on RUHM BLOG SITE</description>
+    <title>Github on Into the Unknown</title>
+    <link>/tags/github/</link>
+    <description>Recent content in Github on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/github/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git 通过代理加速</title>
-      <link>https://blog.ruhm.me/post/git-acceleration/</link>
+      <link>/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
-      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较。
-https github 允许用户通过 https 端口使用 ssh，可以通过下面的指令测试
-ssh -T -p 443 git@ssh.github.com Hi username! You&#39;ve successfully authenticated, but GitHub does not provide shell access.  如果测试不通过，就需要修改配置文件 ~/.ssh/config，增加
-Host github.com Hostname ssh.github.com Port 443  优点  http 和 https 代理是非常常见的，比如我一般都是对系统全局代理 配置比较简单  缺点  因为走的是 https 协议，那么在github认证时只能使用提供 username/password 的方式认证，如果要避免每次push时都输入密码，需要一些额外的步骤。Caching your GitHub password in Git - User Documentation 另外如果开启了 two-factor authentication，还需要提供 personal access token。Provide access token if 2FA enabled - User Documentation  更多详情参考 Using SSH over the HTTPS port - User Documentation</description>
+      <guid>/post/git-acceleration/</guid>
+      <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较</description>
     </item>
     
   </channel>

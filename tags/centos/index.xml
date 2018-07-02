@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Centos on RUHM BLOG SITE</title>
-    <link>https://blog.ruhm.me/tags/centos/</link>
-    <description>Recent content in Centos on RUHM BLOG SITE</description>
+    <title>CentOS on Into the Unknown</title>
+    <link>/tags/centos/</link>
+    <description>Recent content in CentOS on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
     <lastBuildDate>Tue, 22 Nov 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.ruhm.me/tags/centos/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/centos/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
+      <link>/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
-      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页
-环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安装依赖 yum install -y git bison gcc  需要预先安装 go1.7（官方要求，go 1.6 编译存在问题） 这里通过 gvm 这个go语言多版本工具安装，首先安装 gvm
-bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer) source /root/.gvm/scripts/gvm  如果要安装 go1.7，必须先安装 go1.4编译自举
-gvm install go1.4 --source=http://xxx.xxx/go.git gvm use go1.4 export GOROOT_BOOTSTRAP=$GOROOT gvm install go1.7 --source=http://xxxx.com/ops/go.git gvm use go1.7 --default  gvm 其他指令见 moovweb/gvm: Go Version Manager
-需要预先安装 node(v4+), npm(v2.5.0), grunt(v0.4.5) 这里通过 creationix/nvm: Node Version Manager 安装</description>
+      <guid>/post/grafana-dev-setup/</guid>
+      <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     
   </channel>
