@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>/post/20180702-ipfs-private-network/</loc>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>/post/20180314-flink-run-in-local-mode-osx/</loc>
     <lastmod>2018-03-14T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -157,7 +164,15 @@
   </url>
   
   <url>
+    <loc>/categories/blockchain/</loc>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -248,7 +263,14 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/ipfs/</loc>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -311,7 +333,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2018-03-14T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-02T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

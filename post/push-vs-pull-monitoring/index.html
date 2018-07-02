@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="olOwOlo" />
+<meta name="author" content="ruhm" />
   <meta name="description" content="监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount &#43;= 1 metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的" />
 
   <meta name="keywords" content="Hugo, theme, even" />
@@ -264,14 +264,17 @@ func main() {
     <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">Author</span>
-    <span class="item-content">olOwOlo</span>
+    <span class="item-content">ruhm</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">2017-06-12</span>
   </p>
   
-  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
 </div>
 
     
@@ -348,7 +351,7 @@ func main() {
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
-    <span class="author">olOwOlo</span>
+    <span class="author">ruhm</span>
   </span>
 </div>
     </footer>
