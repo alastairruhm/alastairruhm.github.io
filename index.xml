@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>ipfs 安装</title>
+      <link>/post/20180701-install-ipfs/</link>
+      <pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180701-install-ipfs/</guid>
+      <description>通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help</description>
+    </item>
+    
+    <item>
       <title>flink 在 OSX 系统上以 local 方式运行</title>
       <link>/post/20180314-flink-run-in-local-mode-osx/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>

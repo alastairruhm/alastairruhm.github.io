@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>flink 在 OSX 系统上以 local 方式运行 - Into the Unknown</title>
+  <title>ipfs 安装 - Into the Unknown</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="ruhm" />
-  <meta name="description" content="安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local." />
+  <meta name="description" content="通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -29,7 +29,7 @@
 <meta name="generator" content="Hugo 0.42.2" />
 
 
-<link rel="canonical" href="../../post/20180314-flink-run-in-local-mode-osx/" />
+<link rel="canonical" href="../../post/20180701-install-ipfs/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -49,20 +49,16 @@
 
 
 
-<meta property="og:title" content="flink 在 OSX 系统上以 local 方式运行" />
-<meta property="og:description" content="安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local." />
+<meta property="og:title" content="ipfs 安装" />
+<meta property="og:description" content="通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/20180314-flink-run-in-local-mode-osx/" />
+<meta property="og:url" content="/post/20180701-install-ipfs/" />
 
 
 
-<meta property="article:published_time" content="2018-03-14T00:00:00&#43;00:00"/>
+<meta property="article:published_time" content="2018-07-01T00:00:00&#43;00:00"/>
 
-<meta property="article:modified_time" content="2018-03-14T00:00:00&#43;00:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2018-07-01T00:00:00&#43;00:00"/>
 
 
 
@@ -70,20 +66,24 @@
 
 
 
-<meta itemprop="name" content="flink 在 OSX 系统上以 local 方式运行">
-<meta itemprop="description" content="安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local.">
-
-
-<meta itemprop="datePublished" content="2018-03-14T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2018-03-14T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="54">
 
 
 
-<meta itemprop="keywords" content="bigdata,flink," />
+
+<meta itemprop="name" content="ipfs 安装">
+<meta itemprop="description" content="通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help">
+
+
+<meta itemprop="datePublished" content="2018-07-01T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-01T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="259">
+
+
+
+<meta itemprop="keywords" content="ipfs," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="flink 在 OSX 系统上以 local 方式运行"/>
-<meta name="twitter:description" content="安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local."/>
+<meta name="twitter:title" content="ipfs 安装"/>
+<meta name="twitter:description" content="通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -146,11 +146,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">flink 在 OSX 系统上以 local 方式运行</h1>
+      <h1 class="post-title">ipfs 安装</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2018-03-14 </span>
-        
+        <span class="post-time"> 2018-07-01 </span>
+        <div class="post-category">
+            
+              <a href="../../categories/ipfs/"> ipfs </a>
+            
+          </div>
         
         
       </div>
@@ -162,7 +166,17 @@
   <h2 class="post-toc-title">Contents</h2>
   
   <div class="post-toc-content always-active">
-    
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#通过预编译好的包">通过预编译好的包</a></li>
+<li><a href="#通过-ipfs-update">通过 ipfs-update</a></li>
+<li><a href="#q-a">Q&amp;A</a></li>
+<li><a href="#ref">ref</a></li>
+</ul></li>
+</ul>
+</nav>
   </div>
 </div>
 
@@ -171,27 +185,67 @@
 
     
     <div class="post-content">
-      <p>安装</p>
+      
 
-<pre><code class="language-bash">$ brew install apache-flink
+<p>通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式</p>
 
-$ flink -v
-Version: 1.3.2, Commit ID: 0399bee
+<h2 id="通过预编译好的包">通过预编译好的包</h2>
 
-$ brew info apache-flink
-apache-flink: stable 1.3.2, HEAD
-Scalable batch and stream data processing
-https://flink.apache.org/
-/usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) *
-  Built from source on 2018-03-13 at 19:31:16
+<p>在 <a href="https://dist.ipfs.io/#go-ipfs">https://dist.ipfs.io/#go-ipfs</a> 这里下载对应系统的包</p>
+
+<pre><code class="language-bash">tar xvfz go-ipfs.tar.gz
+cd go-ipfs
+./install.sh
 </code></pre>
 
-<p>启动</p>
+<p>执行完后，通过 <code>ipfs help</code> 检查</p>
 
-<pre><code class="language-bash">$ cd /usr/local/Cellar/apache-flink/1.3.2
-$ ./libexec/bin/start-local.sh
-Starting jobmanager daemon on host alastairruhm.local.
+<pre><code>&gt; ipfs help
+USAGE:
+
+    ipfs - Global p2p merkle-dag filesystem.
+...
 </code></pre>
+
+<h2 id="通过-ipfs-update">通过 ipfs-update</h2>
+
+<p>由于 ipfs 迭代速度很快，所以推荐这种方式。ipfs-update 在 <a href="https://dist.ipfs.io/#ipfs-update">https://dist.ipfs.io/#ipfs-update</a> 这里下载。</p>
+
+<p>如果本地有 go(&gt;1.8) 语言环境，也可以通过 <code>go get -u github.com/ipfs/ipfs-update</code> 直接安装</p>
+
+<p><code>ipfs-update versions</code> 列出所以可以安装的版本。</p>
+
+<pre><code class="language-bash">$ ipfs-update versions
+v0.3.2
+v0.3.4
+v0.3.5
+...
+...
+v0.4.14
+v0.4.15
+v0.4.16-rc1
+</code></pre>
+
+<p>然后这里安装最新版本</p>
+
+<pre><code class="language-bash">$ ipfs-update install latest
+</code></pre>
+
+<h2 id="q-a">Q&amp;A</h2>
+
+<p>一、如果<code>ipfs-update versions</code>出现如下错误</p>
+
+<pre><code class="language-bash">$ ipfs-update versions
+ERROR: failed to query versions:  cat: could not resolve name
+</code></pre>
+
+<p>是无法解析 ipns 的域名导致的，将 dns 设置为 1.1.1.1</p>
+
+<h2 id="ref">ref</h2>
+
+<ul>
+<li>官网链接 Install IPFS | IPFS Docs: <a href="https://ipfs.io/docs/install/#installing-with-ipfs-update">https://ipfs.io/docs/install/#installing-with-ipfs-update</a></li>
+</ul>
 
     </div>
 
@@ -203,7 +257,7 @@ Starting jobmanager daemon on host alastairruhm.local.
   </p>
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
-    <span class="item-content">2018-03-14</span>
+    <span class="item-content">2018-07-01</span>
   </p>
   
   <p class="copyright-item">
@@ -218,23 +272,21 @@ Starting jobmanager daemon on host alastairruhm.local.
     <footer class="post-footer">
       <div class="post-tags">
           
-          <a href="../../tags/bigdata/">bigdata</a>
-          
-          <a href="../../tags/flink/">flink</a>
+          <a href="../../tags/ipfs/">ipfs</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="../../post/20180701-install-ipfs/">
+          <a class="prev" href="../../post/20180702-ipfs-private-network/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">ipfs 安装</span>
+            <span class="prev-text nav-default">ipfs 私有网络环境搭建</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         
-          <a class="next" href="../../post/datadog_jvm_monitor/">
-            <span class="next-text nav-default">datadog 关于 JVM 监控的分析</span>
+          <a class="next" href="../../post/20180314-flink-run-in-local-mode-osx/">
+            <span class="next-text nav-default">flink 在 OSX 系统上以 local 方式运行</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
