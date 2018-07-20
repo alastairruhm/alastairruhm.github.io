@@ -57,7 +57,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-06-05T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2017-06-12T00:00:00&#43;00:00"/>
 
 
 
@@ -140,6 +140,27 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="../../post/push-vs-pull-monitoring/">监控系统 push 和 pull 模型</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-06-12 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount += 1 metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的
+    </div>
+    <div class="read-more">
+      <a href="../../post/push-vs-pull-monitoring/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="../../post/go-single-instance/">sync.Once 实现 golang 中的单例模式</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-06-05 </span>
@@ -217,27 +238,6 @@
     </div>
     <div class="read-more">
       <a href="../../post/graph-database-neo4j-notes/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="../../post/grafana-dev-setup/">CentOS 上搭建 grafana 开发环境</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-11-22 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安
-    </div>
-    <div class="read-more">
-      <a href="../../post/grafana-dev-setup/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>

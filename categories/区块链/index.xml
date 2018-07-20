@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>区块链 on Into the Unknown</title>
+    <link>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</link>
+    <description>Recent content in 区块链 on Into the Unknown</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 20 Jul 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>链研究笔记</title>
+      <link>/post/20180720-note-on-sidechain/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180720-note-on-sidechain/</guid>
+      <description>侧链研究笔记 问题清单 1. 为什么需要这个技术？它解决什么已知的问题？ 侧链协议产生的原动力其实来源于其他区块链的创新威胁。侧链诞生前，众多“山寨币</description>
+    </item>
+    
+  </channel>
+</rss>
