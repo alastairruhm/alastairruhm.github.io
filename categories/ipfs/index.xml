@@ -6,17 +6,26 @@
     <description>Recent content in Ipfs on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/ipfs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>[翻译] 理解 IPFS 白皮书 第一部分</title>
-      <link>/post/20180720-understanding-the-ipfs-white-paper-part-1/</link>
-      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      <title>[翻译] IPFS 白皮书</title>
+      <link>/post/20180718-ipfs-white-paper/</link>
+      <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180720-understanding-the-ipfs-white-paper-part-1/</guid>
+      <guid>/post/20180718-ipfs-white-paper/</guid>
+      <description>IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the</description>
+    </item>
+    
+    <item>
+      <title>[翻译] 理解 IPFS 白皮书 第一部分</title>
+      <link>/post/20180716-understanding-the-ipfs-white-paper-part-2/</link>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180716-understanding-the-ipfs-white-paper-part-2/</guid>
       <description>理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white</description>
     </item>
     

@@ -57,7 +57,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-07-12T00:00:00&#43;00:00"/>
+<meta property="og:updated_time" content="2017-07-18T00:00:00&#43;00:00"/>
 
 
 
@@ -140,6 +140,27 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="../../post/go-test-technique/">golang test techniques</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-07-18 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &lt; len(nums); i++ { for j := i + 1; j &lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,
+    </div>
+    <div class="read-more">
+      <a href="../../post/go-test-technique/" class="read-more-link">Read more..</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="../../post/kubernetes-monitoring/">kubernetes 集群监控方案研究</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-07-12 </span>
@@ -217,27 +238,6 @@
     </div>
     <div class="read-more">
       <a href="../../post/push-vs-pull-monitoring/" class="read-more-link">Read more..</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="../../post/go-single-instance/">sync.Once 实现 golang 中的单例模式</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-06-05 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &quot;sync&quot;
-    </div>
-    <div class="read-more">
-      <a href="../../post/go-single-instance/" class="read-more-link">Read more..</a>
     </div>
   </div>
 </article>

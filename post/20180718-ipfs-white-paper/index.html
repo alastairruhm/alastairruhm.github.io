@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[翻译] IPFS 白皮书 - Into the Unknown</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ruhm" />
+  <meta name="description" content="IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.44" />
+
+
+<link rel="canonical" href="../../post/20180718-ipfs-white-paper/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="manifest" href="../../manifest.json">
+<link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="../../dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="../../lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="[翻译] IPFS 白皮书" />
+<meta property="og:description" content="IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/20180718-ipfs-white-paper/" />
+
+
+
+<meta property="article:published_time" content="2018-07-18T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-07-18T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="[翻译] IPFS 白皮书">
+<meta itemprop="description" content="IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the">
+
+
+<meta itemprop="datePublished" content="2018-07-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="20026">
+
+
+
+<meta itemprop="keywords" content="ipfs," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[翻译] IPFS 白皮书"/>
+<meta name="twitter:description" content="IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="../../" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="../../">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="../../post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="../../tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="../../categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="../../" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="../../">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[翻译] IPFS 白皮书</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-18 </span>
+        <div class="post-category">
+            
+              <a href="../../categories/ipfs/"> ipfs </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#ipfs-内容寻址-版本控制的p2p文件系统-草案-3">IPFS-内容寻址，版本控制的P2P文件系统（草案 3）</a></li>
+<li><a href="#abstract">ABSTRACT</a></li>
+<li><a href="#1-introduction">1. INTRODUCTION</a></li>
+<li><a href="#2-背景-background">2. 背景 BACKGROUND</a>
+<ul>
+<li><a href="#2-1-distributed-hash-tables">2.1 Distributed Hash Tables</a>
+<ul>
+<li><a href="#2-1-1-kademlia-dht">2.1.1 Kademlia DHT</a></li>
+<li><a href="#2-1-2-coral-dsht">2.1.2 Coral DSHT</a></li>
+<li><a href="#2-1-3-s-kademlia-dht">2.1.3 S/Kademlia DHT</a></li>
+</ul></li>
+<li><a href="#2-2-block-exchanges-bittorrent">2.2 Block Exchanges - BitTorrent</a></li>
+<li><a href="#2-3-version-control-systems-git">2.3 Version Control Systems - Git</a></li>
+<li><a href="#2-4-self-certified-filesystems-sfs">2.4 Self-Certified Filesystems - SFS</a></li>
+<li><a href="#3-2-network">3.2 Network</a>
+<ul>
+<li><a href="#3-2-1-note-on-peer-addressing">3.2.1 Note on Peer Addressing</a></li>
+</ul></li>
+<li><a href="#3-3-routing">3.3 Routing</a></li>
+<li><a href="#3-4-块交换-bitswap协议-block-exchange-bitswap-protocol">3.4 块交换-BitSwap协议（Block Exchange - BitSwap Protocol）</a>
+<ul>
+<li><a href="#3-4-1-bitswap-信用-bitswap-protocol">3.4.1 BitSwap 信用（BitSwap Protocol）</a></li>
+<li><a href="#3-4-2-bitswap-策略-bitswap-strategy">3.4.2 BitSwap 策略（BitSwap Strategy）</a></li>
+<li><a href="#3-4-3-bitswap-账本-bitswap-ledger">3.4.3 BitSwap 账本（BitSwap Ledger）</a></li>
+<li><a href="#3-4-4-bitswap-规格说明-bitswap-specification">3.4.4 BitSwap 规格说明（BitSwap Specification）</a></li>
+</ul></li>
+<li><a href="#3-5-object-merkle-dag">3.5  Object Merkle DAG</a></li>
+</ul></li>
+<li><a href="#format">format</a></li>
+<li><a href="#example">example</a>
+<ul>
+<li>
+<ul>
+<li><a href="#3-7-2-human-friendly-names">3.7.2 Human Friendly Names</a></li>
+</ul></li>
+<li><a href="#3-8-using-ipfs">3.8 Using IPFS</a></li>
+</ul></li>
+<li><a href="#4-the-future">4. THE FUTURE</a></li>
+<li><a href="#5-acknowledgments">5. ACKNOWLEDGMENTS</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="ipfs-内容寻址-版本控制的p2p文件系统-草案-3">IPFS-内容寻址，版本控制的P2P文件系统（草案 3）</h1>
+
+<p>对<a href="https://github.com/ipfs/papers/raw/master/ipfs-cap2pfs/ipfs-p2p-file-system.pdf">Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System.</a>
+的翻译整理。</p>
+
+<h1 id="abstract">ABSTRACT</h1>
+
+<blockquote>
+<p>The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the same system of fles. In some ways, IPFS is similar to the Web, but IPFS could be seen as a single BitTorrent swarm, exchanging objects within one Git repository. In other words, IPFS provides a high throughput content-addressed block storage model, with content-addressed hyper links. This forms a generalized Merkle
+DAG, a data structure upon which one can build versioned file systems, blockchains, and even a Permanent Web. IPFS
+combines a distributed hashtable, an incentivized block exchange, and a self-certifying namespace. IPFS has no single
+point of failure, and nodes do not need to trust each other.</p>
+</blockquote>
+
+<p>星际文件系统（IPFS）是一种对等分布式文件系统，旨在将所有计算设备连接到相同的文件系统。在某些方面，IPFS和Web很像，但IPFS可以看作是一个BitTorrent集群，并在Git仓库中做对象交换。换句话来说，IPFS提供了高吞吐的基于内容寻址的块存储模型和超链接。这形成了一个广义的默克尔有向无环图（Merkle DAG）数据结构，可以用这个数据结构构建版本化文件系统，区块链，甚至是永久性网站。IPFS结合了分布式哈希表，带激励机制的块交换和自认证的命名空间。IPFS没有单点故障，节点不需要相互信任。</p>
+
+<h1 id="1-introduction">1. INTRODUCTION</h1>
+
+<blockquote>
+<p>There have been many attempts at constructing a global distributed file system. Some systems have seen signifi
+cant success, and others failed completely. Among the academic attempts, AFS [6] has succeeded widely and is still
+in use today. Others [7, ?] have not attained the same success. Outside of academia, the most successful systems
+have been peer-to-peer file-sharing applications primarily geared toward large media (audio and video). Most no-
+tably, Napster, KaZaA, and BitTorrent [2] deployed large file distribution systems supporting over 100 million simul-
+taneous users. Even today, BitTorrent maintains a massive deployment where tens of millions of nodes churn daily [16].These applications saw greater numbers of users and files distributed than their academic file system counterparts. However, the applications were not designed as infrastructure to be built upon. While there have been successful repurposings, no general file-system has emerged that others global,low-latency, and decentralized distribution.</p>
+</blockquote>
+
+<p>在构建全球化的分布式文件系统方面，已经有很多尝试。一些系统取得了重要的成功，而另一些却彻底的失败了。在学术界的尝试中，AFS[6]取得了广泛的成功，至今也还在使用。另一些[7,?]就没有获得一样的成功。学术之外，最成功的系统是面向大多媒体（音频和视频）的点对点，文件共享的应用系统。最值得注意的是，Napster，KaZaA和BitTorrent[2]部署了大型文件分发系统，支持超过1亿的同步用户。即使在今天， BitTorrent也维持着每天千万节点的活跃数[16]。可以看到，这些应用程序分发的用户和文件数量比学术文件系统对应数量多。但是，这些应用不是作为基础设施来设计的。虽然取得了成功的应用，但没有出现一种通用的文件系统，支持全球化，低延迟，去中心化分发。</p>
+
+<blockquote>
+<p>Perhaps this is because a “good enough&rdquo; system for most use cases already exists: HTTP. By far, HTTP is the most successful “distributed system of files&rdquo; ever deployed. Coupled with the browser, HTTP has had enormous technical and social impact. It has become the de facto way to transmit files across the internet. Yet, it fails to take advantage of dozens of brilliant file distribution techniques invented in the last fifteen years. From one prespective, evolving Web infrastructure is near-impossible, given the number of backwards compatibility constraints and the number of strong parties invested in the current model. But from another perspective, new protocols have emerged and gained wide use since the emergence of HTTP. What is lacking is upgrading design: enhancing the current HTTP web, and introducing new functionality without degrading user experience.</p>
+</blockquote>
+
+<p>可能是适用大多数场景的“足够好用”的系统已经存在的原因：它就是HTTP。到目前为止，HTTP是最成功的“文件发布系统”。与浏览器相结合，HTTP在技术和社会上有巨大的影响力。它已成为互联网文件传输的事实标准。然而，它没有采用最近15年发明的数十种先进的文件分发技术。从一个角度来看，考虑到向后兼容性约束的数量以及对当前模型感兴趣的强大团队的数量，演进Web基础架构几乎不可能实现。但从另一个角度来看，自HTTP出现以来，新的协议已经出现并得到广泛的应用。 缺乏的是升级设计：增强当前的HTTP网络，并引入新功能而不会降低用户体验。</p>
+
+<blockquote>
+<p>Industry has gotten away with using HTTP this long because moving small files around is relatively cheap, even for
+small organizations with lots of traffic. But we are entering a new era of data distribution with new challenges: (a)
+hosting and distributing petabyte datasets, (b) computing on large data across organizations, &copy; high-volume high-
+denition on-demand or real-time media streams, (d) versioning and linking of massive datasets, (e) preventing ac-
+cidental disappearance of important files, and more. Many of these can be boiled down to “lots of data, accessible ev-
+erywhere.&rdquo; Pressed by critical features and bandwidth concerns, we have already given up HTTP for different data
+distribution protocols. The next step is making them part of the Web itself.</p>
+</blockquote>
+
+<p>业界长期使用HTTP，因为移动小文件相对便宜，即使对于流量大的小型组织也是如此。但我们正在进入了一个数据分发的新时代，随之而来的是新的挑战：(a)托管和分发PB级的数据集，（b）跨组织的大数据计算，（c）大容量高清晰度按需或实时媒体流，（d）大规模的数据集版本化和链接，（e）防止重要文件意外丢失，等等。许多挑战可以归结来“大量数据，随处访问”。受关键特性和带宽问题的影响，我们已经放弃了HTTP，而使用不同的数据分布协议。下一步是让这些协议成为Web本身的一部分。</p>
+
+<blockquote>
+<p>Orthogonal to efficient data distribution, version control systems have managed to develop important data collaboration workflows. Git, the distributed source code version control system, developed many useful ways to model and
+implement distributed data operations. The Git toolchain offers others versatile versioning functionality that large file distribution systems severely lack. New solutions inspired by Git are emerging, such as Camlistore [?], a personal file storage system, and Dat [?] a data collaboration toolchain and dataset package manager. Git has already influenced distributed file system design [9], as its content addressed Merkle DAG data model enables powerful file distribution
+strategies. What remains to be explored is how this data structure can influence the design of high-throughput oriented file systems, and how it might upgrade the Web itself.</p>
+</blockquote>
+
+<p>与高效的数据分发相对应，版本控制系统已经设法开发了重要数据的协作工作流。分布式源代码版本控制系统Git开发了许多有用的方法来建模和实现分布式数据操作。 Git工具链提供了大型文件分发系统严重缺乏的多种版本功能。 受Git启发的新解决方案正在兴起，如Camlistore [?]，个人文件存储系统，以及Dat [?]数据协作工具链和数据集包管理器。 Git已经影响了分布式文件系统设计[9]，因为它的内容寻址Merkle DAG数据模型可以实现强大的文件分发策略。 还有待探讨的是，这种数据结构如何影响高吞吐量文件系统的设计，以及它如何升级Web本身。</p>
+
+<blockquote>
+<p>This paper introduces IPFS, a novel peer-to-peer version controlled file system seeking to reconcile these issues. IPFS
+synthesizes learnings from many past successful systems.Careful interface-focused integration yields a system greater
+than the sum of its parts. The central IPFS principle is modeling all data as part of the same Merkle DAG</p>
+</blockquote>
+
+<p>本文介绍IPFS，一种新颖的对等网络版本控制的文件系统，旨在解决这些问题。 IPFS综合了过去许多成功的系统的经验教训。精心设计、专注于接口集成的系统产生的效益大于构建它的各个部件的总和。IPFS的核心原则是将所有数据建模为同一Merkle DAG的一部分。</p>
+
+<h1 id="2-背景-background">2. 背景 BACKGROUND</h1>
+
+<p>本章节回顾成功的对等系统的重要特性，IPFS结合了这些特性。</p>
+
+<h2 id="2-1-distributed-hash-tables">2.1 Distributed Hash Tables</h2>
+
+<blockquote>
+<p>Distributed Hash Tables (DHTs) are widely used to coordinate and maintain metadata about peer-to-peer systems.
+For example, the BitTorrent Mainline DHT tracks sets of peers part of a torrent swarm.</p>
+</blockquote>
+
+<p>分布式散列表（DHT）被广泛用于协调和维护对等系统的元数据。例如，BitTorrent MainlineDHT可以跟踪Torrent群组的一些对等节点。</p>
+
+<h3 id="2-1-1-kademlia-dht">2.1.1 Kademlia DHT</h3>
+
+<blockquote>
+<p>Kademlia [10] is a popular DHT that provides:</p>
+</blockquote>
+
+<ol>
+<li>Efficient lookup through massive networks: queries on average contact dlog2(n)e nodes. (e.g. 20 hops for a
+network of 10; 000; 000 nodes).</li>
+<li>Low coordination overhead: it optimizes the number of control messages it sends to other nodes.</li>
+<li>Resistance to various attacks by preferring long-lived nodes.</li>
+<li>Wide usage in peer-to-peer applications, including Gnutella and BitTorrent, forming networks of over 20
+million nodes [16].</li>
+</ol>
+
+<p>Kademlia[10]是一个流行的分布式哈希表（DHT），它提供了：</p>
+
+<ol>
+<li>大规模网络的高效查询：平均查询“log2(n)”节点。（例如，对于10,000,000个节点的网络为20跳）。</li>
+<li>低协调开销：它优化了发送给其他节点的控制消息的数量。</li>
+<li>通过选择长期在线节点来抵抗各种攻击。</li>
+<li>在包括Gnutella和BitTorrent在内的对等应用中广泛使用，形成了超过2000万个节点的网络[16]。</li>
+</ol>
+
+<h3 id="2-1-2-coral-dsht">2.1.2 Coral DSHT</h3>
+
+<blockquote>
+<p>While some peer-to-peer file systems store data blocks directly in DHTs, this “wastes storage and bandwidth, as data must be stored at nodes where it is not needed&rdquo; [5]. The Coral DSHT extends Kademlia in three particularly important ways:</p>
+</blockquote>
+
+<ol>
+<li>Kademlia stores values in nodes whose ids are“nearest&rdquo;(using XOR-distance) to the key. This does not take
+into account application data locality, ignores “far&rdquo;nodes that may already have the data, and force“\nearest&rdquo; nodes to store it, whether they need it or not.This wastes significant storage and bandwith. Instead,Coral stores addresses to peers who can provide the data blocks.</li>
+<li>Coral relaxes the DHT API from get_value(key) to get_any_values(key) (the \sloppy&rdquo; in DSHT). This
+still works since Coral users only need a single (working) peer, not the complete list. In return, Coral can
+distribute only subsets of the values to the \nearest&rdquo;nodes, avoiding hot-spots (overloading all the nearest
+nodes when a key becomes popular).</li>
+<li>Additionally, Coral organizes a hierarchy of separate DSHTs called clusters depending on region and size.
+This enables nodes to query peers in their region</li>
+</ol>
+
+<p>一些对等文件系统直接将数据块文件存在DHTs中，这“浪费存储和带宽，因为必须数据存储在实际不需要的它的节点上”[5]。Coral DSHT在3个特别重要的方面扩展Kademlia：</p>
+
+<ol>
+<li>Kademlia将值存储在IDs与结点“最接近”(使用XOR-distance方法)的节点中。这样做没有考虑应用程序数据局部性，忽略了“远”节点可能已经有数据，并强制“最近”的节点存储数据，无论这些节点是否需要。这浪费了大量的存储和带宽。相反，Coral存储的是可以提供数据块的节点地址。</li>
+<li>Coral将DHT API的get_value(key)修改成get_any_values(key)（DSHT中的“sloppy”）。Coral用户只要一个（在线）节点，而不是完整列表就可以正常工作。作为回报，Coral可以仅将值的子集分配到“最近”的节点，避免热点（当某个Key变得流行时，重载所有最近的节点）。</li>
+<li>另外，Coral根据区域和大小组织了一个称为群集的独立DSHT层次结构。这允许节点首先查询其区域中的节点，“查找附近的数据而不查询远程节点”[5]并大大减少查找的延迟。</li>
+</ol>
+
+<h3 id="2-1-3-s-kademlia-dht">2.1.3 S/Kademlia DHT</h3>
+
+<blockquote>
+<p>S/Kademlia [1] extends Kademlia to protect against malicious attacks in two particularly important ways:</p>
+</blockquote>
+
+<ol>
+<li>S/Kademlia provides schemes to secure NodeId generation, and prevent Sybill attacks. It requires nodes to
+create a PKI key pair, derive their identity from it,and sign their messages to each other. One scheme
+includes a proof-of-work crypto puzzle to make generating Sybills expensive.</li>
+<li>S/Kademlia nodes lookup values over disjoint paths,in order to ensure honest nodes can connect to each
+other in the presence of a large fraction of adversaries in the network. S/Kademlia achieves a success rate of
+0.85 even with an adversarial fraction as large as half of the nodes.</li>
+</ol>
+
+<p>S/Kademlia [1]在两个特别重要的方面扩展了Kademlia，用来防止恶意攻击。</p>
+
+<ol>
+<li>S/Kademlia提供了保护NodeId生成和防止SyBill攻击的方案。它需要节点生成公私钥对，从中获取标识，并相互签名。 其中一种方案包括一个工作证明密码难题，增加Sybills攻击的成本。</li>
+<li>S/Kademlia节点在不相交的路径上查找值，是为了保证网络中存在很大一部分恶意节点的情况下，节点也能相互连接。即使恶意节点的高达一半，S/Kademlia连接的成功率为0.85。</li>
+</ol>
+
+<h2 id="2-2-block-exchanges-bittorrent">2.2 Block Exchanges - BitTorrent</h2>
+
+<p>2.2 块交换-BitTorrent
+&gt;BitTorrent [3] is a widely successful peer-to-peer filesharing system, which succeeds in coordinating networks of untrusting peers (swarms) to cooperate in distributing pieces of files to each other. Key features from BitTorrent and its
+ecosystem that inform IPFS design include:</p>
+
+<ol>
+<li>BitTorrent&rsquo;s data exchange protocol uses a quasi tit-for-tat strategy that rewards nodes who contribute to
+each other, and punishes nodes who only leech others&rsquo; resources.</li>
+<li>BitTorrent peers track the availability of file pieces,prioritizing sending rarest pieces first. This takes load
+off seeds, making non-seed peers capable of trading with each other.</li>
+<li>BitTorrent&rsquo;s standard tit-for-tat is vulnerable to some exploitative bandwidth sharing strategies. PropShare [8]
+is a different peer bandwidth allocation strategy that better resists exploitative strategies, and improves the
+performance of swarms.</li>
+</ol>
+
+<p>BitTorrent[3]是一个非常成功的点对点文件共享系统，它成功地协调了不信任的对等网络节点(集群)相互分发文件块。IPFS从BitTorrent和它的生态系统的关键特征获得设计灵感：</p>
+
+<ol>
+<li>BitTorrent的数据交换协议使用了类似针锋相对（tit-for-tat）的策略，即奖励贡献节点，惩罚只索取的节点。</li>
+<li>BitTorrent节点会跟踪文件块的可用性，会优先发送最稀缺的文件块。这减轻了种子节点的负担，使得非种子节点能相互交换数据(交易)。</li>
+<li>BitTorrent的以牙还牙的标准很容易受到一些剥削性带宽共享策略的影响。PropShare[8]是一种不同的对等带宽分配策略，它更好地抵抗剥削性策略，提高集群的性能。</li>
+</ol>
+
+<h2 id="2-3-version-control-systems-git">2.3 Version Control Systems - Git</h2>
+
+<p>2.3 版本控制系统-Git
+&gt;Version Control Systems provide facilities to model files changing over time and distribute different versions efciently.
+The popular version control system Git provides a powerful Merkle DAG  object model that captures changes to a file system tree in a distributed-friendly way.</p>
+
+<ol>
+<li>Immutable objects represent Files (blob), Directories(tree), and Changes (commit).</li>
+<li>Objects are content-addressed, by the cryptographic hash of their contents.</li>
+<li>Links to other objects are embedded, forming a Merkle DAG. This provides many useful integrity and workflow properties.</li>
+<li>Most versioning metadata (branches, tags, etc.) are simply pointer references, and thus inexpensive to cre-
+ate and update.</li>
+<li>Version changes only update references or add objects.</li>
+<li>Distributing version changes to other users is simply transferring objects and updating remote references.</li>
+</ol>
+
+<p>版本控制系统为随时间变化的文件建模和有效分发不同版本提供了设施。流行的版本控制系统Git提供了强大的默克尔有向无环图（Merkle DAG）[^2]对象模型，它以分布式友好的方式控制文件系统树的变更。</p>
+
+<ol>
+<li>不可变的对象表示文件（blob），目录（树）和更改（提交）。</li>
+<li>对象通过内容的加密散列进行内容寻址。</li>
+<li>与其他对象的链接是嵌入的，形成了一个Merkle DAG。这提供了许多有用的完整性和工作流属性。</li>
+<li>大多数版本元数据（分支，标签等）都只是指针引用，因此创建和更新的代价非常小。</li>
+<li>版本变更只是更新引用或者添加对象。</li>
+<li>分发版本变更给其他用户只是简单的传输对象和更新远程引用。</li>
+</ol>
+
+<h2 id="2-4-self-certified-filesystems-sfs">2.4 Self-Certified Filesystems - SFS</h2>
+
+<p>2.4 自认证的文件系统-SFS</p>
+
+<blockquote>
+<p>SFS [12, 11] proposed compelling implementations of both(a) distributed trust chains, and (b) egalitarian shared global namespaces. SFS introduced a technique for building Self Certified Filesystems: addressing remote file systems using the following scheme</p>
+</blockquote>
+
+<p>SFS[12,11]提出的关于(a)分布式信任链和(b)全局对等共享命名空间的实现方案令人信服。SFS引入了文件自认证技术，使用以下方案寻址远程文件系统</p>
+
+<pre><code class="language-/sfs/&lt;Location&gt;:&lt;HostID&gt;```">
+&gt;where Location is the server network address, and:
+
+基中 Location 就是网络地址，而 HostID
+
+```HostID = hash(public_key || Location)```
+
+&gt;Thus the name of an SFS file system certifies its server.The user can verify the public key offered by the server,
+negotiate a shared secret, and secure all traffic. All SFS instances share a global namespace where name allocation
+is cryptographic, not gated by any centralized body.
+
+因此，SFS文件系统的名称证明了它的服务器。用户可以验证服务器提供的公钥，协商共享秘密，并保证所有的通信。所有SFS实例都共享一个全局命名空间，其中的名称分配是加密的，而不是由任何集中主体设置的。
+
+# 3.IPFS DESIGN
+
+IPFS 设计
+&gt;IPFS is a distributed file system which synthesizes successful ideas from previous peer-to-peer sytems, including
+DHTs, BitTorrent, Git, and SFS. The contribution of IPFS is simplifying, evolving, and connecting proven techniques
+into a single cohesive system, greater than the sum of its parts. IPFS presents a new platform for writing and de-
+ploying applications, and a new system for distributing and versioning large data. IPFS could even evolve the web itself.
+
+IPFS 是一个发布式文件系统，它从之前的 DHTs，BitTorrent，Git和SFS等对等系统中吸取成功的想法。IPFS的贡献在于通过简化和演化的方式将已证实的技术整合成在一个内聚系统，而不只是简单的组合。IPFS提供了一个编写和部署应用的新平台，以及一个用于分发和版本化大量数据的新系统。IPFS甚至可以进化网络本身。
+
+&gt;IPFS is peer-to-peer; no nodes are privileged. IPFS nodes store IPFS objects in local storage. Nodes connect to each
+other and transfer objects. These objects represent files and other data structures. The IPFS Protocol is divided into a
+stack of sub-protocols responsible for dierent functionality:
+
+
+1. Identities - manage node identity generation and verification. Described in Section 3.1.
+2. Network - manages connections to other peers, uses various underlying network protocols. Configurable.
+Described in Section 3.2.
+3. Routing - maintains information to locate specific peers and objects. Responds to both local and re-
+mote queries. Defaults to a DHT, but is swappable.Described in Section 3.3.
+4. Exchange - a novel block exchange protocol (BitSwap)that governs efficient block distribution. Modelled as
+a market, weakly incentivizes data replication. Trade Strategies swappable. Described in Section 3.4.
+5. Objects - a Merkle DAG of content-addressed immutable objects with links. Used to represent arbitrary datastructures, e.g. file hierarchies and communication systems. Described in Section 3.5.
+6. Files - versioned file system hierarchy inspired by Git.
+Described in Section 3.6.
+7.Naming - A self-certifying mutable name system. Described in Section 
+
+IPFS 是对等网络;没有特权节点。IPFS 的节点在本地存储对象。节点连接其他节点并交换对象。这些对象表示文件和其他数据结构。IPFS 协议划分为一组负责不同功能的子协议：
+
+1. 身份 - 管理节点身份生成和验证， 在3.1节描述。
+2. 网络 - 管理与其他节点的连接，使用各种底层网络协议。配置化。在3.2节描述。
+3. 路由 - 维护信息以定位指定节点和对象的信息。响应本地和远程的查询。默认为DH​​T，但可更换。在3.3节描述。
+4. 交换 - 一种支持有效块分配的新型块交换协议（BitSwap）。模拟市场，弱化数据复制。贸易策略可替换。在3.4节描述。
+5. 对象 - 具有链接的内容寻址不可变对象的默克尔有向无环图（Merkle DAG）。用于表示任意数据结构，例如文件层次和通信系统。在3.5节描述。
+6. 文件 - 由Git启发的版本化文件系统层次结构。在3.6节描述。
+7. 命名 - 自我认证的可变名称系统。在3.7节描述。
+
+&gt;These subsystems are not independent; they are integrated and leverage blended properties. However, it is useful to describe them separately, building the protocol stack from the bottom up.
+Notation: data structures and functions below are specified in Go syntax.
+
+这些子系统不是孤立的，它们是结合在一起，相互利用各自的属性。但是，分开描述它们是有用的，自底向上的构建协议栈。
+
+注意：以下的数据结构和函数用Go语言表示。
+
+## 3.1 Identities
+3.1 身份
+&gt;Nodes are identified by a NodeId, the cryptographic hash3 of a public-key, created with S/Kademlia's static crypto puz-
+zle [1]. Nodes store their public and private keys (encrypted with a passphrase). Users are free to instatiate a “new&quot; node identity on every launch, though that loses accrued network benefits. Nodes are incentivized to remain the same.
+
+节点由一个 NodeId 标识，它是一个公钥的密码散列[^3]，是由S/Kademlia的静态密码难题[1]生成的。节点存储其公私钥（用密码加密）。用户可以在每次启动时自由地设置一个“新”节点身份，尽管这会损失积累的网络利益。激励节点保持不变。
+
+```golang
+type NodeId Multihash
+type Multihash []byte
+// self-describing cryptographic hash digest
+type PublicKey []byte
+type PrivateKey []byte
+// self-describing keys
+type Node struct {
+    NodeId NodeID
+    PubKey PublicKey
+    PriKey PrivateKey
+}
+</code></pre>
+
+<blockquote>
+<p>S/Kademlia based IPFS identity generation:</p>
+</blockquote>
+
+<p>IPFS基于S/Kademlia生成身份:</p>
+
+<pre><code class="language-golang">difficulty = &lt;integer parameter&gt;
+n = Node{}
+do {
+    n.PubKey, n.PrivKey = PKI.genKeyPair()
+    n.NodeId = hash(n.PubKey)
+    p = count_preceding_zero_bits(hash(n.NodeId))
+} while (p &lt; difficulty)
+</code></pre>
+
+<p>Upon first connecting, peers exchange public keys, and check: hash(other.PublicKey) equals other.NodeId. If not, the connection is terminated.</p>
+
+<p>第一次连接时，节点相互交换公钥，并进行检查：节点分钥的哈希是否与节点ID相等。如果不是，终止连接。</p>
+
+<blockquote>
+<p>Note on Cryptographic Functions.</p>
+</blockquote>
+
+<p>加密函数的注意事项：</p>
+
+<blockquote>
+<p>Rather than locking the system to a particular set of function choices, IPFS favors self-describing values. Hash digest values are stored in multihash format, which includes a short header specifying the hash function used, and the
+digest length in bytes. Example:
+<function code><digest length><digest bytes>
+This allows the system to (a) choose the best function for the use case (e.g. stronger security vs faster performance),
+and (b) evolve as function choices change. Self-describing values allow using different parameter choices compatibly.</p>
+</blockquote>
+
+<p>IPFS更喜欢自描述的值，而不是锁定系统到一组特定的函数选择中。Hash摘要的值被存储在一个multihash格式中，它包括一个指明所使用的hash函数的短头部，以及摘要长度。例如：</p>
+
+<pre><code>       ```&lt;function code&gt;&lt;digest length&gt;&lt;digest bytes&gt;```
+</code></pre>
+
+<p>它允许系统(a)为用例选择最佳函数（例如：更强的安全性VS更快的性能），（b）随着功能选择的变化而演化.
+自描述的值允许使用合适的不同的参数选择</p>
+
+<h2 id="3-2-network">3.2 Network</h2>
+
+<p>3.2 网络
+&gt;IPFS nodes communicate regualarly with hundreds of other nodes in the network, potentially across the wide internet.
+The IPFS network stack features:
+* Transport: IPFS can use any transport protocol,and is best suited for WebRTC DataChannels <a href="for browser connectivity">?</a> or uTP(LEDBAT [14]).
+* Reliability: IPFS can provide reliability if underlying networks do not provide it, using UTP (LEDBAT [14])
+or SCTP [15].
+* Connectivity: IPFS also uses the ICE NAT traversal techniques [13].
+* Integrity: optionally checks integrity of messages using a hash checksum.
+* Authenticity: optionally checks authenticity of messages using HMAC with sender&rsquo;s public key.</p>
+
+<p>IPFS 节点节点定期在网络上的其他节点通信，跨越广域网。</p>
+
+<p>IPFS网络的特点：
+* 传输：IPFS可以使用任何传输协议，它最适合WebRTC DataChannels
+* 可靠性：如果底层网络不提供可靠性，IPFS能提供。如当使用UTP或SCTP时。
+* 连通性：IPFS也使用ICE NAT 穿越技术
+* 完整性：可选择使用hash校验和检查消息的完整性。
+* 真实性：可以选择使用HMAC与发送方的公钥检查消息的真实性。</p>
+
+<h3 id="3-2-1-note-on-peer-addressing">3.2.1 Note on Peer Addressing</h3>
+
+<p>3.2.1关于对等地址的注释
+&gt;IPFS can use any network; it does not rely on or assume access to IP. This allows IPFS to be used in overlay networks.
+IPFS stores addresses as multiaddr formatted byte strings for the underlying network to use. multiaddr provides a way
+to express addresses and their protocols, including support for encapsulation. For example:</p>
+
+<pre><code class="language-#an"> /ip4/10.20.30.40/sctp/1234/
+   #an SCTP/IPv4 connection proxied over TCP/IPv4
+/ip4/5.6.7.8/tcp/5678/ip4/1.2.3.4/sctp/1234/
+</code></pre>
+
+<p>IPFS可以使用任何网络；它不依赖或假定访问IP. 这允许IPFS用于覆盖网络。对于使用底层网络，IPFS存储地址作为格式化的多地址字符串。多地址提供了一种方法来表示地址和协议。包括对封装的支持。例如：</p>
+
+<pre><code>#一个SCTP/IPv4连接
+ /ip4/10.20.30.40/sctp/1234/
+#一个基于TCP/IP代理的SCTP/IPv4连接
+/ip4/5.6.7.8/tcp/5678/ip4/1.2.3.4/sctp/1234/
+</code></pre>
+
+<h2 id="3-3-routing">3.3 Routing</h2>
+
+<p>3.3 路由
+&gt;IPFS nodes require a routing system that can find (a)other peers&rsquo; network addresses and (b) peers who can serve
+particular objects. IPFS achieves this using a DSHT based on S/Kademlia and Coral, using the properties discussed in
+2.1. The size of objects and use patterns of IPFS are similar to Coral [5] and Mainline [16], so the IPFS DHT makes a
+distinction for values stored based on their size. Small values (equal to or less than 1KB) are stored directly on the DHT. For values larger, the DHT stores references, which are the NodeIds of peers who can serve the block.
+The interface of this DSHT is the following:</p>
+
+<p>IPFS节点需要一个路由系统，该路由系统可以找到(a)其他对等点的网络地址 (b)能为特定对象服务的对等点。</p>
+
+<p>IPFS使用基于S/Kademlia 和Coral的DSHT实现上述功能，使用的是2.1节所讨论的属性。对象的大小和IPFS的用模式与Coral和Mainline类似,因此IPFS DHT根据存储的大小对存储的值进行区分。小值（等于或小于1KB）直接存储在DHT。对于较大的值，DHT存储引用，引用是能服务块的对等点的NodeId.
+DSHT的接口如下：</p>
+
+<pre><code>type IPFSRouting interface {
+FindPeer(node NodeId)
+/ / gets a particular peer's network address
+SetValue(key []bytes, value []bytes)
+// stores a small metadata value in DHT
+GetValue(key []bytes)
+// retrieves small metadata value from DHT
+ProvideValue(key Multihash)
+// announces this node can serve a large value
+FindValuePeers(key Multihash, min int)
+// gets a number of peers serving a large value
+}
+Note: different use cases will call for substantially different routing systems (e.g. DHT in wide network, static HT
+in local network). Thus the IPFS routing system can be swapped for one that fits users' needs. As long as the interface above is met, the rest of the system will continue to function.
+
+</code></pre>
+
+<p>注释：不同的用例将调用实质上不同的路由系统。(例如：广域网中的DHT，局域网中的静态HT).因此，IPFS路由系统可以换成符合用户需求的路由系统。只要满足上面的接口，系统的其余部分将继续运行。</p>
+
+<h2 id="3-4-块交换-bitswap协议-block-exchange-bitswap-protocol">3.4 块交换-BitSwap协议（Block Exchange - BitSwap Protocol）</h2>
+
+<p>IPFS 使用受 BitTorrent 启发的 BitSwap 协议，即通过对等节点间交换数据块来分发数据。和 BitTorrent 一样， BitSwap 的对等节点总是向其他节点搜索自己需要的一组数据块（want_list），同时作为交换，向其他节点提供自己已有的数据库（have_list）。和 BitTorrent 协议不同的是， BitSwap 不局限于一个 torrent 文件中的数据块。BitSwap 运行就像一个永久的数据市场：这个市场提供各个节点想要获取的数据块，而不管这些块哪个文件中的一部分。这些数据块可能来自文件系统中完全不相关的文件。所有节点都在这个市场进行交换。</p>
+
+<p>虽然交易系统的概念意味着虚拟货币是可以被创建出来的, 但是这就需要一个全局的账本来追踪货币的所有权和转移。这可以作为一个 BitSwap 策略来实现。会在未来的论文中讨论它。</p>
+
+<p>在基本的情况下，BitSwap 节点必须以块的形式提供直接的值。当跨节点的块的分布是互补的时候，节点各取所需，这能运行良好。但是情况并非总是如此。在某些情况下，节点必须为自己的？？块而工作。 这种情况是节点没有其对等节点所需的块（或这个节点什么也没有），它会以比去寻找自己想要的块更低的优先级去寻找对等节点想要的块。这会激励节点去缓存和传播稀有的（文件）片段，即使节点对这些片段不是自发的兴趣。</p>
+
+<h3 id="3-4-1-bitswap-信用-bitswap-protocol">3.4.1 BitSwap 信用（BitSwap Protocol）</h3>
+
+<p>协议必须带有激励机制，去激励节点在不需要任何数据的情况下也提供服务，因为节点可能有其他节点需要的数据块。 因此，BitSwap 的节点会积极的发送块，以期获得报酬。但必须防止吸血鬼节点（从来都不曾共享块的空负载节点），一个简单的类似信用的体系解决了这些问题：</p>
+
+<ol>
+<li>对等点会记录与其他节点的差额(以字节为单位)。</li>
+<li>对等节点按概率向债务节点方发送数据块，这个概率是一个随着债务增加而下降的函数。</li>
+</ol>
+
+<p>注意，如果节点决定不向某个节点发送数据，节点会在随后的 ignore_cooldown 超时时间内忽略该节点的请求。这样可以防止发送者尝试多次发送来提高概率（BitSwap 默认是10秒）。</p>
+
+<h3 id="3-4-2-bitswap-策略-bitswap-strategy">3.4.2 BitSwap 策略（BitSwap Strategy）</h3>
+
+<p>BitSwap 对等节点可能采用的不同策略对整个网络数据交换的性能有着显著不同的影响。在 BitTorrent中，除了指定了标准策略（tit-for-tat），也实现了其他不同的策略，从 BitTyrant [8]（尽可能分享），到 BitThief [8]（利用漏洞从不共享），到 PropShare [8]（按比例分享）。BitSwap 对等节点可以实现一系列类似的策略（好意的和恶意的）。对于函数的选择，目标应该是：</p>
+
+<ol>
+<li>最大化整个网络和节点的数据交换性能。</li>
+<li>防止空负载节点利用（策略漏洞）并导致交换性能下降。</li>
+<li>能有效抵制其他的未知策略。</li>
+<li>对可信任的对等节点更宽容。</li>
+</ol>
+
+<p>探索这些策略的空间是未来的工作。在实践中使用的一个函数是 <code>sigmoid</code>，通过负债比例来衡量：</p>
+
+<p>通过下面的公式一个节点和对等节点的负债比例r：</p>
+
+<p>$$r = {bytes_sent \over {bytes_recv + 1}}$$</p>
+
+<p>给定 r,就可以计算给负债节点的发送数据的概率：</p>
+
+<p>$$P(send | r ) = {1 − {1 \over  1 + exp(6 − 3r)}}$$</p>
+
+<p>正如图1所见，当节点的债务比率超过已建立的信用的两倍时，这个函数就会迅速下降。</p>
+
+<p><img src="media/15312761247086/15313798609176.png" alt="" /></p>
+
+<p>负债比是信任的衡量标准：对于之前成功的互换过很多数据的节点会宽容债务，而对未知节点会严格很多。这个(a) 给与那些创造很多节点的攻击者（女巫攻击）一个障碍。(b) 保护了之前成功交易节点之间的关系，即使这个节点暂时无法提供数据。&copy; 最终阻塞那些关系已经恶化的节点之间的通信，直到他们被再次证明。</p>
+
+<h3 id="3-4-3-bitswap-账本-bitswap-ledger">3.4.3 BitSwap 账本（BitSwap Ledger）</h3>
+
+<p>BitSwap节点保存了一个记录与所有其他节点之间交易的账本。这个可以让节点追踪历史记录以及避免被篡改。当激活了一个链接，BitSwap 节点就会互换它们账本信息。如果这些账本信息并不完全相同，账本将会重新初始化， 那些应计信贷和债务会丢失。 恶意节点会有意丢弃“这些“账本，希望清除自己的债务。节点是不太可能在失去了应计信用的情况下还能累积足够的债务去授权认证。伙伴节点可以不受约束地将其视为不当行为， 拒绝交易。</p>
+
+<pre><code class="language-golang">type Ledger struct {
+    owner NodeId
+    partner NodeId
+    bytes_sent int
+    bytes_recv int
+    timestamp Timestamp
+}
+</code></pre>
+
+<p>节点可以自由地保留账本历史，因为历史帐本不是正确操作所必须的，只有当前的账本条目才是有用的。节点也可以先从不太有用的帐本（旧的（其他对等节点可能不存在）和小的）开始，自由地对账本进行垃圾回收，</p>
+
+<h3 id="3-4-4-bitswap-规格说明-bitswap-specification">3.4.4 BitSwap 规格说明（BitSwap Specification）</h3>
+
+<p>BitSwap节点遵循一个简单协议。</p>
+
+<pre><code class="language-golang">// Additional state kept
+type BitSwap struct {
+    ledgers map[NodeId]Ledger
+    // Ledgers known to this node, inc inactive
+    active map[NodeId]Peer
+    // currently open connections to other nodes
+    need_list []Multihash
+    // checksums of blocks this node needs
+    have_list []Multihash
+    // checksums of blocks this node has
+}
+
+type Peer struct {
+    nodeid NodeId
+    ledger Ledger
+    // Ledger between the node and this peer
+    last_seen Timestamp
+    // timestamp of last received message
+    want_list []Multihash
+    // checksums of all blocks wanted by peer
+    // includes blocks wanted by peer’s peers
+}
+
+// Protocol interface:
+interface Peer {
+    open (nodeid :NodeId, ledger :Ledger);
+    send_want_list (want_list :WantList);
+    send_block (block :Block) -&gt; (complete :Bool);
+    close (final :Bool);
+}
+</code></pre>
+
+<p>Sketch of the lifetime of a peer connection:</p>
+
+<ol>
+<li>Open: peers send ledgers until they agree.</li>
+<li>Sending: peers exchange want_lists and blocks.</li>
+<li>Close: peers deactivate a connection.</li>
+<li>Ignored: (special) a peer is ignored (for the duration of a timeout) if a node&rsquo;s strategy avoids sending</li>
+</ol>
+
+<p>对等节点连接过程概述：</p>
+
+<ol>
+<li>打开：对等节点同意后发送帐本</li>
+<li>发送：对等结点交换需求列表（want_lists）和数据块</li>
+<li>关闭：对等结点断开连接</li>
+<li>忽略：如果一个结点的策略是避免发送数据，那么这个节点会忽略（在一段超时时间内）</li>
+</ol>
+
+<p><strong>Peer.open(NodeId, Ledger).</strong></p>
+
+<p>当连接的时候，节点通过帐本来初始化连接，这个帐本可能之前连接保存的帐本，也可能是一个全新的空账本。然后，发送将账本做为打开消息发送给对等节点。</p>
+
+<p>当接到一个打开消息时，对等节点决定是否保持这个连接。根据接收到的帐本，如果发送者不是一个可信节点（传输低于零或者有很大的债务），接收者可以忽略这个请求。会通过概率来计算一个忽略冷却超时时间（ignore_coolown timeout）,这样可以纠正错误和阻止攻击。</p>
+
+<p>如果连接被激活，接收者用本地账本来初始化一个 Peer 对象并设置 last_seen 时间戳。然后，它会将接受到的账本与自己的账本进行比较。如果两个账本完全匹配，那么这个链接就被打开，如果账本并不匹配，那么节点会创建一个全新的空账本并且发送。</p>
+
+<p><strong>Peer.send_want_list(WantList).</strong></p>
+
+<p>当连接建立后，节点会向所有连接的对等结点广播需求列表（want_list）。广播会在以下几种情况发生(a)打开连接后(b)随机间歇超时后&copy;want_list改变后(d)接收到一个新的块之后。</p>
+
+<p>当接收到需求列表（want_list），节点会将它保存下来，然后，检查是否有需要的数据块。如果有基于BitSwap 策略发送数据。</p>
+
+<p><strong>Peer.send_block(Block).</strong></p>
+
+<p>发送一个块很直截了当。节点只是传输数据块。接收者一旦接收到了所有数据，马上就会计算 multihash 校验来验证它是否是自己所需数据，然后返回确认信息。</p>
+
+<p>在完成一个正确的块传输之后，接受者会将此块从需要列表（need_list）移到已有列表（have_list）, 最后接收者和发送者都会更新它们的账本来表示传输的额外数据字节数。</p>
+
+<p>如果一个传输验证失败，发送者可能出故障，也可能是攻击者。接收者可以选择拒绝后面的交易。注意，BitSwap 是期望运行在一个可靠的传输通道上，所以最好在数据发送给 BitSwap 之前就发现传输错误，否则可能导致对一个诚实发送者的错误惩罚。</p>
+
+<p><strong>Peer.close(Bool).</strong></p>
+
+<p>传给 close 的参数，标识是否要关闭连接。如果参数值为 false，接收者可能会立即重新开启连接。这避免过早的关闭连接。</p>
+
+<p>一个对等节点会在下面两种情况关闭连接：</p>
+
+<ul>
+<li>在静默等待时间（silence_wait timeout)已经超时，并且没有接收到其他对等节点的任何信息（BitSwap 默认使用30秒），节点会发送 Peer.close(false)。</li>
+<li>在节点要退出和 BitSwap 要关闭的时候，节点会发送 Peer.close(true)。</li>
+</ul>
+
+<p>在接收到关闭消息之后，接收者和发送者会断开链接，清除所有被存储的状态。如果觉得账本在未来还有用可能会被保存下来。。</p>
+
+<p>注意：</p>
+
+<ul>
+<li>在一个不活跃的连接上，非打开状态的消息应该被忽略。在发送块（send_block）消息时，接收者应该检查这个块，看它是否是自己所需的并且正确，如果是，就使用此块。总之，所有这些无序消息都会触发接收方发送 close(false) 消息，以强制重新初始化连接。</li>
+</ul>
+
+<h2 id="3-5-object-merkle-dag">3.5  Object Merkle DAG</h2>
+
+<blockquote>
+<p>The DHT and BitSwap allow IPFS to form a massive peer-to-peer system for storing and distributing blocks quickly and robustly. On top of these, IPFS builds a Merkle DAG, a directed acyclic graph where links between objects are cryptographic hashes of the targets embedded in the sources.This is a generalization of the Git data structure. Merkle DAGs provide IPFS many useful properties, including:</p>
+</blockquote>
+
+<ol>
+<li>Content Addressing: all content is uniquely identified by its multihash checksum, including links.</li>
+<li>Tamper resistance: all content is veri_ed with its checksum. If data is tampered with or corrupted, IPFS detects it.</li>
+<li>Deduplication: all objects that hold the exact same content are equal, and only stored once. This is particularly useful with index objects, such as git trees and commits, or common portions of data.
+The IPFS Object format is:</li>
+</ol>
+
+<p>DHT和BitSwap 允许IPFS快速和有力地形成一个庞大的P2P系统储存和分配块。除这些之外，IPFS创建了Merkle DAG,这是一个有向非循环图，对象之间的连接是嵌入在源中的目标的加密哈希。这是Git数据结构的归纳。Merkle DAG提供IPFS许多有用的属性，包括：
+1. 内容寻址：所有的内容都是由其multihash校验唯一标识，包括链接。
+2. 防篡改：所有内容都用校验和验证。如果数据被篡改或损坏，IPFS都会检测到。
+3. 重复数据删除：持有相同内容的所有对象都是平等的，只存储一次。这对于索引对象（例如Git树和提交）或数据的公共部分特别有用。
+   IPFS对象的格式是：</p>
+
+<pre><code>  type IPFSLink struct {
+Name string
+             // name or alias of this link
+Hash Multihash
+// cryptographic hash of target
+Size int
+// total size of target
+}
+type IPFSObject struct {
+inks []IPFSLink
+// array of links
+data []byte
+// opaque content data
+}
+
+</code></pre>
+
+<blockquote>
+<p>The IPFS Merkle DAG is an extremely flexible way to store data. The only requirements are that object references be (a) content addressed, and (b) encoded in the format above. IPFS grants applications complete control over the data field; applications can use any custom data format they chose, which IPFS may not understand. The separate in object link table allows IPFS to:</p>
+</blockquote>
+
+<p>IPFS Merkle DAG是存储数据的一个非常灵活的方式。唯一的要求是对象引用是（a）内容寻址，（b）以上述格式编码。规授予数据域上的应用完全控制，应用程序可以使用他们选择的任何自定义数据格式，IPFS可能不理解。对象</p>
+
+<blockquote>
+<p>List all object references in an object. For example:</p>
+</blockquote>
+
+<p>列出一个对象中的所有引用：</p>
+
+<pre><code>&gt; ipfs ls /XLZ1625Jjn7SubMDgEyeaynFuR84ginqvzbXLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x 189458 lessXLHBNmRQ5sJJrdMPuu48pzeyTtRo39tNDR5 19441 script XLF4hwVHsVuZ78FZK6fozf8Jj9WEURMbCX4 5286 template
+</code></pre>
+
+<pre><code class="language-&lt;object">
+&gt;Resolve string path lookups, such as foo/bar/baz. Given an object, IPFS resolves the first path component to a hash in the object's link table, fetches that second object, and repeats with the next component. Thus, string paths can walk the Merkle DAG no matter what the data formats are.
+
+解析字符串路径查找，像foo/bar/bax.给定一个对象，IPFS把路径第一部分分解为对象的链表中的哈希，然后获取第二个对象，重复上述操作。因此，不管数据格式是什么，字符串路径都能
+
+&gt;Resolve all objects referenced recursively:
+
+解析递归引用的所有对象
+
+</code></pre>
+
+<blockquote>
+<p>ipfs refs &ndash;recursive <br />
+/XLZ1625Jjn7SubMDgEyeaynFuR84ginqvzb
+XLLxhdgJcXzLbtsLRL1twCHA2NrURp4H38s
+XLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x
+XLHBNmRQ5sJJrdMPuu48pzeyTtRo39tNDR5
+XLWVQDqxo9Km9zLyquoC9gAP8CL1gWnHZ7z</p>
+</blockquote>
+
+<pre><code>
+&gt;A raw data field and a common link structure are the necessary components for constructing arbitrary data structures on top of IPFS. While it is easy to see how the Git object model fits on top of this DAG, consider these other potential data structures: (a) key-value stores (b) traditional relational databases (c) Linked Data triple stores (d) linked document publishing systems (e) linked communications platforms (f) cryptocurrency blockchains. These can all be modeled on top of the IPFS Merkle DAG, which allows any of these systems to use IPFS as a transport protocol for more complex applications.
+
+原始数据字段和一个普通的链结构是在IPFS上构建任意数据结构的必要组成部分. 虽然很容易看出Git对象模型如何适合于DAG，但考虑到其他潜在的这些数据结构：（a）键值存储（b）传统的关系型数据库(c) 链接数据三元组（d）链接文档发布系统（E）链接的通信平台（F）加密货币区块链。这些都可以在IPFS Merkle DAG上建模，它允许任何这些系统使用IPFS作为更复杂的应用程序的传输协议。
+
+### 3.5.1 Paths
+
+&gt;IPFS objects can be traversed with a string path API.Paths work as they do in traditional UNIX filesystems and the Web. The Merkle DAG links make traversing it easy Note that full paths in IPFS are of the form:
+
+IPFS 可以通过字符串路径API遍历。路径像传统的UNIX文件系统和网络那样工作。Merkle DAG使得遍历容易。注意IPFS中的全路径是以下形式：
+</code></pre>
+
+<h1 id="format">format</h1>
+
+<p>/ipfs/<hash-of-object>/<name-path-to-object></p>
+
+<h1 id="example">example</h1>
+
+<p>/ipfs/XLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x/foo.txt</p>
+
+<pre><code>&gt;The /ipfs prefix allows mounting into existing systems at a standard mount point without conflict (mount point names are of course configurable). The second path component (first within IPFS) is the hash of an object. This is always the case, as there is no global root. A root object would have the impossible task of handling consistency of millions of objects in a distributed (and possibly disconnected) environment. Instead, we simulate the root with content addressing. All objects are always accessible via their hash. Note this means that given three objects in path &lt;foo&gt;/bar/baz, the last object is accessible by all:
+
+/ipfs前缀允许挂载到现有系统中的一个没有冲突的标准挂载点（挂载点名称当然是可配置的）。路径的第二个组成部分（IPFS中的第一部分）是一个对象的哈希。情况总是如此，因为没有全球根源。根对象在分布式环境（可能断开的环境）中处理数百万对象的一致性，这是不可能完成的任务。相反，我们用内容寻址模拟根目录。所有对象都可以通过他们的哈希访问。注意这意味着给定的路径&lt;foo&gt;/bar/baz对象，最后的对象可以通过以下方式访问：
+
+</code></pre>
+
+<p>/ipfs/<hash-of-foo>/bar/baz
+/ipfs/<hash-of-bar>/baz
+/ipfs/<hash-of-baz></p>
+
+<pre><code>
+### 3.5.2 Local Objects
+本地对象
+&gt;IPFS clients require some local storage, an external system on which to store and retrieve local raw data for the objects IPFS manages. The type of storage depends on the node's use case. In most cases, this is simply a portion of disk space(either managed by the native filesystem, by a key-value store such as leveldb [4], or directly by the IPFS client). In others, for example non-persistent caches, this storage is just a portion of RAM.
+
+IPFS客户端需要一些本地存储、在外部系统上存储和检索由IPFS管理的本地的原数据对象。存储的类型取决于节点的使用情况。在大数情况下，只是磁盘空间的一部分（无论是由本地文件系统，还是由一个键值存储诸如LevelDB [ 4 ]，或直接由IPFS客户端管理）。在其他情况下，例如非持久缓存，这个存储只是RAM的一部分。
+
+&gt;Ultimately, all blocks available in IPFS are in some node's local storage. When users request objects, they are found, downloaded, and stored locally, at least temporarily. This provides fast lookup for some configurable amount of time there after.
+
+最终，IPFS所有可用的块都位于某些节点的本地存储中。当用户请求对象时，它们被发现、下载和至少暂时存储在本地。这提供了对某些可配置时间的快速查找。
+
+
+### 3.5.3 Object Pinning
+对象钉固
+&gt;Nodes who wish to ensure the survival of particular objects can do so by pinning the objects. This ensures the objects are kept in the node's local storage. Pinning can be done recursively, to pin down all linked descendent objects as well. All objects pointed to are then stored locally. This is particularly useful to persist files, including references.This also makes IPFS a Web where links are permanent,and Objects can ensure the survival of others they point to.
+
+希望确保特定对象生存的节点可以通过钉固对象来实现。这样可以确保对象保存在节点的本地存储中。钉固可以递归的实现，也可向下钉固住所有相连的子孙对象。指向的所有对象会被存储在本地。这对于保存文件（包括引用）特别有用。这也使IPFS成为链接永久的一个网络，对象可以确保他们指向的其他对象的保持存活。
+
+### 3.5.4 Publishing Objects
+发布对象
+&gt;IPFS is globally distributed. It is designed to allow the files of millions of users to coexist together. The DHT, with content-hash addressing, allows publishing objects in a fair, secure, and entirely distributed way. Anyone can publish an object by simply adding its key to the DHT, adding themselves as a peer, and giving other users the object's path.Note that Objects are essentially immutable, just like in Git. New versions hash differently, and thus are new objects. Tracking versions is the job of additional versioning objects.
+
+IPFS是全球分布的。它的目的是允许数百万用户的文件共存。使用内容哈希寻址的DHT允许以公平、安全和完全分布式的方式发布对象。任何人都可以通过简单地将它的密钥添加到DHT，将自己添加为一个对等体，并给其他用户对象的路径来发布对象。注意，就像在Git中一样，对象本质上是不可变的。新版本哈希不同，因此是新对象。跟踪版本是另外的版本控制对象的工作。
+
+### 3.5.5 Object-level Cryptography
+&gt;IPFS is equipped to handle object-level cryptographic operations. An encrypted or signed object is wrapped in a special frame that allows encryption or verification of the raw bytes.
+
+IPFS 设置成能处理对象级的加密操作。一个加密的或签名过的对象被包装在一个特殊的框架中，允许对原始字节加密或验证。
+</code></pre>
+
+<p>type EncryptedObject struct {
+Object []bytes
+// raw object data encrypted
+//  原对象加密后的数据
+Tag []bytes
+// optional tag for encryption groups
+// 加密组的可选标签
+}
+type SignedObject struct {
+Object []bytes
+// raw object data signed
+// 原对象签名后的数据
+Signature []bytes
+// hmac signature
+// 签名
+PublicKey []multihash
+// multihash identifying key
+// 验证密钥
+}</p>
+
+<pre><code>&gt;Cryptographic operations change the object's hash, defining a different object. IPFS automatically verifies signatures, and can decrypt data with user-specied keychains.Links of encrypted objects are protected as well, making traversal impossible without a decryption key. It is possible to have a parent object encrypted under one key, and a child under another or not at all. This secures links to shared objects.
+
+加密操作改变对象的哈希，定义了一个不同的对象。IPFS自动地验证签名，并能使用用户指定的钥匙链解密数据。加密后的对象的链接也被保护，没有解密密钥是不可能解析的。用一个密钥加密父对象子，对象用另外一个密钥加密或者根本不加密子对象，这是可能的。这确保链接用共享的对象。
+
+### 3.6 Files
+3.6 文件
+&gt;IPFS also defines a set of objects for modeling a versioned filesystem on top of the Merkle DAG. This object model is similar to Git's:
+
+1. block: a variable-size block of data.
+2. list: a collection of blocks or other lists.
+3. tree: a collection of blocks, lists, or other trees.
+4. commit: a snapshot in the version history of a tree.
+
+IPFS也对Merkle DAG上的版本化的文件系统建模定义了一组对象。该对象模型与Git类似：
+1. 块：可变大小的数据块。
+2. 列表：块的集合或是其他的列表的集合。
+3. 树：块的集合，列表的集合，或其他树的集合。
+4. 提交：树的版本历史的快照 。
+&gt;I hoped to use the Git object formats exactly, but had to depart to introduce certain features useful in a distributed filesystem, namely (a) fast size lookups (aggregate byte sizes have been added to objects), (b) large file deduplication
+(adding a list object), and (c) embedding of commits into trees. However, IPFS File objects are close enough to Git that conversion between the two is possible. Also, a set of Git objects can be introduced to convert without losing any information (unix file permissions, etc).
+
+虽然我们希望完全使用Git形式的对象，但是必要分开介绍在分布式文件系统中有用的特定特征。(a)快速大小查找（己经添加到对象中的字节大小总计）（b）大文件去重（添加一个列表对象）（c）提交到树中的嵌入。
+
+IPFS对象和Git对象十分接近，以至于他们两者之间可以相互转换。一组Git对象在不丢失任可信息的情况下可以转化为IPFS对象(unix文件允许)。
+ 
+&gt;Notation: File object formats below use JSON. Note that this structure is actually binary encoded using protobufs,though ipfs includes import/export to JSON.
+
+ 注意：下面文件对象的格式使用JSON。注意，虽然IPFS包括import/export到JSON，该结构实际上使用的是protobufs进行二进制编码。
+ 
+### 3.6.1 File Object: blob
+3.6.1 文件对象：blob
+&gt;The blob object contains an addressable unit of data, and represents a file. IPFS Blocks are like Git blobs or filesystem
+data blocks. They store the users' data. Note that IPFS files can be represented by both lists and blobs. Blobs have no links.
+
+blob对象包含一个可地址化的数据单元，代表一个文件。IPFS块像Git blob或文件系统数据块。他们都存储用户的数据。注意IPFS文件可以表示为列表或blob。blob没有链接。
+</code></pre>
+
+<p>{
+&ldquo;data&rdquo;: &ldquo;some data here&rdquo;,
+// blobs have no links
+}</p>
+
+<pre><code>### 3.6.2 File Object: list
+
+&gt;The list object represents a large or deduplicated file made up of several IPFS blobs concatenated together. Lists contain an ordered sequence of blob or list objects. In a sense, the IPFS list functions like a filesystem file with indirect blocks. Since lists can contain other lists, topologies including linked lists and balanced trees are possible.Directed  graphs where the same node appears in multiple places allow in-file deduplication. Of course, cycles are not possible, as enforced by hash addressing.
+
+列表对象代表一个大的或去重的由几个IPFS blob串联在一起的文件。列表包含一个有序的blob或列表对象序列。在某种意义上，IPFS列表的功能就像一个间接块的文件系统的文件。由于列表可以包含其他列表，所以包含链表和平衡树的拓扑是可能的。相同的节点出现在多个地方的有向图中允许在文件中去重。当然，哈希寻址强制循环是不可能的。
+
+</code></pre>
+
+<p>{
+&ldquo;data&rdquo;: [&ldquo;blob&rdquo;, &ldquo;list&rdquo;, &ldquo;blob&rdquo;],
+// lists have an array of object types as data
+&ldquo;links&rdquo;: [
+{ &ldquo;hash&rdquo;: &ldquo;XLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x&rdquo;,
+&ldquo;size&rdquo;: 189458 },
+{ &ldquo;hash&rdquo;: &ldquo;XLHBNmRQ5sJJrdMPuu48pzeyTtRo39tNDR5&rdquo;,
+&ldquo;size&rdquo;: 19441 },
+{ &ldquo;hash&rdquo;: &ldquo;XLWVQDqxo9Km9zLyquoC9gAP8CL1gWnHZ7z&rdquo;,
+&ldquo;size&rdquo;: 5286 }
+// lists have no names in links
+]
+}</p>
+
+<pre><code>
+### 3.6.3 File Object: tree
+&gt;The tree object in IPFS is similar to Git's: it represents a directory, a map of names to hashes. The hashes reference
+blobs, lists, other trees, or commits. Note that traditional path naming is already implemented by the Merkle DAG.
+
+IPFS中的树对象与Git类似:它代表一个目录，一个名字到哈希的映射。哈希引用blob,list,其他的树，或者commit。值得注意的是，传统的路径名称已经由Merkle DAG实现。
+
+</code></pre>
+
+<p>{
+&ldquo;data&rdquo;: [&ldquo;blob&rdquo;, &ldquo;list&rdquo;, &ldquo;blob&rdquo;],
+// trees have an array of object types as data
+&ldquo;links&rdquo;: [
+{ &ldquo;hash&rdquo;: &ldquo;XLYkgq61DYaQ8NhkcqyU7rLcnSa7dSHQ16x&rdquo;,
+&ldquo;name&rdquo;: &ldquo;less&rdquo;, &ldquo;size&rdquo;: 189458 },
+{ &ldquo;hash&rdquo;: &ldquo;XLHBNmRQ5sJJrdMPuu48pzeyTtRo39tNDR5&rdquo;,
+&ldquo;name&rdquo;: &ldquo;script&rdquo;, &ldquo;size&rdquo;: 19441 },
+{ &ldquo;hash&rdquo;: &ldquo;XLWVQDqxo9Km9zLyquoC9gAP8CL1gWnHZ7z&rdquo;,
+&ldquo;name&rdquo;: &ldquo;template&rdquo;, &ldquo;size&rdquo;: 5286 }
+// trees do have names
+]
+}</p>
+
+<pre><code>
+### 3.6.4 File Object: commit
+&gt;The commit object in IPFS represents a snapshot in the version history of any object. It is similar to Git's, but can reference any type of object. It also links to author objects.
+
+IPFS中的一个提交对象代表任意对象版本历史的快照 。和Git类似，但是能引用任意类型的对象。它也能连接到另外的一个对象。
+</code></pre>
+
+<p>{
+&ldquo;data&rdquo;: {
+&ldquo;type&rdquo;: &ldquo;tree&rdquo;,
+&ldquo;date&rdquo;: &ldquo;2014-09-20 12:44:06Z&rdquo;,
+&ldquo;message&rdquo;: &ldquo;This is a commit message.&rdquo;
+},
+&ldquo;links&rdquo;: [{ &ldquo;hash&rdquo;: &ldquo;XLa1qMBKiSEEDhojb9FFZ4tEvLf7FEQdhdU&rdquo;,
+&ldquo;name&rdquo;: &ldquo;parent&rdquo;, &ldquo;size&rdquo;: 25309 },
+{ &ldquo;hash&rdquo;: &ldquo;XLGw74KAy9junbh28x7ccWov9inu1Vo7pnX&rdquo;,
+&ldquo;name&rdquo;: &ldquo;object&rdquo;, &ldquo;size&rdquo;: 5198 },
+{ &ldquo;hash&rdquo;: &ldquo;XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm&rdquo;,
+&ldquo;name&rdquo;: &ldquo;author&rdquo;, &ldquo;size&rdquo;: 109 }
+]
+}</p>
+
+<pre><code>
+![figure2.JPG](https://github.com/jennyzhang8800/gtja_mall/blob/master/pictures/figure2.JPG)
+
+</code></pre>
+
+<blockquote>
+<p>ipfs file-cat <ccc111-hash> &ndash;json
+{
+&ldquo;data&rdquo;: {
+&ldquo;type&rdquo;: &ldquo;tree&rdquo;,
+&ldquo;date&rdquo;: &ldquo;2014-09-20 12:44:06Z&rdquo;,
+&ldquo;message&rdquo;: &ldquo;This is a commit message.&rdquo;
+},
+&ldquo;links&rdquo;: [
+{ &ldquo;hash&rdquo;: &ldquo;<ccc000-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;parent&rdquo;, &ldquo;size&rdquo;: 25309 },
+{ &ldquo;hash&rdquo;: &ldquo;<ttt111-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;object&rdquo;, &ldquo;size&rdquo;: 5198 },
+{ &ldquo;hash&rdquo;: &ldquo;<aaa111-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;author&rdquo;, &ldquo;size&rdquo;: 109 }
+]
+}</p>
+
+<p>ipfs file-cat <ttt111-hash> &ndash;json
+{
+&ldquo;data&rdquo;: [&ldquo;tree&rdquo;, &ldquo;tree&rdquo;, &ldquo;blob&rdquo;],
+&ldquo;links&rdquo;: [
+{ &ldquo;hash&rdquo;: &ldquo;<ttt222-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;ttt222-name&rdquo;, &ldquo;size&rdquo;: 1234 },
+{ &ldquo;hash&rdquo;: &ldquo;<ttt333-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;ttt333-name&rdquo;, &ldquo;size&rdquo;: 3456 },
+{ &ldquo;hash&rdquo;: &ldquo;<bbb222-hash>&rdquo;,
+&ldquo;name&rdquo;: &ldquo;bbb222-name&rdquo;, &ldquo;size&rdquo;: 22 }
+]
+}
+ipfs file-cat <bbb222-hash> &ndash;json
+{
+&ldquo;data&rdquo;: &ldquo;blob222 data&rdquo;,
+&ldquo;links&rdquo;: []
+}</p>
+</blockquote>
+
+<pre><code>
+### 3.6.5 Version control
+3.6 版本控制
+&gt;The commit object represents a particular snapshot in the version history of an object. Comparing the objects (and children) of two different commits reveals the differences between two versions of the filesystem. As long as a single commit and all the children objects it references are accessible, all receding versions are retrievable and the full history of the filesystem changes can be accessed. This falls out of the Merkle DAG object model.
+
+提交对象表示对象版本历史中的特定快照。比较两个不同提交的对象（和孩子）揭示了两个版本的文件系统之间的差异。只要单个提交和它引用的所有的孩子对象是可访问的，所有的滚动版本都可获取，文件系统改变的整个历史都能访问到。这由于Merkle DAG对象模型 。
+
+&gt;The full power of the Git version control tools is available to IPFS users. The object model is compatible, though not the same. It is possible to (a) build a version of the Git tools modified to use the IPFS object graph, (b) build a mounted FUSE filesystem that mounts an IPFS tree as a Git repo,translating Git filesystem read/writes to the IPFS formats.
+
+在Git版本控制工具的所有功能都可供IPFS用户使用。对象模型是兼容的，但不是相同的。（a）构建一个修改的Git工具版本，以使用IPFS对象图.（b）构建一个挂载的FUSE文件系统，该文件系统挂载IPFS树作为一个Git repo,把Git文件系统的读/写翻译为IPFS形式，都是可能了。
+
+### 3.6.6 Filesystem Paths
+3.6.6 文件系统路径
+&gt;As we saw in the Merkle DAG section, IPFS objects can be traversed with a string path API. The IPFS File Objects are designed to make mounting IPFS onto a UNIX filesystem simpler. They restrict trees to have no data, in orde to represent them as directories. And commits can either be represented as directories or hidden from the filesystem entirely.
+
+正如我们在Merkle DAG部分所看到了，IPFS对象可以通过字符口中 路径API遍历。IPFS文件对象被设计在将其更简单地挂载IPFS到UNIX文件系统上。他们限制树没有数据，为了将它们表示为目录。提交可以表示为目录，也可以完全隐藏在文件系统中。
+
+### 3.6.7 Splitting Files into Lists and Blob
+3.6.7 将文件分割成列表和blob
+&gt;One of the main challenges with versioning and distributing large files is finding the right way to split them into independent blocks. Rather than assume it can make the right decision for every type of file, IPFS offers the following alternatives:
+
+版本控制和分发大文件的主要挑战之一是找到正确的方法将它们分成独立的块。与其假设它能对每一种类型的文件做出正确的决定，IPFS提供以下选择：
+
+(a) Use Rabin Fingerprints [?] as in LBFS [?] to pick suitable block boundaries.
+
+(b) Use the rsync [?] rolling-checksum algorithm, to detect blocks that have changed between versions.
+
+(c) Allow users to specify block-splitting functions highly tuned for specific files.
+
+(a)在LBFS中用Rabin Fingerprints挑选合适的块边界。
+
+(b)使用远程滚动校验算法，检测两个版本之间有改变的块。
+
+(c)允许用户对特点的文件指定高度调谐的块分割函数。
+
+### 3.6.8 Path Lookup Performance
+3.6.8 路径查找性能
+&gt;Path-based access traverses the object graph. Retrieving each object requires looking up its key in the DHT, connecting to peers, and retrieving its blocks. This is considerable overhead, particularly when looking up paths with many components. This is mitigated by:
+
+ 基于路径的访问遍历对象图。检索每个对象需要在DHT中查找它的密钥。连接到对等点并检索它的块。这是相当大的开销，尤其是在查找具有多个部分的路径时。这是通过以下减轻的：
+ 
++ tree caching: since all objects are hash-addressed,they can be cached indenitely. Additionally, trees tend to be small in size so IPFS prioritizes caching them over blobs.
++ flattened trees: for any given tree, a special flattened tree can be constructed to list all objects reachable from the tree. Names in the flattened tree would really be paths parting from the original tree, with slashes.
+
+&gt;For example, flattened tree for ttt111 above:
+
+ 
++ 树缓存：因为所有对象都是哈希寻址的，它们肯定能被缓存。另外，树偏重于小规模以便IPFS在blob上能优点缓存它们。
++ 扁平的树：对于任意给定的树，可以构建一个特定的扁平树来列出从树出来所有可以到达的对象。扁平树中的名称可能真的是从源始的树中分离的路径，包括斜杠。
+
+例如，对于上面的ttt111的扁平树为：
+
+</code></pre>
+
+<p>{
+&ldquo;data&rdquo;:
+[&ldquo;tree&rdquo;, &ldquo;blob&rdquo;, &ldquo;tree&rdquo;, &ldquo;list&rdquo;, &ldquo;blob&rdquo; &ldquo;blob&rdquo;],
+&ldquo;links&rdquo;: [
+{ &ldquo;hash&rdquo;: &ldquo;<ttt222-hash>&rdquo;, &ldquo;size&rdquo;: 1234
+&ldquo;name&rdquo;: &ldquo;ttt222-name&rdquo; },
+{ &ldquo;hash&rdquo;: &ldquo;<bbb111-hash>&rdquo;, &ldquo;size&rdquo;: 123,
+&ldquo;name&rdquo;: &ldquo;ttt222-name/bbb111-name&rdquo; },
+{ &ldquo;hash&rdquo;: &ldquo;<ttt333-hash>&rdquo;, &ldquo;size&rdquo;: 3456,
+&ldquo;name&rdquo;: &ldquo;ttt333-name&rdquo; },
+{ &ldquo;hash&rdquo;: &ldquo;<lll111-hash>&rdquo;, &ldquo;size&rdquo;: 587,
+&ldquo;name&rdquo;: &ldquo;ttt333-name/lll111-name&rdquo;},
+{ &ldquo;hash&rdquo;: &ldquo;<bbb222-hash>&rdquo;, &ldquo;size&rdquo;: 22,
+&ldquo;name&rdquo;: &ldquo;ttt333-name/lll111-name/bbb222-name&rdquo; },
+{ &ldquo;hash&rdquo;: &ldquo;<bbb222-hash>&rdquo;, &ldquo;size&rdquo;: 22
+&ldquo;name&rdquo;: &ldquo;bbb222-name&rdquo; }
+] }</p>
+
+<pre><code>
+### 3.7 IPNS：命名以及易变状态
+
+目前为止，IPFS 桟形成了一个点对点的块交换组成一个内容可寻址的 DAG 对象。这用于发布和获取不可改变的对象。甚至可以跟踪这些对象的版本历史记录。但是，这里有一个关键部分遗漏了：可变的命名。没有这个，发送 IPFS 的 links ，没有它，所有新内容的通信都必须解绑，发送IPFS链接。所需的是在同一路径上检索可变状态的某种方法。
+
+值得说明的是为什么如果在端的可变数据是必要的，我们努力建立一个不变的 Merkle DAG。考虑到从Merkle DAG 分离出来的 IPFS 的特性：对象可以（a）通过它们的哈希被检索，（b）进行完整性检查，（c）连接到其他对象，(d)无限期地缓存。在某种意义上说：
+
+                对象是永恒的
+
+这些都是高性能分布式系统的关键特性，数据进行跨网络链路移动的代价很昂贵。对象内容寻址构造了这样一个 web：（a）显著带宽优化（b）不受信任的内容服务 (c) 永久链接和（d）对任何对象及其引用进行完全永久备份的能力。
+
+Merkle DAG（不可改变的内容寻址）和 命名 （可变的指向 Merkle DAG 对象的指针）。许多成功的分布式系统中存在这样的二分法的实例。这些包括有不可变对象和可变引用 Git 版本控制系统；UNIX的分布式继任者 Plan9[?]，有不可变的 Fossil[?] 和可变的 Venti[?] 的文件系统。LBFS[?] 也使用可变索引和不可变块。
+
+#### 3.7.1 自我认证名称
+
+使用 SFS 的命名方案提供了一种构造自认证名称的方法,在一个加密的指定全局命名空间，这是可变的。IPFS方案如下：
+
+1.回想一下在 IPFS 中：
+
+```bash
+NodeId = hash(node.PubKey)
+</code></pre>
+
+<p>2.我们在这个路径下给每个用户分配一个可变的命名空间：</p>
+
+<pre><code class="language-bash">/ipns/&lt;NodeId&gt;
+</code></pre>
+
+<p>3.用户可以将对象发布到由其私钥签名的路径上，例如</p>
+
+<pre><code class="language-bash">/ipns/XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm/
+</code></pre>
+
+<p>4.当其他用户检索对象的时候，他们可以检查匹配的公共密钥和节点 ID 的签名，这验证了由用户发布的对象的真实性，实现可变状态检索。</p>
+
+<p>注意下面的细节：</p>
+
+<ul>
+<li>IPNS(星际命名空间)的独立前缀是为程序和人类读者建立可变的和不可变路径之间容易识别的区别。</li>
+
+<li><p>因为这不是一个内容寻址对象，发布它依靠IPFS中的唯一的可变状态分布系统，即路由系统。过程是（1）作为一个普通的不可变的IPFS对象发布（2）在路由系统为作为一个元数据值发布它的哈希。</p>
+
+<pre><code class="language-bash">routing.setValue(NodeId, &lt;ns-object-hash&gt;)
+</code></pre></li>
+
+<li><p>发布的对象中的任何链接都充当名称空间中的子名称：</p>
+
+<pre><code class="language-bash">/ipns/XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm/
+/ipns/XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm/docs
+/ipns/XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm/docs/ipfs
+</code></pre></li>
+
+<li><p>建议发布一个提交(commit)对象或具有版本历史的其他对象，以便客户机能够找到旧名称。这是作为用户选项留下的，因为它并不总是需要的。</p></li>
+</ul>
+
+<p>注意，当用户发布此对象时，它不能以相同的方式发布。</p>
+
+<h3 id="3-7-2-human-friendly-names">3.7.2 Human Friendly Names</h3>
+
+<p>3.7.2 对人类友好的名称
+&gt;While IPNS is indeed a way of assigning and reassigning names, it is not very user friendly, as it exposes long
+hash values as names, which are notoriously hard to remember. These work for URLs, but not for many kinds of  offline transmission. Thus, IPFS increases the user-friendliness of IPNS with the following techniques.</p>
+
+<p>虽然这的确是分配和再分配的名字的方式，但它不是非常用户友好的，因为它以暴露的长哈希值作为名字，这这是出了名的难记。这些对于URL是有用的，但不适用于多种脱机传输。因此，IPFS使用以下技术增加了用户的友好性：</p>
+
+<p><strong>Peer Links.</strong></p>
+
+<p>对等链接</p>
+
+<blockquote>
+<p>As encouraged by SFS, users can link other users&rsquo; Objects directly into their own Objects (namespace, home, etc).
+This has the benefit of also creating a web of trust (and supports the old Certificate Authority model):</p>
+</blockquote>
+
+<p>在SFS的鼓励下，用户可以直接将其他用户的对象链接到自己的对象（名称空间、家等）中。这也有利于建立信任网（支持旧的证书权威模型）。</p>
+
+<pre><code># Alice links to bob Bob
+ipfs link /&lt;alice-pk-hash&gt;/friends/bob /&lt;bob-pk-hash&gt;
+# Eve links to Alice
+ipfs link /&lt;eve-pk-hash/friends/alice /&lt;alice-pk-hash&gt;
+# Eve also has access to Bob
+/&lt;eve-pk-hash/friends/alice/friends/bob
+# access Verisign certified domains
+/&lt;verisign-pk-hash&gt;/foo.com
+</code></pre>
+
+<p><strong>DNS TXT IPNS Records.</strong></p>
+
+<blockquote>
+<p>If /ipns/<domain> is a valid domain name, IPFS looks up key ipns in its DNS TXT records. IPFS interprets the value
+as either an object hash or another IPNS path:</p>
+</blockquote>
+
+<p>如果/ipns/<domain>是一个有效的域名，IPFS在它的DNS TXT记录中查找密码ipns.  IPFS 作为一个对象哈希或作为另外一个IPNS路径解释值。</p>
+
+<pre><code># this DNS TXT record
+ipfs.benet.ai. TXT &quot;ipfs=XLF2ipQ4jD3U ...
+# behaves as symlink
+ln -s /ipns/XLF2ipQ4jD3U /ipns/fs.benet.ai
+</code></pre>
+
+<p><strong>Proquint Pronounceable Identifiers.</strong></p>
+
+<p>Proquint可断言的标识符</p>
+
+<blockquote>
+<p>There have always been schemes to encode binary into pronounceable words. IPNS supports Proquint [?]. Thus:</p>
+</blockquote>
+
+<p>总是有把二进制编码为可断言的单词的体系。IPNS支持Proquint，因此：</p>
+
+<pre><code># this proquint phrase
+/ipns/dahih-dolij-sozuk-vosah-luvar-fuluh
+# will resolve to corresponding
+/ipns/KhAwNprxYVxKqpDZ
+</code></pre>
+
+<p><strong>Name Shortening Services.</strong></p>
+
+<p>名称缩短服务。
+&gt;Services are bound to spring up that will provide name shortening as a service, offering up their namespaces to users.
+This is similar to what we see today with DNS and Web URLs:</p>
+
+<p>服务绑定到spring ，提供名称缩短的服务，把他们的名称空间提供给用户。和我们今天所看到的DNS和 Web URLs类似。</p>
+
+<pre><code># User can get a link from
+/ipns/shorten.er/foobar
+# To her own namespace
+/ipns/XLF2ipQ4jD3UdeX5xp1KBgeHRhemUtaA8Vm
+</code></pre>
+
+<h2 id="3-8-using-ipfs">3.8 Using IPFS</h2>
+
+<p>3.8 使用IPFS</p>
+
+<blockquote>
+<p>IPFS is designed to be used in a number of different ways.Here are just some of the usecases I will be pursuing:</p>
+</blockquote>
+
+<ol>
+<li>As a mounted global filesystem, under /ipfs and /ipns.</li>
+<li>As a mounted personal sync folder that automatically versions, publishes, and backs up any writes.</li>
+<li>As an encrypted file or data sharing system.</li>
+<li>As a versioned package manager for all software.</li>
+<li>As the root filesystem of a Virtual Machine.</li>
+<li>As the boot filesystem of a VM (under a hypervisor).</li>
+<li>As a database: applications can write directly to the Merkle DAG data model and get all the versioning,caching, and distribution IPFS provides.</li>
+<li>As a linked (and encrypted) communications platform.</li>
+<li>As an integrity checked CDN for large files (without SSL).</li>
+<li>As an encrypted CDN.</li>
+<li>On webpages, as a web CDN.</li>
+<li>As a new Permanent Web where links do not die.</li>
+</ol>
+
+<p>IPFS被设计成多种不同的方式使用，下面只是一些用例:
+1. 作为一个挂载的全球文件系统，在/ipfs和/ipns之下
+2. 作为一个挂载的个人同步文件夹，它可以自动地编辑、发布和备份任何写操作。
+3. 作为加密文件或数据共享系统。
+4. 作为所有软件的版本包管理器。
+5. 作为虚拟机的根文件系统。
+6. 作为虚拟机的启动文件系统（在虚拟机管理系统下）
+7. 作为一个数据库:应用程序可以直接写进Merkle DAG数据模型并且得到的所有版本，缓存，并分配IPFS提供。
+8. 作为链接（加密）的通信平台
+9. 作为大文件的完整性检查的CDN（无SSL）。
+10. 作为加密的CDN
+11. 在网页上，作为一个web CDN
+12. 作为一个新的永久网络，链接不会死亡。</p>
+
+<blockquote>
+<p>The IPFS implementations target:
+IPFS实现的目标：</p>
+</blockquote>
+
+<p>(a) an IPFS library to import in your own applications.</p>
+
+<p>(b) commandline tools to manipulate objects directly.</p>
+
+<p>&copy; mounted file systems, using FUSE [?] or as kernel modules.</p>
+
+<p>（a）一个导入你自己的应用程序的IPFS库。</p>
+
+<p>（b）直接操作对象的命令行工具。</p>
+
+<p>（c）挂载的文件系统，使用FUSE或者作为内核模块。</p>
+
+<h1 id="4-the-future">4. THE FUTURE</h1>
+
+<p>4.未来</p>
+
+<blockquote>
+<p>ideas behind IPFS are the product of decades of successful distributed systems research in academia and open source. IPFS synthesizes many of the best ideas from the most successful systems to date. Aside from BitSwap, which is a novel protocol, the main contribution of IPFS is this coupling of systems and synthesis of designs.</p>
+</blockquote>
+
+<p>IPFS背后的想法是几十年来成功的分布式系统研究在学术界和开源的成果。它把迄今为止最成功的系统中的许多最好的想法综合起来。除了bitswap，这是一个新的协议，IPFS主要贡献是耦合这些系统以及合成设计。</p>
+
+<blockquote>
+<p>IPFS is an ambitious vision of new decentralized Internet infrastructure, upon which many different kinds of applications can be built. At the bare minimum, it can be used as a global, mounted, versioned filesystem and namespace, or as the next generation file sharing system. At its best, it could push the web to new horizons, where publishing valuable information does not impose hosting it on the publisher but upon those interested, where users can trust the content they receive without trusting the peers they receive it from, and where old but important  files do not go missing. IPFS looks forward to bringing us toward the Permanent Web.</p>
+</blockquote>
+
+<p>IPFS是一个雄心勃勃的新的分散互联网基础设施的构想，在此基础上可以建立许多不同类型的应用程序。在最低限度，它可以作为一个全球性的，挂载的版本文件系统的命名空间，或作为下一代文件共享系统。在其最好的情况下，它能推动web到一生片新天地，在那里发布有价值的信息并需要出版商，而是发布给那些感兴趣的人，用户可以信任他们收到的内容而不用信任从哪里收到消息，老的但重要文件不丢失。IPFS期待带我们走向永久的Web。</p>
+
+<h1 id="5-acknowledgments">5. ACKNOWLEDGMENTS</h1>
+
+<p>5.感谢
+&gt;IPFS is the synthesis of many great ideas and systems. It would be impossible to dare such ambitious goals without standing on the shoulders of such giants. Personal thanks to David Dalrymple, Joe Zimmerman, and Ali Yahya for long discussions on many of these ideas, in particular: exposing the general Merkle DAG (David, Joe), rolling hash blocking (David), and s/kademlia sybill protection (David, Ali). And special thanks to David Mazieres, for his ever brilliant ideas.</p>
+
+<p>IPFS是许多伟大的思想和系统的综合。如果不站在巨人的肩膀上实现如此远大的目标是不可能的。谢谢David Dalrymple，Joe Zimmerman，和Ali Yahya对这些想法进行长时间的讨论，特别是： 曝光大致的Merkle DAG（David, Joe），滚动哈希块（David)），和s/kademlia sybill保护（David，Ali）。特别感谢David Mazieres，他辉煌的想法。</p>
+
+<h2 id='points'>2.原文要点归纳</h2>
+
+<p><strong>为什么要提出IPFS？</strong>：IPFS是位于TCP/IP协议的应用层协议（与http协议是竞争关系）.使用HTTP协议移动小文件是相对便宜的，但是HTTP所有的事情都集中在一段报文中,http需要中心化的域名服务器，更需要中心化的web服务器。然而，我们己经进入大数据时代，面临需要托管和分发PB级数据集,跨组织的大数据计算等问题，由于带宽问题等影响，http不能令人满意。因此，提出了IPFS，它综合己经取得成功的P2P技术，把多个技术耦合，以达到整体大于各部分之和的效果。同时，期望IPFS能成为web本身的一部分，替代Http。</p>
+
+<p><strong>IPFS:</strong> IPS是一个分布式文件系统，它成功的综合了以前的p2p系统的思想，包括DHTs,BitTorrent,Git 和SFS. IPFS主要贡献是耦合这些系统以及合成设计。</p>
+
+<ul>
+<li>DHT :分布式哈希表。使用的是S/Kademlia 算法。优点在于快速点对点定位，最优路经，防攻击</li>
+<li>BitTorrent: 内容分发协议。它采用高效的软件分发系统和点对点技术共享大体积文件。(数据是双通道传输，参与人越多速度越快，解决了带宽问题。)</li>
+<li>Git: 版本控制系统。(分布式友好方式捕获对文件系统树的更改)</li>
+<li>SFS: 自我认证文件系统(分布式信任链，平等共享的全局命名空间。方便所有的文件有全局唯一名字)</li>
+</ul>
+
+<p><strong>IPFS 技术栈</strong>
+1. sfs，git技术分别用到了IPNS 层，应用层(applications)。 全局唯一名字, 带版本跟踪。
+2. BitTorrent, DHT分别用到了数据交换层(exchange)，路由层(routing)。快速定位，省带宽交换。</p>
+
+<p><img src="https://github.com/jennyzhang8800/gtja_mall/blob/master/pictures/ipfs_stack.jpg" alt="ipfs_stack.jpg" /></p>
+
+<p>上述四个主要的技术，IPFS以BitTorrent为基础提出了新的块交换协议：BitSwap。其他的DHT，Git，SFS基本上使用原有思想。</p>
+
+<p><strong>BitSwap</strong>和BitToreent类似的是，BitSwap对等点希望获得一组块（want_list）,并且拥有另外一组块提供交换(have_list)。与BitTorrent不同的是：BitSwap不把块限定在一个torrent. BitSwap作为一个持续的市场运作，无论这些块属于哪个文件，节点都可以获得他们所需要的块。这些块可能来自文件系统中完全无关的文件。节点聚集在一起进行市场交易。</p>
+
+<p>BitSwap节点用分类账记述与其他节点的传输。</p>
+
+<p>一个对等节点生命期的草图：
+1. 打开：Peer.open(NodeId, Ledger).对等节点之间发送分类账直到它他们同意
+2. 发送：Peer.send_want_list(WantList). Peer.send_block(Block).对等节点之间交换want_list和块
+3. 关闭：Peer.close(Bool).对等点关闭连接</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ruhm</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-18</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="../../tags/ipfs/">ipfs</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="../../post/20180716-understanding-the-ipfs-white-paper-part-2/">
+            <span class="next-text nav-default">[翻译] 理解 IPFS 白皮书 第一部分</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="alastairruhm@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="../../index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">ruhm</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="../../lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="../../lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
