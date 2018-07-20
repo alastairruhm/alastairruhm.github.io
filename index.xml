@@ -6,10 +6,28 @@
     <description>Recent content on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 02 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[翻译] 理解 IPFS 白皮书 第一部分</title>
+      <link>/post/20180720-understanding-the-ipfs-white-paper-part-1/</link>
+      <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180720-understanding-the-ipfs-white-paper-part-1/</guid>
+      <description>理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white</description>
+    </item>
+    
+    <item>
+      <title>ipfs 技术原理</title>
+      <link>/post/20180703-ipfs-command-usage/</link>
+      <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180703-ipfs-command-usage/</guid>
+      <description>基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &amp;lt;path&amp;gt; Add a file to ipfs cat &amp;lt;ref&amp;gt; Show ipfs object data get &amp;lt;ref&amp;gt; Download ipfs objects ls &amp;lt;ref&amp;gt; List links from an object refs &amp;lt;ref&amp;gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme</description>
+    </item>
     
     <item>
       <title>ipfs 私有网络环境搭建</title>

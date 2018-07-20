@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>[翻译] 理解 IPFS 白皮书 第一部分 - Into the Unknown</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="ruhm" />
+  <meta name="description" content="理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white" />
+
+  <meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.44" />
+
+
+<link rel="canonical" href="../../post/20180720-understanding-the-ipfs-white-paper-part-1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="manifest" href="../../manifest.json">
+<link rel="mask-icon" href="../../safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="../../dist/even.min.css?v=3.1.1" rel="stylesheet">
+<link href="../../lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="[翻译] 理解 IPFS 白皮书 第一部分" />
+<meta property="og:description" content="理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/20180720-understanding-the-ipfs-white-paper-part-1/" />
+
+
+
+<meta property="article:published_time" content="2018-07-20T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-07-20T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="[翻译] 理解 IPFS 白皮书 第一部分">
+<meta itemprop="description" content="理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white">
+
+
+<meta itemprop="datePublished" content="2018-07-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-07-20T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3712">
+
+
+
+<meta itemprop="keywords" content="ipfs," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[翻译] 理解 IPFS 白皮书 第一部分"/>
+<meta name="twitter:description" content="理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="../../" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="../../">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="../../post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="../../tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="../../categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="../../" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="../../">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="../../categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">[翻译] 理解 IPFS 白皮书 第一部分</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-07-20 </span>
+        <div class="post-category">
+            
+              <a href="../../categories/ipfs/"> ipfs </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#理解-ipfs-白皮书-第1部分">理解 IPFS 白皮书 第1部分</a>
+<ul>
+<li><a href="#哦不-白皮书">哦不，白皮书！</a></li>
+<li><a href="#分布式散列表-dht">分布式散列表 (DHT)</a>
+<ul>
+<li><a href="#什么是-dht">什么是 DHT?</a></li>
+<li><a href="#kademlia-和它的朋友们">Kademlia 和它的朋友们</a></li>
+<li><a href="#ipfs-dht-实战">IPFS DHT 实战</a></li>
+</ul></li>
+<li><a href="#bittorrent">BitTorrent</a>
+<ul>
+<li><a href="#bittorrent-如何运作">BitTorrent 如何运作？</a></li>
+<li><a href="#bittorrent-和-ipfs">BitTorrent 和 IPFS</a></li>
+</ul></li>
+<li><a href="#休息一下吧">休息一下吧</a></li>
+<li><a href="#版本控制系统-git">版本控制系统 - Git</a></li>
+<li><a href="#自我认证的文件系统-sfs">自我认证的文件系统 - SFS</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="理解-ipfs-白皮书-第1部分">理解 IPFS 白皮书 第1部分</h1>
+
+<p>原文链接：<a href="https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html">https://decentralized.blog/understanding-the-ipfs-white-paper-part-1.html</a></p>
+
+<h2 id="哦不-白皮书">哦不，白皮书！</h2>
+
+<p>加密货币/区块链世界喜爱白皮书，IPFS也不例外。 它起源于著名的由中本聪编写的白皮书 <a href="https://bitcoin.org/bitcoin.pdf">Bitcoin: A Peer-to-Peer Electronic Cash System</a>（反过来又引用了另一篇你不想知道的白皮书）。 当我们深入加密货币时，我们将在后续的文章中看看比特币白皮书。</p>
+
+<p>关于白皮书，你需要了解的两件事：</p>
+
+<ol>
+<li>它们以PDF格式分发（因为它比HTML更难更改！）</li>
+<li>白皮书很难，看起来很可怕并且包含至少一个数学公式。</li>
+</ol>
+
+<p>IPFS白皮书原文在这里： <a href="https://ipfs.io/ipfs/QmR7GSQM93Cx5eAg6a6yRzNde1FQv7uL6X1o4k7zrJa3LX/ipfs.draft3.pdf">IPFS - Content Addressed, Versioned, P2P File System (DRAFT 3)</a> 。 并且，理所应当地托管在IPFS上。</p>
+
+<p>要理解 IPFS 的工作原理，最好一步一步地学习白皮书。 我将用两个章节内来一窥 IPFS 的底层技术：</p>
+
+<ul>
+<li>Distributed Hash Tables 分布式哈希表</li>
+<li>Block Exchanges - BitTorrent 块交换</li>
+<li>Version Control Systems - Git 版本控制系统</li>
+<li>Self-Certified Filesystems - SFS 自我认证的文件系统</li>
+</ul>
+
+<p>对应到 ISO 协议栈如下图：</p>
+
+<p><img src="https://decentralized.blog/img/ipfs-based-on.png" alt="ipfs-based-on.png" /></p>
+
+<p>好了，我们开始吧！</p>
+
+<h2 id="分布式散列表-dht">分布式散列表 (DHT)</h2>
+
+<h3 id="什么是-dht">什么是 DHT?</h3>
+
+<p>DHT 就像 Python 中的 dict 对象或 Perl 的哈希（如果你有键，你就可以检索到相应的值），但DHT的数据分布在多个节点上。 维基百科文章 <a href="https://en.wikipedia.org/wiki/Distributed_hash_table">Distributed hash table</a> 给出了很好的介绍。</p>
+
+<p>在IPFS的例子中，键是内容的哈希。 因此，向IPFS节点询问具有哈希 QmcPx9ZQboyHw8T7Afe4DbWFcJYocef5Pe4H3u7eK1osnQ 的内容，于是 IPFS 节点将在DHT中查找哪些节点保存了对应的内容。</p>
+
+<p>如何有效地找到特定值（快速，尽可能少的网络请求）以及如何管理 DHT 以便更改（进入/离开网络的节点或表中的新条目）容易被承受。这两个问题在已有的 DHT 的实现方式各不相同。</p>
+
+<p>其中一种实现称为 Pastry，我喜欢这两个视频，其中<a href="https://www.youtube.com/watch?v=WqQRQz_XYg4">路由</a> （如何查找值）和<a href="https://www.youtube.com/watch?v=p8iugvHeGcg">动态</a> （如何处理节点添加/删除）得到了很好的解释。</p>
+
+<h3 id="kademlia-和它的朋友们">Kademlia 和它的朋友们</h3>
+
+<p>回到白皮书。 从Kademlia开始，白皮书中明确提到了三个DHT实现。 Kademlia有自己的<a href="https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf">白皮书</a> ，但我们暂时不去管。。。。。。</p>
+
+<p>Kademlia 是几乎所有流行的 P2P 系统中都会使用的DHT协议，另外关于 Kedemlia 的<a href="https://en.wikipedia.org/wiki/Kademlia">维基百科</a> 也有很好介绍。</p>
+
+<p>简而言之，Kedemlia 使用节点的 ID 逐步接近具有所需哈希的节点（来自维基百科文章）：</p>
+
+<blockquote>
+<p>在搜索某些值时，算法需要知道相关的密钥并分几步探索网络。 每个步骤都会找到更靠近密钥的节点，直到联系的节点返回该值或找不到更近的节点。 这非常有效：与许多其他 DHT 一样，Kademlia 在总共n个节点的系统中仅需要联系 O(log(n)) 个节点。</p>
+</blockquote>
+
+<p>这里面的细节开始变得非常复杂，我认为它不会帮助我们达到理解 IPFS 的目标，所以我们继续前进。 如果你喜欢类似的东西：这里有一个<a href="https://www.youtube.com/watch?v=kXyVqk3EbwE">很好的介绍</a> ，如果你想深入挖掘Kademlia白皮书的链接是 ^^^（译者注：没有理解这个符号的涵义，在和作者沟通中）。</p>
+
+<p>IPFS 白皮书提到了另外两个改进了标准 Kedemlia 的 DHT 实现：</p>
+
+<ul>
+<li>Coral DSHT：提高查找性能并减少资源使用。</li>
+<li>S/Kademlia：使 Kademlia 更能抵御恶意攻击。</li>
+</ul>
+
+<h3 id="ipfs-dht-实战">IPFS DHT 实战</h3>
+
+<p>DHT 在 IPFS 中用于路由，换句话说：</p>
+
+<ol>
+<li>宣布向网络添加数据</li>
+<li>帮助定位任何节点请求的数据。</li>
+</ol>
+
+<p>白皮书指出：</p>
+
+<blockquote>
+<p>小值（等于或小于1KB）直接存储在 DHT 上。 对于更大的值，DHT 存储引用，即存储数据块对等的节点的 ID 值。</p>
+</blockquote>
+
+<p>那么我们来看一下我们是否可以通过直接访问 DHT 并添加和检索小数据块。</p>
+
+<pre><code class="language-bash">$ ipfs daemon # 确保能成功运行（首先安装配置好 ipfs）
+
+$ echo 'my tiny text' | ipfs add # 向当前节点添加一个小于1KB的文本文件
+QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF
+
+$ ipfs cat QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF # 检查
+my tiny text
+
+$ ipfs dht get /ipfs/QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF
+# returns not found
+</code></pre>
+
+<p>所以现在我们有那个文本，我们想从DHT访问它，但显然，支持的<code>ipfs dht get</code>请求是以/ipns/开头的键。</p>
+
+<p>好的，所以我们创建了一个 IPNS ，看看我们是否可以直接查询：</p>
+
+<pre><code class="language-bash">$ ipfs name publish QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF # point a IPNS address to our content
+Published to QmYebHWdWStasXWZQiXuFacckKC33HTbicXPkdSi5Yfpz6: /ipfs/QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF
+
+$ ipfs resolve QmYebHWdWStasXWZQiXuFacckKC33HTbicXPkdSi5Yfpz6 # check it
+# never returns, hmm IPNS doesn't seem to be ready for production
+
+$ ipfs dht get /ipns/QmYebHWdWStasXWZQiXuFacckKC33HTbicXPkdSi5Yfpz6 # same thing but directly
+# does return binary data starting with 4/ipfs/QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF
+</code></pre>
+
+<p>它确实有效，但现在似乎仅限于 IPNS 。我们还可以用 DHT 做些什么？</p>
+
+<p>使用 DHT 找出哪些节点可以提供指定的数据：</p>
+
+<pre><code class="language-bash">$ ipfs dht findprovs QmfQKcXMLGvCxx6opNDwb1ptD1LJER6MPHdsMHCB1CXpFF
+QmYebHWdWStasXWZQiXuFacckKC33HTbicXPkdSi5Yfpz6
+QmRf4ERGvYpVo6HRa2VueZT8pWi8YvyLS3rW6ad2y83tdN
+
+# ^^^ there are both my nodes, so that works
+# Now ask the DHT for the address of the first peer that was returned
+$ ipfs dht findpeer QmYebHWdWStasXWZQiXuFacckKC33HTbicXPkdSi5Yfpz6
+/ip4/176.92.234.78/tcp/4001
+/ip4/85.74.239.218/tcp/38689
+/ip4/127.0.0.1/tcp/4001
+/ip4/192.168.1.30/tcp/4001
+/ip6/::1/tcp/4001
+/ip4/192.168.1.3/tcp/4001
+/ip4/176.92.234.78/tcp/40443
+
+# Oooh nice! We will visit this address notation in the next episode.
+</code></pre>
+
+<p>总而言之，我们在实践中看到了一些和 DHT 相关的东西，但这项技术不像我希望的那样直观和实用。</p>
+
+<p>是时候转向应用在 IPFS 的下一个令人兴奋的技术了：</p>
+
+<h2 id="bittorrent">BitTorrent</h2>
+
+<h3 id="bittorrent-如何运作">BitTorrent 如何运作？</h3>
+
+<p>我们都知道 BitTorrent，但我们中的一些人（对，我也是）需要深入挖掘才能真正理解它。 这个演讲是一个很好的介绍： <a href="https://www.youtube.com/watch?t=961&amp;v=kxHRATfvnlw">Feross Aboukhadijeh：WebTorrent - JSConf.Asia 2014</a> 。 演讲者讨论了他如何实现可以在浏览器中运行的 BitTorrent 客户端，这要归功于 WebRTC（一种很酷的技术，可能以后会在我们的项目派上用场）。 它同样彻底阐述了 DHT 的工作机制。</p>
+
+<p>更多资料：</p>
+
+<ul>
+<li><a href="http://web.cs.ucla.edu/classes/cs217/05BitTorrent.pdf">Peer-to-peer networking with BitTorrent</a> (PDF)。 如果你只想读一篇文章，那就选这篇。</li>
+<li><a href="https://www.youtube.com/watch?v=nmgzOQf6NbQ">Peer to Peer Content Delivery - BitTorrent</a>（视频）+ <a href="https://courses.cs.washington.edu/courses/cse461/17wi/section-slides/9-p2p.pdf">幻灯片</a> （PDF）。</li>
+<li><a href="http://bittorrent.org/beps/bep_0052.html">The BitTorrent Protocol Specification v2</a>（标准规范，读起来不会很困难）。</li>
+</ul>
+
+<h3 id="bittorrent-和-ipfs">BitTorrent 和 IPFS</h3>
+
+<p>IPFS 中的数据（块）交换受 BitTorrent 的启发，但并不是和 BitTorrent 完全一样的机制。 白皮书提到了 IPFS 使用的两个 BitTorrent 的特性：</p>
+
+<ul>
+<li>tit-for-tat(译者注：针锋相对)的策略（如果你不分享数据，你也不会收到数据）</li>
+<li>优先获取稀有的数据（提高性能等等，请参阅上面的第一个PDF）</li>
+</ul>
+
+<p>一个值得注意的区别是，在 BitTorrent 中，每个文件都有单独的一组对等节点（彼此形成一个P2P网络），而 IPFS 则是所有数据都在对等节点形成的一个大集群中。 IPFS BitTorrent 的变种被称为 BitSwap，我将在下一篇中讨论它。</p>
+
+<p>我们在实践一下 <code>swarm</code> 吧。</p>
+
+<pre><code class="language-bash"># Make sure you have the daemon running
+$ ipfs swarm peers
+/ip4/104.131.131.82/tcp/4001/ipfs/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ
+/ip4/104.236.151.122/tcp/4001/ipfs/QmSoLju6m7xTh3DuokvT3886QRYqxAzb1kShaanJgW36yx
+/ip4/128.199.219.111/tcp/4001/ipfs/QmSoLSafTMBsPKadTEgaXctDQVcqN88CNLHXMkTNwMKPnu
+/ip4/178.62.61.185/tcp/4001/ipfs/QmSoLMeWqB7YGVLJN3pNLQpmmEk35v6wYtsMGLzSr5QBU3
+</code></pre>
+
+<p>当你刚启动守护进程时，你会连接到几个 “种子对等节点”。 过了一会儿，对等节点的数量迅速增长。</p>
+
+<p>另一个查询 swarm 的命令：</p>
+
+<pre><code class="language-bash">$ ipfs swarm addrs
+QmNRuQrwtGgeVQgndTny4A4Rukg7GR7vzDJrVJxUBfqevk (4)
+        /ip4/127.0.0.1/tcp/4001
+        /ip4/172.31.41.39/tcp/4001
+        /ip4/35.167.26.28/tcp/4001
+        /ip6/::1/tcp/4001
+QmNSJohkvvBVmHeN7KUZnm4X84GA6Znbv6ZmvsTAjbw3AB (5)
+        /ip4/10.0.1.8/tcp/4001
+        /ip4/127.0.0.1/tcp/4001
+        /ip4/174.44.163.74/tcp/16012
+        /ip6/::1/tcp/4001
+        /ip6/fd15:462e:f8fd:695e:9161:27dd:7f78:d242/tcp/4001
+QmNTJyhCYcbv5GdnqtdEwTfJCgY6pV4PJiNTtAmuoxnQak (3)
+        /ip4/127.0.0.1/tcp/4001
+        /ip4/94.176.232.68/tcp/4001
+        /ip6/::1/tcp/4001
+QmNTZy7TfXvsHczwwV3EYbxRZN5gthgicG9GiroD7C4ZrP (4)
+        /ip4/127.0.0.1/tcp/4001
+        /ip4/172.20.255.127/tcp/4001
+        /ip4/54.229.227.53/tcp/4001
+        /ip6/::1/tcp/4001
+        .
+        .
+        .
+</code></pre>
+
+<p>这些是本地节点在 swarm 中已知的地址，顶部的哈希是 peerId。</p>
+
+<p>有了这些信息，您就可以连接到对等节点，比如这样：</p>
+
+<pre><code class="language-bash">$ ipfs swarm connect /ip4/114.91.202.180/tcp/34746/ipfs/QmfTgdg6GkqJtUrWAYo69GjcLrjQq9LjTjgW3KZ1ux1X6U
+connect QmfTgdg6GkqJtUrWAYo69GjcLrjQq9LjTjgW3KZ1ux1X6U success
+</code></pre>
+
+<p>后面会介绍更多的关于 BitSwap 的信息。</p>
+
+<h2 id="休息一下吧">休息一下吧</h2>
+
+<p>Pfew（？），到这里已经学习到了很多理论和干货，但是我们的IPFS白皮书的学习路程甚至还未过半！ 因此，为了让它们更全面地被理解，并为了休息，放空大脑，去公园散散步，顺便听听这个播客：<a href="https://tim.blog/2017/06/04/nick-szabo/">The Quiet Master of Cryptocurrency — Nick Szabo</a>。 它到无处不在，但我发现它非常有趣。它把观察视角从比特级别拉远到一些到“什么是钱？”之类的（宏观的）东西。</p>
+
+<p>强烈建议听一下，当你听完后，我们继续。。。。。。</p>
+
+<h2 id="版本控制系统-git">版本控制系统 - Git</h2>
+
+<p>白皮书关于版本控制系统的整个部分都复制在这里：</p>
+
+<blockquote>
+<p>版本控制系统提供了对随时间变化的文件进行建模的设施，并有效地分发不同的版本。</p>
+
+<p>流行版本控制系统 Git 提供了强大的 Merkle DAG 对象模型，以分布式友好的方式捕获对文件系统树的更改。</p>
+
+<p>1.不可更改的对象表示文件（blob），目录（树）和更改（提交）。
+2.通过加密hash对象的内容，让对象可寻址。
+3.链接到其他对象是嵌入的，形成一个 Merkle DAG。这提供了有用的完整性和 workflow 属性。
+4.大多数版本元数据（分支，标签等等）都只是指针引用，因此创建和更新的代价都很小。
+5.版本改变只是更新引用或者添加对象。
+6.分布式版本改变对其他用户而言只是转移对象和更新远程引用。</p>
+</blockquote>
+
+<p>让我们逐行理解它：</p>
+
+<blockquote>
+<p>Ad 1.不可变对象表示文件（blob），目录（树）和更改（提交）。</p>
+</blockquote>
+
+<p>Git 只添加数据。 所以 blob，树和提交是不可变的。 其中任何一个数据的最终版本是由特殊的引用决定的（见第4和第5点）。</p>
+
+<blockquote>
+<p>Ad 2.通过加密hash对象的内容，让对象可寻址。</p>
+</blockquote>
+
+<p>在 git 中，引用它们时不使用文件或目录名。 Git 使用 SHA1 散列内容（或列出或提交）并在其数据库中使用这些散列值。这篇文章对于它的工作机制有很深刻的洞察： <a href="https://medium.freecodecamp.org/git-internals-for-curious-developers-a1e44e7ecafe">Git under the hood</a> （从 “现在让我们来看看 Git 如何做到这一切” 这一节开始阅读）</p>
+
+<blockquote>
+<p>Ad 3.链接到其他对象是嵌入的，形成一个 Merkle DAG。这提供了有用的完整性和 workflow 属性。</p>
+</blockquote>
+
+<p>哦，天哪，一个 Merkle DAG！ 不用担心，它实际上并不像听起来那么可怕。</p>
+
+<p>Merkle 树是二叉树，其中父级包含两个子节点的哈希值的拼接后内容的哈希值。 这解释了完整性属性的由来：数据块中的任何更改都会导致根节点发生更改。 只需要一点点元数据（叔节点和父节点，可以是不受信任的）和受信任的根节点，我们就可以验证块的有效性。</p>
+
+<p>现在，Merkle DAG 与 Merkle 树不同。不同之处在于解释：<a href="https://bmcorser.github.io/2014/12/22/merkle-dag.html">Merkle DAG</a> 和 <a href="https://github.com/jbenet/random-ideas/issues/20">JRFC 20 - Merkle DAG</a></p>
+
+<p>简而言之：Merkle DAG 更通用，因为它不是二叉树而是图，任何节点都可以包含数据，而不仅仅是 Merkle 树中的叶子节点。</p>
+
+<p>它仍然有点模糊，当我们看一下 IPFS Merkle DAG 时，我会再次讨论它。</p>
+
+<blockquote>
+<p>Ad 4.和 5. 大多数版本控制元数据（分支，标签等）只是指针引用，因此创建和更新成本低廉。版本更改仅更新引用或添加对象。</p>
+</blockquote>
+
+<p>这里提供了一个可视化的方式观察 git 的运行机制： <a href="http://eagain.net/articles/git-for-computer-scientists/">Git for Computer Scientists</a> 这里可以看出分支，HEAD和标签仅仅是对提交的引用。</p>
+
+<blockquote>
+<p>Ad 6.将版本更改分发给其他用户只是传输对象和更新远程引用。</p>
+</blockquote>
+
+<p>这里说的是什么，我觉得没有必要解释:)</p>
+
+<h2 id="自我认证的文件系统-sfs">自我认证的文件系统 - SFS</h2>
+
+<p>这项技术用于实现 IPFS 的 IPNS 名称系统。它允许我们为远程文件系统生成地址，用户可以验证地址的有效性。</p>
+
+<p>白皮书指出：</p>
+
+<blockquote>
+<p>SFS 引入了一种用于构建自我认证文件系统的技术：使用以下方案寻址远程文件系统</p>
+</blockquote>
+
+<pre><code class="language-bash">  /sfs/&lt;Location&gt;:&lt;HostID&gt;
+</code></pre>
+
+<blockquote>
+<p>其中 Location 是服务器网络地址，另外：</p>
+</blockquote>
+
+<pre><code class="language-bash">  HostID = hash（public_key || Location）
+</code></pre>
+
+<blockquote>
+<p>因此，SFS 文件系统的命名实际上对其服务器进行认证。</p>
+</blockquote>
+
+<p>这已经不言而喻了，我们将在下一篇中看到它的实际应用：<a href="https://decentralized.blog/understanding-the-ipfs-white-paper-part-2.html">Understanding the IPFS White Paper part 2</a></p>
+
+<p>希望你将对这篇文章的看法通过推特给我<a href="https://twitter.com/pors">@pors</a>。</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">ruhm</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-07-20</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="../../tags/ipfs/">ipfs</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="../../post/20180703-ipfs-command-usage/">
+            <span class="next-text nav-default">ipfs 技术原理</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="alastairruhm@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="../../index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">ruhm</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="../../lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="../../lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="../../lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

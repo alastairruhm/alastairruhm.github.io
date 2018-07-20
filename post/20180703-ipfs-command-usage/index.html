@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>ipfs 私有网络环境搭建 - Into the Unknown</title>
+  <title>ipfs 技术原理 - Into the Unknown</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="ruhm" />
-  <meta name="description" content="主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta" />
+  <meta name="description" content="基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &amp;lt;path&amp;gt; Add a file to ipfs cat &amp;lt;ref&amp;gt; Show ipfs object data get &amp;lt;ref&amp;gt; Download ipfs objects ls &amp;lt;ref&amp;gt; List links from an object refs &amp;lt;ref&amp;gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme" />
 
   <meta name="keywords" content="Hugo, theme, even" />
 
@@ -29,7 +29,7 @@
 <meta name="generator" content="Hugo 0.44" />
 
 
-<link rel="canonical" href="../../post/20180702-ipfs-private-network/" />
+<link rel="canonical" href="../../post/20180703-ipfs-command-usage/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
@@ -49,10 +49,10 @@
 
 
 
-<meta property="og:title" content="ipfs 私有网络环境搭建" />
-<meta property="og:description" content="主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta" />
+<meta property="og:title" content="ipfs 技术原理" />
+<meta property="og:description" content="基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &lt;path&gt; Add a file to ipfs cat &lt;ref&gt; Show ipfs object data get &lt;ref&gt; Download ipfs objects ls &lt;ref&gt; List links from an object refs &lt;ref&gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/20180702-ipfs-private-network/" />
+<meta property="og:url" content="/post/20180703-ipfs-command-usage/" />
 
 
 
@@ -70,20 +70,20 @@
 
 
 
-<meta itemprop="name" content="ipfs 私有网络环境搭建">
-<meta itemprop="description" content="主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta">
+<meta itemprop="name" content="ipfs 技术原理">
+<meta itemprop="description" content="基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &lt;path&gt; Add a file to ipfs cat &lt;ref&gt; Show ipfs object data get &lt;ref&gt; Download ipfs objects ls &lt;ref&gt; List links from an object refs &lt;ref&gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme">
 
 
 <meta itemprop="datePublished" content="2018-07-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2018-07-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="440">
+<meta itemprop="wordCount" content="141">
 
 
 
 <meta itemprop="keywords" content="ipfs," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ipfs 私有网络环境搭建"/>
-<meta name="twitter:description" content="主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta"/>
+<meta name="twitter:title" content="ipfs 技术原理"/>
+<meta name="twitter:description" content="基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &lt;path&gt; Add a file to ipfs cat &lt;ref&gt; Show ipfs object data get &lt;ref&gt; Download ipfs objects ls &lt;ref&gt; List links from an object refs &lt;ref&gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -146,7 +146,7 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">ipfs 私有网络环境搭建</h1>
+      <h1 class="post-title">ipfs 技术原理</h1>
 
       <div class="post-meta">
         <span class="post-time"> 2018-07-02 </span>
@@ -170,10 +170,7 @@
 <ul>
 <li>
 <ul>
-<li><a href="#注意事项">注意事项</a></li>
-<li><a href="#步骤">步骤</a></li>
-<li><a href="#check">check</a></li>
-<li><a href="#test">test</a></li>
+<li><a href="#基础指令">基础指令</a></li>
 <li><a href="#ref">ref</a></li>
 </ul></li>
 </ul>
@@ -188,83 +185,82 @@
     <div class="post-content">
       
 
-<p>主要参考官网的文档：<a href="https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks">https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks</a></p>
+<h2 id="基础指令">基础指令</h2>
 
-<h2 id="注意事项">注意事项</h2>
-
-<ol>
-<li>需要在各个节点有相同的私钥，私钥可以通过 <a href="https://github.com/Kubuxu/go-ipfs-swarm-key-gen">https://github.com/Kubuxu/go-ipfs-swarm-key-gen</a> 项目生成。</li>
-<li>节点启动前，设置环境变量 LIBP2P_FORCE_PNET=1</li>
-</ol>
-
-<h2 id="步骤">步骤</h2>
-
-<p>这里假设</p>
-
-<ol>
-<li>ipfs 节点 IP 分别为 10.0.0.1 和 10.0.0.2，以下分别用 node1 和 node2 指代</li>
-<li>ipfs 各节点已经安装好了 go 语言环境和 ipfs 命令行应用</li>
-</ol>
-
-<p>首先node1/node2都需要初始化私有仓库</p>
-
-<pre><code class="language-bash">ipfs init
+<pre><code>BASIC COMMANDS
+    init          Initialize ipfs local configuration
+    add &lt;path&gt;    Add a file to ipfs
+    cat &lt;ref&gt;     Show ipfs object data
+    get &lt;ref&gt;     Download ipfs objects
+    ls &lt;ref&gt;      List links from an object
+    refs &lt;ref&gt;    List hashes of links from an object
 </code></pre>
 
-<p>生成私钥，以下指令均在 node1 执行：</p>
+<p>初始化</p>
 
-<pre><code class="language-bash">go get github.com/Kubuxu/go-ipfs-swarm-key-gen/ipfs-swarm-key-gen
-ipfs-swarm-key-gen &gt; ~/.ipfs/swarm.key
+<pre><code class="language-bash">$ ipfs init
+initializing IPFS node at /Users/leon/.ipfs
+generating 2048-bit RSA keypair...done
+peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1
+to get started, enter:
+
+	ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme
 </code></pre>
 
-<p>私钥发送到 node2 上，</p>
+<p>我们看一下这个仓库里的文件</p>
 
-<pre><code>scp ~/.ipfs/swarm.key root@10.0.0.2:~/.ipfs/swarm.key
+<pre><code class="language-bash">$ find ~/.ipfs
+/Users/leon/.ipfs
+/Users/leon/.ipfs/blocks
+/Users/leon/.ipfs/blocks/PM
+/Users/leon/.ipfs/blocks/PM/CIQKNNRB2NFYXUZDJ2UWNMSKYLGTKUYDRQTJCDI7JTUDFH6YOYNUPMA.data
+/Users/leon/.ipfs/blocks/B5
+/Users/leon/.ipfs/blocks/B5/CIQDOZU3EAGXWK3PLVFOFOZOAE5USX3XM6I5CSHSQGTML2BAGN7MB5I.data
+/Users/leon/.ipfs/blocks/JN
+/Users/leon/.ipfs/blocks/JN/CIQPHMHGQLLZXC32FQQW2YVM4KGFORVFJAQYY55VK3WJGLZ2MS4RJNQ.data
+/Users/leon/.ipfs/blocks/L5
+/Users/leon/.ipfs/blocks/L5/CIQBIQXZ4NWWDXUSIYSCX7RE6EBXHMGENZNMUDEMGNKMGT2K6LLUL5Y.data
+/Users/leon/.ipfs/blocks/7J
+/Users/leon/.ipfs/blocks/7J/CIQKKLBWAIBQZOIS5X7E32LQAL6236OUKZTMHPQSFIXPWXNZHQOV7JQ.data
+/Users/leon/.ipfs/blocks/SHARDING
+/Users/leon/.ipfs/blocks/2H
+/Users/leon/.ipfs/blocks/2H/CIQN5PVU4ECEKNEVXWRYKCPTVMIPHP5AWWKOCGCPXVNMF7ZWU6UG2HI.data
+/Users/leon/.ipfs/blocks/SH
+/Users/leon/.ipfs/blocks/SH/CIQL3XIOKVDAW5KQF6NNWGFFYAHEQP63TJOVZHAEO7XZBD7KQOCSSHY.data
+/Users/leon/.ipfs/blocks/_README
+/Users/leon/.ipfs/blocks/N2
+/Users/leon/.ipfs/blocks/N2/CIQDWKPBHXLJ3XVELRJZA2SYY7OGCSX6FRSIZS2VQQPVKOA2Z4VXN2I.data
+/Users/leon/.ipfs/blocks/OO
+/Users/leon/.ipfs/blocks/OO/CIQBT4N7PS5IZ5IG2ZOUGKFK27IE33WKGJNDW2TY3LSBNQ34R6OVOOQ.data
+/Users/leon/.ipfs/blocks/LG
+/Users/leon/.ipfs/blocks/LG/CIQJBQD2O6K4CGJVCCTJNUP57QHR4SKHZ74OIITBBGLOMCO3ZOLWLGA.data
+/Users/leon/.ipfs/blocks/IL
+/Users/leon/.ipfs/blocks/IL/CIQJFGRQHQ45VCQLM7AJNF2GF5UHUAGGHC6LLAH6VYDEKLQMD4QLILY.data
+/Users/leon/.ipfs/blocks/7R
+/Users/leon/.ipfs/blocks/7R/CIQIVZGLOUFY5L4TEYD5WLSCRDDEAW2TNVZSH3OBM5UKNOREHYSY7RA.data
+/Users/leon/.ipfs/blocks/X3
+/Users/leon/.ipfs/blocks/X3/CIQFTFEEHEDF6KLBT32BFAGLXEZL4UWFNWM4LFTLMXQBCERZ6CMLX3Y.data
+/Users/leon/.ipfs/blocks/R3
+/Users/leon/.ipfs/blocks/R3/CIQBED3K6YA5I3QQWLJOCHWXDRK5EXZQILBCKAPEDUJENZ5B5HJ5R3A.data
+/Users/leon/.ipfs/blocks/QV
+/Users/leon/.ipfs/blocks/QV/CIQOHMGEIKMPYHAUTL57JSEZN64SIJ5OIHSGJG4TJSSJLGI3PBJLQVI.data
+/Users/leon/.ipfs/keystore
+/Users/leon/.ipfs/config
+/Users/leon/.ipfs/datastore
+/Users/leon/.ipfs/datastore/000003.log
+/Users/leon/.ipfs/datastore/000002.ldb
+/Users/leon/.ipfs/datastore/LOCK
+/Users/leon/.ipfs/datastore/CURRENT
+/Users/leon/.ipfs/datastore/LOG
+/Users/leon/.ipfs/datastore/MANIFEST-000004
+/Users/leon/.ipfs/version
+/Users/leon/.ipfs/datastore_spec
 </code></pre>
-
-<p>删除默认的 Bootstrap 的节点配置</p>
-
-<pre><code class="language-bash">ipfs bootstrap rm --all
-</code></pre>
-
-<p>添加内网的 ipfs 节点 10.0.0.2，注意如果不知道 node2 的 id ，可以通过 <code>ipfs id</code> 获取</p>
-
-<pre><code class="language-bash">ipfs bootstrap add /ip4/10.0.0.2/tcp/4001/ipfs/QmXpfNVt2YE6ofYnsc1GFpxK7hRQ8du7NsR9YXgGzWrqni
-</code></pre>
-
-<p>设置环境变量LIBP2P_FORCE_PNET为1。</p>
-
-<pre><code class="language-bash">export LIBP2P_FORCE_PNET=1
-</code></pre>
-
-<p>启动节点</p>
-
-<pre><code class="language-bash">ipfs daemon
-</code></pre>
-
-<p>对于 node2 节点，执行</p>
-
-<pre><code class="language-bash">ipfs bootstrap rm --all
-ipfs daemon
-</code></pre>
-
-<h2 id="check">check</h2>
-
-<p>在 node1 上执行，如果有如下的记录则测试网络正常</p>
-
-<pre><code>$ ipfs swarm peers
-/ip4/10.0.0.2/tcp/4001/ipfs/QmXpfNVt2YE6ofYnsc1GFpxK7hRQ8du7NsR9YXgGzWrqni
-</code></pre>
-
-<h2 id="test">test</h2>
-
-<p>在 node1 添加一个测试文件，然后在 node2 使用 <code>ipfs cat</code>命令是否能够成功获取文件内容。</p>
 
 <h2 id="ref">ref</h2>
 
 <ul>
-<li><a href="https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks">https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks</a></li>
-<li>搭建IPFS私有网络 | 鸟窝: <a href="http://colobu.com/2018/05/29/setup-ipfs-private-network/">http://colobu.com/2018/05/29/setup-ipfs-private-network/</a></li>
+<li>Local IPFS Daemon Basic Usage · INFURA/tutorials Wiki: <a href="https://github.com/INFURA/tutorials/wiki/Local-IPFS-Daemon-Basic-Usage">https://github.com/INFURA/tutorials/wiki/Local-IPFS-Daemon-Basic-Usage</a></li>
 </ul>
 
     </div>
@@ -299,14 +295,14 @@ ipfs daemon
       
       <nav class="post-nav">
         
-          <a class="prev" href="../../post/20180703-ipfs-command-usage/">
+          <a class="prev" href="../../post/20180720-understanding-the-ipfs-white-paper-part-1/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">ipfs 技术原理</span>
+            <span class="prev-text nav-default">[翻译] 理解 IPFS 白皮书 第一部分</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         
-          <a class="next" href="../../post/20180701-install-ipfs/">
-            <span class="next-text nav-default">ipfs 安装</span>
+          <a class="next" href="../../post/20180702-ipfs-private-network/">
+            <span class="next-text nav-default">ipfs 私有网络环境搭建</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>
