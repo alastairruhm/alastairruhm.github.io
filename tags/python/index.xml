@@ -6,10 +6,19 @@
     <description>Recent content in Python on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 20 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 Jun 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>python 字符串格式化</title>
+      <link>/post/20180612-python-string-formation/</link>
+      <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/20180612-python-string-formation/</guid>
+      <description>最近通过 PEP498 学习到 f-strings 的用法。文档见这里：https://docs.python.org/3.6/reference/lexical_analy</description>
+    </item>
     
     <item>
       <title>python 正则表达式和内置 re 模块小结</title>
