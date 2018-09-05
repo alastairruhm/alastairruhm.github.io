@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.44" />
+<meta name="generator" content="Hugo 0.47.1" />
 
 
 <link rel="canonical" href="../../post/sequelize-raw-query-practices/" />
@@ -52,24 +52,8 @@
 <meta property="og:title" content="如何在 sequelize raw query 中如何避免 SQL injection" />
 <meta property="og:description" content="如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。 由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/sequelize-raw-query-practices/" />
-
-
-
-<meta property="article:published_time" content="2017-09-17T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="/post/sequelize-raw-query-practices/" /><meta property="article:published_time" content="2017-09-17T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2017-09-17T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
-
 <meta itemprop="name" content="如何在 sequelize raw query 中如何避免 SQL injection">
 <meta itemprop="description" content="如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。 由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的">
 
@@ -332,6 +316,17 @@ yield Sequelize.query(`SELECT * from event from &quot;name&quot;= :name`, {
 
 <script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-125246338-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

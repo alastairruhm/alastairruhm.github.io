@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.44" />
+<meta name="generator" content="Hugo 0.47.1" />
 
 
 <link rel="canonical" href="../../post/go-single-instance/" />
@@ -52,24 +52,8 @@
 <meta property="og:title" content="sync.Once 实现 golang 中的单例模式" />
 <meta property="og:description" content="sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &quot;sync&quot;" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/go-single-instance/" />
-
-
-
-<meta property="article:published_time" content="2017-06-05T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="/post/go-single-instance/" /><meta property="article:published_time" content="2017-06-05T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2017-06-05T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
-
 <meta itemprop="name" content="sync.Once 实现 golang 中的单例模式">
 <meta itemprop="description" content="sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &quot;sync&quot;">
 
@@ -309,6 +293,17 @@ func GetInstance() *singleton {
 
 <script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-125246338-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

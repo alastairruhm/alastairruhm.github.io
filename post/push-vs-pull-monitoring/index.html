@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.44" />
+<meta name="generator" content="Hugo 0.47.1" />
 
 
 <link rel="canonical" href="../../post/push-vs-pull-monitoring/" />
@@ -52,24 +52,8 @@
 <meta property="og:title" content="监控系统 push 和 pull 模型" />
 <meta property="og:description" content="监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount &#43;= 1 metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/push-vs-pull-monitoring/" />
-
-
-
-<meta property="article:published_time" content="2017-06-12T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="/post/push-vs-pull-monitoring/" /><meta property="article:published_time" content="2017-06-12T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2017-06-12T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
-
 <meta itemprop="name" content="监控系统 push 和 pull 模型">
 <meta itemprop="description" content="监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount &#43;= 1 metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的">
 
@@ -368,6 +352,17 @@ func main() {
 
 <script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-125246338-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

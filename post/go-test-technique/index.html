@@ -26,7 +26,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.44" />
+<meta name="generator" content="Hugo 0.47.1" />
 
 
 <link rel="canonical" href="../../post/go-test-technique/" />
@@ -52,24 +52,8 @@
 <meta property="og:title" content="golang test techniques" />
 <meta property="og:description" content="golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &lt; len(nums); i&#43;&#43; { for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; { if nums[i]&#43;nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0," />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/post/go-test-technique/" />
-
-
-
-<meta property="article:published_time" content="2017-07-18T00:00:00&#43;00:00"/>
-
+<meta property="og:url" content="/post/go-test-technique/" /><meta property="article:published_time" content="2017-07-18T00:00:00&#43;00:00"/>
 <meta property="article:modified_time" content="2017-07-18T00:00:00&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
-
 <meta itemprop="name" content="golang test techniques">
 <meta itemprop="description" content="golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &lt; len(nums); i&#43;&#43; { for j := i &#43; 1; j &lt; len(nums); j&#43;&#43; { if nums[i]&#43;nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,">
 
@@ -356,6 +340,17 @@ func (s *TestSuite) TestAddTwo(c *C) {
 
 <script type="text/javascript" src="../../dist/even.min.js?v=3.1.1"></script>
 
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-125246338-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
