@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Proxy on Into the Unknown</title>
-    <link>/tags/proxy/</link>
+    <link>https://blog.ruhm.me/tags/proxy/</link>
     <description>Recent content in Proxy on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Mon, 07 Nov 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git 通过代理加速</title>
-      <link>/post/git-acceleration/</link>
+      <link>https://blog.ruhm.me/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/git-acceleration/</guid>
+      <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
       <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较</description>
     </item>
     

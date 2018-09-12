@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memo on Into the Unknown</title>
-    <link>/tags/memo/</link>
+    <link>https://blog.ruhm.me/tags/memo/</link>
     <description>Recent content in Memo on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Tue, 22 Nov 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/memo/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/memo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>/post/grafana-dev-setup/</link>
+      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/grafana-dev-setup/</guid>
+      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
       <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     

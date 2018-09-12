@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Prometheus on Into the Unknown</title>
-    <link>/tags/prometheus/</link>
+    <link>https://blog.ruhm.me/tags/prometheus/</link>
     <description>Recent content in Prometheus on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>/post/kubernetes-monitoring/</link>
+      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/kubernetes-monitoring/</guid>
+      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
       <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异 Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统V</description>
     </item>
     
     <item>
       <title>prometheus 监控系统介绍与实践总结</title>
-      <link>/post/prometheus-intro/</link>
+      <link>https://blog.ruhm.me/post/prometheus-intro/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/prometheus-intro/</guid>
+      <guid>https://blog.ruhm.me/post/prometheus-intro/</guid>
       <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控 最近，由于在调研容器平台的原因，关注了一</description>
     </item>
     

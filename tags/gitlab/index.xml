@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gitlab on Into the Unknown</title>
-    <link>/tags/gitlab/</link>
+    <link>https://blog.ruhm.me/tags/gitlab/</link>
     <description>Recent content in Gitlab on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Mon, 25 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
-      <link>/post/gitlab-ci-for-golang-project/</link>
+      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/gitlab-ci-for-golang-project/</guid>
+      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
       <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。 思路</description>
     </item>
     

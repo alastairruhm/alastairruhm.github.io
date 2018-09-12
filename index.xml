@@ -2,265 +2,274 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Into the Unknown</title>
-    <link>/</link>
+    <link>https://blog.ruhm.me/</link>
     <description>Recent content on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>go-ipfs 编译</title>
-      <link>/post/20180722-compiling-go-ipfs/</link>
+      <link>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</link>
       <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180722-compiling-go-ipfs/</guid>
+      <guid>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</guid>
       <description>go-ipfs 编译</description>
     </item>
     
     <item>
       <title>侧链研究笔记</title>
-      <link>/post/20180720-note-on-sidechain/</link>
+      <link>https://blog.ruhm.me/post/20180720-note-on-sidechain/</link>
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180720-note-on-sidechain/</guid>
+      <guid>https://blog.ruhm.me/post/20180720-note-on-sidechain/</guid>
       <description>侧链研究笔记 问题清单 1. 为什么需要这个技术？它解决什么已知的问题？ 侧链协议产生的原动力其实来源于其他区块链的创新威胁。侧链诞生前，众多“山寨币</description>
     </item>
     
     <item>
       <title>[翻译] IPFS 白皮书</title>
-      <link>/post/20180718-ipfs-white-paper/</link>
+      <link>https://blog.ruhm.me/post/20180718-ipfs-white-paper/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180718-ipfs-white-paper/</guid>
+      <guid>https://blog.ruhm.me/post/20180718-ipfs-white-paper/</guid>
       <description>IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the</description>
     </item>
     
     <item>
       <title>[翻译] 理解 IPFS 白皮书 第一部分</title>
-      <link>/post/20180716-understanding-the-ipfs-white-paper-part-2/</link>
+      <link>https://blog.ruhm.me/post/20180716-understanding-the-ipfs-white-paper-part-2/</link>
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180716-understanding-the-ipfs-white-paper-part-2/</guid>
+      <guid>https://blog.ruhm.me/post/20180716-understanding-the-ipfs-white-paper-part-2/</guid>
       <description>理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white</description>
     </item>
     
     <item>
       <title>ipfs 技术原理</title>
-      <link>/post/20180703-ipfs-command-usage/</link>
+      <link>https://blog.ruhm.me/post/20180703-ipfs-command-usage/</link>
       <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180703-ipfs-command-usage/</guid>
+      <guid>https://blog.ruhm.me/post/20180703-ipfs-command-usage/</guid>
       <description>基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &amp;lt;path&amp;gt; Add a file to ipfs cat &amp;lt;ref&amp;gt; Show ipfs object data get &amp;lt;ref&amp;gt; Download ipfs objects ls &amp;lt;ref&amp;gt; List links from an object refs &amp;lt;ref&amp;gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme</description>
     </item>
     
     <item>
       <title>ipfs 私有网络环境搭建</title>
-      <link>/post/20180702-ipfs-private-network/</link>
+      <link>https://blog.ruhm.me/post/20180702-ipfs-private-network/</link>
       <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180702-ipfs-private-network/</guid>
+      <guid>https://blog.ruhm.me/post/20180702-ipfs-private-network/</guid>
       <description>主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta</description>
     </item>
     
     <item>
       <title>ipfs 安装</title>
-      <link>/post/20180701-install-ipfs/</link>
+      <link>https://blog.ruhm.me/post/20180701-install-ipfs/</link>
       <pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180701-install-ipfs/</guid>
+      <guid>https://blog.ruhm.me/post/20180701-install-ipfs/</guid>
       <description>通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help</description>
     </item>
     
     <item>
       <title>python 字符串格式化</title>
-      <link>/post/20180612-python-string-formation/</link>
+      <link>https://blog.ruhm.me/post/20180612-python-string-formation/</link>
       <pubDate>Tue, 12 Jun 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180612-python-string-formation/</guid>
+      <guid>https://blog.ruhm.me/post/20180612-python-string-formation/</guid>
       <description>最近通过 PEP498 学习到 f-strings 的用法。文档见这里：https://docs.python.org/3.6/reference/lexical_analy</description>
     </item>
     
     <item>
       <title>flink 在 OSX 系统上以 local 方式运行</title>
-      <link>/post/20180314-flink-run-in-local-mode-osx/</link>
+      <link>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180314-flink-run-in-local-mode-osx/</guid>
+      <guid>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</guid>
       <description>安装 $ brew install apache-flink $ flink -v Version: 1.3.2, Commit ID: 0399bee $ brew info apache-flink apache-flink: stable 1.3.2, HEAD Scalable batch and stream data processing https://flink.apache.org/ /usr/local/Cellar/apache-flink/1.3.2 (108 files, 156.6MB) * Built from source on 2018-03-13 at 19:31:16 启动 $ cd /usr/local/Cellar/apache-flink/1.3.2 $ ./libexec/bin/start-local.sh Starting jobmanager daemon on host alastairruhm.local.</description>
     </item>
     
     <item>
       <title>datadog 关于 JVM 监控的分析</title>
-      <link>/post/datadog_jvm_monitor/</link>
+      <link>https://blog.ruhm.me/post/datadog_jvm_monitor/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/datadog_jvm_monitor/</guid>
+      <guid>https://blog.ruhm.me/post/datadog_jvm_monitor/</guid>
       <description>datadog 监控 JVM 或者基于 JVM 的应用的方式 datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/do</description>
     </item>
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
-      <link>/post/gitlab-ci-for-golang-project/</link>
+      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/gitlab-ci-for-golang-project/</guid>
+      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
       <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。 思路</description>
     </item>
     
     <item>
       <title>如何在 sequelize raw query 中如何避免 SQL injection</title>
-      <link>/post/sequelize-raw-query-practices/</link>
+      <link>https://blog.ruhm.me/post/sequelize-raw-query-practices/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/sequelize-raw-query-practices/</guid>
+      <guid>https://blog.ruhm.me/post/sequelize-raw-query-practices/</guid>
       <description>如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。 由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的</description>
     </item>
     
     <item>
       <title>python 正则表达式和内置 re 模块小结</title>
-      <link>/post/python-regex-notes/</link>
+      <link>https://blog.ruhm.me/post/python-regex-notes/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/python-regex-notes/</guid>
+      <guid>https://blog.ruhm.me/post/python-regex-notes/</guid>
       <description>[toc] python 正则表达式和内置 re 模块小结 什么是正则表达式 正则表达式（regular expression）是可以匹配文本片段的模式 表达式全集 正则表达式有</description>
     </item>
     
     <item>
       <title>golang test techniques</title>
-      <link>/post/go-test-technique/</link>
+      <link>https://blog.ruhm.me/post/go-test-technique/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-test-technique/</guid>
+      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
       <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,</description>
     </item>
     
     <item>
       <title>kubernetes 集群监控方案研究</title>
-      <link>/post/kubernetes-monitoring/</link>
+      <link>https://blog.ruhm.me/post/kubernetes-monitoring/</link>
       <pubDate>Wed, 12 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/kubernetes-monitoring/</guid>
+      <guid>https://blog.ruhm.me/post/kubernetes-monitoring/</guid>
       <description>kubernetes 集群监控方案研究 kubernetes 时代的监控新的特点 监控 kubernetes 和传统监控上的一些差异 Tags 和 labels 变得非常重要；在 kubernetes 系统中，labels 是识别 pods 和 containers 的唯一方式 与传统V</description>
     </item>
     
     <item>
       <title>prometheus 监控系统介绍与实践总结</title>
-      <link>/post/prometheus-intro/</link>
+      <link>https://blog.ruhm.me/post/prometheus-intro/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/prometheus-intro/</guid>
+      <guid>https://blog.ruhm.me/post/prometheus-intro/</guid>
       <description>prometheus 监控系统介绍与实践总结 关键词：prometheus、时间序列数据、push/pull模型、容器监控 最近，由于在调研容器平台的原因，关注了一</description>
     </item>
     
     <item>
       <title>selenium with chrome headless on CentOS 7</title>
-      <link>/post/selenium-with-chrome-headless-on-centos-7/</link>
+      <link>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/selenium-with-chrome-headless-on-centos-7/</guid>
+      <guid>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</guid>
       <description>selenium with chrome headless on centos 7 chrome 在 17年4月开始支持 headless 模式(v59)， phantomjs 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下chrome headless</description>
     </item>
     
     <item>
       <title>监控系统 push 和 pull 模型</title>
-      <link>/post/push-vs-pull-monitoring/</link>
+      <link>https://blog.ruhm.me/post/push-vs-pull-monitoring/</link>
       <pubDate>Mon, 12 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/push-vs-pull-monitoring/</guid>
+      <guid>https://blog.ruhm.me/post/push-vs-pull-monitoring/</guid>
       <description>监控系统 push 和 pull 模型 Push 模型 var fooCount = 0 func foo() { // ... do stuff ... fooCount += 1 metricsChan &amp;lt;- Metrics{&amp;quot;foo.count&amp;quot;, fooCount, CounterType} } var metricsChan = make(chan Metrics, 1000) func metricsPusher() { // run as a goroutine for m := range metricsChan { // send m to the monitoring system } } push 模型需要处理的</description>
     </item>
     
     <item>
       <title>sync.Once 实现 golang 中的单例模式</title>
-      <link>/post/go-single-instance/</link>
+      <link>https://blog.ruhm.me/post/go-single-instance/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-single-instance/</guid>
+      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
       <description>sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &amp;quot;sync&amp;quot;</description>
     </item>
     
     <item>
       <title>golang 应用日志实践</title>
-      <link>/post/go-log-pratice/</link>
+      <link>https://blog.ruhm.me/post/go-log-pratice/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-log-pratice/</guid>
+      <guid>https://blog.ruhm.me/post/go-log-pratice/</guid>
       <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况 命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用</description>
     </item>
     
     <item>
       <title>golang notes: package</title>
-      <link>/post/golang-notes-package/</link>
+      <link>https://blog.ruhm.me/post/golang-notes-package/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/golang-notes-package/</guid>
+      <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
       <description>golang notes: package 参考 Understanding Golang Packages - The New Stack</description>
     </item>
     
     <item>
       <title>图数据库 Neo4j 笔记</title>
-      <link>/post/graph-database-neo4j-notes/</link>
+      <link>https://blog.ruhm.me/post/graph-database-neo4j-notes/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/graph-database-neo4j-notes/</guid>
+      <guid>https://blog.ruhm.me/post/graph-database-neo4j-notes/</guid>
       <description>图数据库 Neo4j 笔记 图数据库 图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。</description>
     </item>
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>/post/grafana-dev-setup/</link>
+      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/grafana-dev-setup/</guid>
+      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
       <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     
     <item>
       <title>git 通过代理加速</title>
-      <link>/post/git-acceleration/</link>
+      <link>https://blog.ruhm.me/post/git-acceleration/</link>
       <pubDate>Mon, 07 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/git-acceleration/</guid>
+      <guid>https://blog.ruhm.me/post/git-acceleration/</guid>
       <description>git 通过代理加速 github 在国内访问一直不是很稳定，clone/push 等操作速度很慢。以下提供 https 和 ssh 这两种的访问方式的加速方法的配置，以及优缺点比较</description>
     </item>
     
     <item>
       <title>[翻译] 如何组织Go代码</title>
-      <link>/post/organizing-go-code/</link>
+      <link>https://blog.ruhm.me/post/organizing-go-code/</link>
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/organizing-go-code/</guid>
+      <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
       <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目</description>
     </item>
     
     <item>
       <title>pyenv 通过国内镜像安装 python</title>
-      <link>/post/pyenv-install-python-with-mirror/</link>
+      <link>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</link>
       <pubDate>Sun, 18 Sep 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/pyenv-install-python-with-mirror/</guid>
+      <guid>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</guid>
       <description>pyenv 通过国内镜像安装 python sudo curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash export v=3.5.1 wget http://mirrors.sohu.com/python/$v/Python-$v.tar.xz -P ~/.pyenv/cache/;pyenv install $v TIPS: 这里使用的是搜狐的镜像源：http://mirrors.sohu.com/python/ 下</description>
     </item>
     
     <item>
       <title>git 多账号处理</title>
-      <link>/post/multi-user-in-git/</link>
+      <link>https://blog.ruhm.me/post/multi-user-in-git/</link>
       <pubDate>Thu, 11 Aug 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/multi-user-in-git/</guid>
+      <guid>https://blog.ruhm.me/post/multi-user-in-git/</guid>
       <description>git 多账号处理 主要分两种场景 1. 不同网站的2个git账号使用相同的邮箱 对于不同网站，可以使用同一个邮箱，比如，github，coding的账号可</description>
     </item>
     
     <item>
       <title>使用缓存服务器加速 python pip 方式 安装包</title>
-      <link>/post/pip-cache/</link>
+      <link>https://blog.ruhm.me/post/pip-cache/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/pip-cache/</guid>
+      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
       <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建</description>
+    </item>
+    
+    <item>
+      <title>归档</title>
+      <link>https://blog.ruhm.me/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/archives/</guid>
+      <description></description>
     </item>
     
   </channel>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nodejs on Into the Unknown</title>
-    <link>/tags/nodejs/</link>
+    <link>https://blog.ruhm.me/tags/nodejs/</link>
     <description>Recent content in Nodejs on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sun, 17 Sep 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>如何在 sequelize raw query 中如何避免 SQL injection</title>
-      <link>/post/sequelize-raw-query-practices/</link>
+      <link>https://blog.ruhm.me/post/sequelize-raw-query-practices/</link>
       <pubDate>Sun, 17 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/sequelize-raw-query-practices/</guid>
+      <guid>https://blog.ruhm.me/post/sequelize-raw-query-practices/</guid>
       <description>如何在 sequelize raw query 中如何避免 SQL injection tl;dr: 结论：在 Sequelize.query() 函数中使用 replacements 对SQL变量赋值。 由于 sequelize 能力有限，一些复杂的查询需求还难通过 sequelize 的 op 的组合来实现，比如 postgresql 中的</description>
     </item>
     

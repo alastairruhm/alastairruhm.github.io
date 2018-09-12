@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ipfs on Into the Unknown</title>
-    <link>/tags/ipfs/</link>
+    <link>https://blog.ruhm.me/tags/ipfs/</link>
     <description>Recent content in Ipfs on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/ipfs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/ipfs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>go-ipfs 编译</title>
-      <link>/post/20180722-compiling-go-ipfs/</link>
+      <link>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</link>
       <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180722-compiling-go-ipfs/</guid>
+      <guid>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</guid>
       <description>go-ipfs 编译</description>
     </item>
     
     <item>
       <title>[翻译] IPFS 白皮书</title>
-      <link>/post/20180718-ipfs-white-paper/</link>
+      <link>https://blog.ruhm.me/post/20180718-ipfs-white-paper/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180718-ipfs-white-paper/</guid>
+      <guid>https://blog.ruhm.me/post/20180718-ipfs-white-paper/</guid>
       <description>IPFS-内容寻址，版本控制的P2P文件系统（草案 3） 对Benet, Juan (2014) IPFS - Content Addressed, Versioned, P2P File System. 的翻译整理。 ABSTRACT The InterPlanetary File System (IPFS) is a peer-to-peer distributedle system that seeks to connect all computing devices with the</description>
     </item>
     
     <item>
       <title>[翻译] 理解 IPFS 白皮书 第一部分</title>
-      <link>/post/20180716-understanding-the-ipfs-white-paper-part-2/</link>
+      <link>https://blog.ruhm.me/post/20180716-understanding-the-ipfs-white-paper-part-2/</link>
       <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180716-understanding-the-ipfs-white-paper-part-2/</guid>
+      <guid>https://blog.ruhm.me/post/20180716-understanding-the-ipfs-white-paper-part-2/</guid>
       <description>理解 IPFS 白皮书 第1部分 原文链接：https://decentralized.blog/understanding-the-ipfs-white</description>
     </item>
     
     <item>
       <title>ipfs 技术原理</title>
-      <link>/post/20180703-ipfs-command-usage/</link>
+      <link>https://blog.ruhm.me/post/20180703-ipfs-command-usage/</link>
       <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180703-ipfs-command-usage/</guid>
+      <guid>https://blog.ruhm.me/post/20180703-ipfs-command-usage/</guid>
       <description>基础指令 BASIC COMMANDS init Initialize ipfs local configuration add &amp;lt;path&amp;gt; Add a file to ipfs cat &amp;lt;ref&amp;gt; Show ipfs object data get &amp;lt;ref&amp;gt; Download ipfs objects ls &amp;lt;ref&amp;gt; List links from an object refs &amp;lt;ref&amp;gt; List hashes of links from an object 初始化 $ ipfs init initializing IPFS node at /Users/leon/.ipfs generating 2048-bit RSA keypair...done peer identity: QmTV38V7iSVKeh8Fb9wb5xfTGCM9GfPvy4GoZPXL6RPvP1 to get started, enter: ipfs cat /ipfs/QmS4ustL54uo8FzR9455qaxZwuMiUhyvMcX9Ba8nUH4uVv/readme</description>
     </item>
     
     <item>
       <title>ipfs 私有网络环境搭建</title>
-      <link>/post/20180702-ipfs-private-network/</link>
+      <link>https://blog.ruhm.me/post/20180702-ipfs-private-network/</link>
       <pubDate>Mon, 02 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180702-ipfs-private-network/</guid>
+      <guid>https://blog.ruhm.me/post/20180702-ipfs-private-network/</guid>
       <description>主要参考官网的文档：https://github.com/ipfs/go-ipfs/blob/master/docs/experimenta</description>
     </item>
     
     <item>
       <title>ipfs 安装</title>
-      <link>/post/20180701-install-ipfs/</link>
+      <link>https://blog.ruhm.me/post/20180701-install-ipfs/</link>
       <pubDate>Sun, 01 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/20180701-install-ipfs/</guid>
+      <guid>https://blog.ruhm.me/post/20180701-install-ipfs/</guid>
       <description>通过编译源码的方式安装在国内网络环境下有点麻烦，这里暂时只列出两种方式 通过预编译好的包 在 https://dist.ipfs.io/#go-ipfs 这里下载对应系统的包 tar xvfz go-ipfs.tar.gz cd go-ipfs ./install.sh 执行完后，通过 ipfs help</description>
     </item>
     

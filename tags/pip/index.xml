@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pip on Into the Unknown</title>
-    <link>/tags/pip/</link>
+    <link>https://blog.ruhm.me/tags/pip/</link>
     <description>Recent content in Pip on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Thu, 12 May 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/pip/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/pip/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>使用缓存服务器加速 python pip 方式 安装包</title>
-      <link>/post/pip-cache/</link>
+      <link>https://blog.ruhm.me/post/pip-cache/</link>
       <pubDate>Thu, 12 May 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/pip-cache/</guid>
+      <guid>https://blog.ruhm.me/post/pip-cache/</guid>
       <description>使用缓存服务器加速 python pip 方式 安装包 pip 的问题 从 pypi.python.org 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建</description>
     </item>
     

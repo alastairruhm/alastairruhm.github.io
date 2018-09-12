@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Into the Unknown</title>
-    <link>/categories/</link>
+    <link>https://blog.ruhm.me/categories/</link>
     <description>Recent content in Categories on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     
-	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ipfs</title>
-      <link>/categories/ipfs/</link>
+      <link>https://blog.ruhm.me/categories/ipfs/</link>
       <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/ipfs/</guid>
+      <guid>https://blog.ruhm.me/categories/ipfs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>区块链</title>
-      <link>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</link>
+      <link>https://blog.ruhm.me/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</link>
       <pubDate>Fri, 20 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</guid>
+      <guid>https://blog.ruhm.me/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</guid>
       <description></description>
     </item>
     

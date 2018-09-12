@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Test on Into the Unknown</title>
-    <link>/tags/test/</link>
+    <link>https://blog.ruhm.me/tags/test/</link>
     <description>Recent content in Test on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Tue, 18 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/test/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/test/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>golang test techniques</title>
-      <link>/post/go-test-technique/</link>
+      <link>https://blog.ruhm.me/post/go-test-technique/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-test-technique/</guid>
+      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
       <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,</description>
     </item>
     

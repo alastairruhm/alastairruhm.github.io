@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jvm on Into the Unknown</title>
-    <link>/tags/jvm/</link>
+    <link>https://blog.ruhm.me/tags/jvm/</link>
     <description>Recent content in Jvm on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Sun, 07 Jan 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>datadog 关于 JVM 监控的分析</title>
-      <link>/post/datadog_jvm_monitor/</link>
+      <link>https://blog.ruhm.me/post/datadog_jvm_monitor/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/datadog_jvm_monitor/</guid>
+      <guid>https://blog.ruhm.me/post/datadog_jvm_monitor/</guid>
       <description>datadog 监控 JVM 或者基于 JVM 的应用的方式 datadog 监控 java 应用主要通过采集 JMX 指标：https://docs.oracle.com/javase/1.5.0/do</description>
     </item>
     

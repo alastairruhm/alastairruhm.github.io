@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Graph database on Into the Unknown</title>
-    <link>/tags/graph-database/</link>
+    <link>https://blog.ruhm.me/tags/graph-database/</link>
     <description>Recent content in Graph database on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Mon, 12 Dec 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/graph-database/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/graph-database/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>图数据库 Neo4j 笔记</title>
-      <link>/post/graph-database-neo4j-notes/</link>
+      <link>https://blog.ruhm.me/post/graph-database-neo4j-notes/</link>
       <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/graph-database-neo4j-notes/</guid>
+      <guid>https://blog.ruhm.me/post/graph-database-neo4j-notes/</guid>
       <description>图数据库 Neo4j 笔记 图数据库 图数据库是一种非关系型数据库，它应用图形理论存储实体之间的关系信息。最常见的一个例子，就是社会网络中人与人之间的关系。</description>
     </item>
     

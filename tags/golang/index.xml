@@ -2,75 +2,75 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on Into the Unknown</title>
-    <link>/tags/golang/</link>
+    <link>https://blog.ruhm.me/tags/golang/</link>
     <description>Recent content in Golang on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>zh-cn</language>
     <lastBuildDate>Mon, 25 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.ruhm.me/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>基于 gitlab-ci 构建 golang 项目 CI 环境</title>
-      <link>/post/gitlab-ci-for-golang-project/</link>
+      <link>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</link>
       <pubDate>Mon, 25 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/gitlab-ci-for-golang-project/</guid>
+      <guid>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</guid>
       <description>自己在 github 上托管 go 开源项目，CI 使用 travis 的服务感觉很方便，几乎不需要额外的设置，但是涉及到公司的项目，通过 gitlab-ci 来跑 golang 项目的 CI，需要一点技巧。 思路</description>
     </item>
     
     <item>
       <title>golang test techniques</title>
-      <link>/post/go-test-technique/</link>
+      <link>https://blog.ruhm.me/post/go-test-technique/</link>
       <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-test-technique/</guid>
+      <guid>https://blog.ruhm.me/post/go-test-technique/</guid>
       <description>golang test techniques func twoSum(nums []int, target int) []int { for i := 0; i &amp;lt; len(nums); i++ { for j := i + 1; j &amp;lt; len(nums); j++ { if nums[i]+nums[j] == target { return []int{i, j} } } } return []int{0, 0} } table driven test func TestAddTwo(t *testing.T) { var addTwoTests = []struct { nums []int target int expected []int }{ {[]int{2, 7, 11, 15}, 9, []int{0,</description>
     </item>
     
     <item>
       <title>sync.Once 实现 golang 中的单例模式</title>
-      <link>/post/go-single-instance/</link>
+      <link>https://blog.ruhm.me/post/go-single-instance/</link>
       <pubDate>Mon, 05 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-single-instance/</guid>
+      <guid>https://blog.ruhm.me/post/go-single-instance/</guid>
       <description>sync.Once 实现 golang 中的单例模式 sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。 import ( &amp;quot;sync&amp;quot;</description>
     </item>
     
     <item>
       <title>golang 应用日志实践</title>
-      <link>/post/go-log-pratice/</link>
+      <link>https://blog.ruhm.me/post/go-log-pratice/</link>
       <pubDate>Fri, 05 May 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/go-log-pratice/</guid>
+      <guid>https://blog.ruhm.me/post/go-log-pratice/</guid>
       <description>golang 应用日志实践 这里可以分为命令行应用和服务端应用两类情况 命令行客户端应用 典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用</description>
     </item>
     
     <item>
       <title>golang notes: package</title>
-      <link>/post/golang-notes-package/</link>
+      <link>https://blog.ruhm.me/post/golang-notes-package/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/golang-notes-package/</guid>
+      <guid>https://blog.ruhm.me/post/golang-notes-package/</guid>
       <description>golang notes: package 参考 Understanding Golang Packages - The New Stack</description>
     </item>
     
     <item>
       <title>CentOS 上搭建 grafana 开发环境</title>
-      <link>/post/grafana-dev-setup/</link>
+      <link>https://blog.ruhm.me/post/grafana-dev-setup/</link>
       <pubDate>Tue, 22 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/grafana-dev-setup/</guid>
+      <guid>https://blog.ruhm.me/post/grafana-dev-setup/</guid>
       <description>CentOS 上搭建 grafana 开发环境 主要过程参考grafana/grafana 的github主页 环境要求 设置代理（必须，多个包依赖的源需要FQ才能访问） 预先安</description>
     </item>
     
     <item>
       <title>[翻译] 如何组织Go代码</title>
-      <link>/post/organizing-go-code/</link>
+      <link>https://blog.ruhm.me/post/organizing-go-code/</link>
       <pubDate>Thu, 03 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>/post/organizing-go-code/</guid>
+      <guid>https://blog.ruhm.me/post/organizing-go-code/</guid>
       <description>如何组织Go代码 最近正在使用 golang 编写一个 command line application，感觉在语法上已经没有太多的问题，但是工程组织方面却经常处于迷茫的状态，项目</description>
     </item>
     

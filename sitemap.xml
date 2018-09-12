@@ -1,486 +1,393 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/post/20180722-compiling-go-ipfs/</loc>
+    <loc>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</loc>
     <lastmod>2018-07-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180720-note-on-sidechain/</loc>
+    <loc>https://blog.ruhm.me/post/20180720-note-on-sidechain/</loc>
     <lastmod>2018-07-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180718-ipfs-white-paper/</loc>
+    <loc>https://blog.ruhm.me/post/20180718-ipfs-white-paper/</loc>
     <lastmod>2018-07-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180716-understanding-the-ipfs-white-paper-part-2/</loc>
+    <loc>https://blog.ruhm.me/post/20180716-understanding-the-ipfs-white-paper-part-2/</loc>
     <lastmod>2018-07-16T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180703-ipfs-command-usage/</loc>
+    <loc>https://blog.ruhm.me/post/20180703-ipfs-command-usage/</loc>
     <lastmod>2018-07-02T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180702-ipfs-private-network/</loc>
+    <loc>https://blog.ruhm.me/post/20180702-ipfs-private-network/</loc>
     <lastmod>2018-07-02T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180701-install-ipfs/</loc>
+    <loc>https://blog.ruhm.me/post/20180701-install-ipfs/</loc>
     <lastmod>2018-07-01T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180612-python-string-formation/</loc>
+    <loc>https://blog.ruhm.me/post/20180612-python-string-formation/</loc>
     <lastmod>2018-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/20180314-flink-run-in-local-mode-osx/</loc>
+    <loc>https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/</loc>
     <lastmod>2018-03-14T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/datadog_jvm_monitor/</loc>
+    <loc>https://blog.ruhm.me/post/datadog_jvm_monitor/</loc>
     <lastmod>2018-01-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/gitlab-ci-for-golang-project/</loc>
+    <loc>https://blog.ruhm.me/post/gitlab-ci-for-golang-project/</loc>
     <lastmod>2017-12-25T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/sequelize-raw-query-practices/</loc>
+    <loc>https://blog.ruhm.me/post/sequelize-raw-query-practices/</loc>
     <lastmod>2017-09-17T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/python-regex-notes/</loc>
+    <loc>https://blog.ruhm.me/post/python-regex-notes/</loc>
     <lastmod>2017-08-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/go-test-technique/</loc>
+    <loc>https://blog.ruhm.me/post/go-test-technique/</loc>
     <lastmod>2017-07-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/kubernetes-monitoring/</loc>
+    <loc>https://blog.ruhm.me/post/kubernetes-monitoring/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/prometheus-intro/</loc>
+    <loc>https://blog.ruhm.me/post/prometheus-intro/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/selenium-with-chrome-headless-on-centos-7/</loc>
+    <loc>https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/push-vs-pull-monitoring/</loc>
+    <loc>https://blog.ruhm.me/post/push-vs-pull-monitoring/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/go-single-instance/</loc>
+    <loc>https://blog.ruhm.me/post/go-single-instance/</loc>
     <lastmod>2017-06-05T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/go-log-pratice/</loc>
+    <loc>https://blog.ruhm.me/post/go-log-pratice/</loc>
     <lastmod>2017-05-05T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/golang-notes-package/</loc>
+    <loc>https://blog.ruhm.me/post/golang-notes-package/</loc>
     <lastmod>2017-01-11T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/graph-database-neo4j-notes/</loc>
+    <loc>https://blog.ruhm.me/post/graph-database-neo4j-notes/</loc>
     <lastmod>2016-12-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/grafana-dev-setup/</loc>
+    <loc>https://blog.ruhm.me/post/grafana-dev-setup/</loc>
     <lastmod>2016-11-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/git-acceleration/</loc>
+    <loc>https://blog.ruhm.me/post/git-acceleration/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/organizing-go-code/</loc>
+    <loc>https://blog.ruhm.me/post/organizing-go-code/</loc>
     <lastmod>2016-11-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/pyenv-install-python-with-mirror/</loc>
+    <loc>https://blog.ruhm.me/post/pyenv-install-python-with-mirror/</loc>
     <lastmod>2016-09-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/multi-user-in-git/</loc>
+    <loc>https://blog.ruhm.me/post/multi-user-in-git/</loc>
     <lastmod>2016-08-11T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/post/pip-cache/</loc>
+    <loc>https://blog.ruhm.me/post/pip-cache/</loc>
     <lastmod>2016-05-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://blog.ruhm.me/tags/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/bigdata/</loc>
+    <loc>https://blog.ruhm.me/tags/bigdata/</loc>
     <lastmod>2018-03-14T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://blog.ruhm.me/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/centos/</loc>
+    <loc>https://blog.ruhm.me/tags/centos/</loc>
     <lastmod>2016-11-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/chrome/</loc>
+    <loc>https://blog.ruhm.me/tags/chrome/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/datadog/</loc>
+    <loc>https://blog.ruhm.me/tags/datadog/</loc>
     <lastmod>2018-01-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/flink/</loc>
+    <loc>https://blog.ruhm.me/tags/flink/</loc>
     <lastmod>2018-03-14T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/git/</loc>
+    <loc>https://blog.ruhm.me/tags/git/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/github/</loc>
+    <loc>https://blog.ruhm.me/tags/github/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/gitlab/</loc>
+    <loc>https://blog.ruhm.me/tags/gitlab/</loc>
     <lastmod>2017-12-25T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/golang/</loc>
+    <loc>https://blog.ruhm.me/tags/golang/</loc>
     <lastmod>2017-12-25T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/grafana/</loc>
+    <loc>https://blog.ruhm.me/tags/grafana/</loc>
     <lastmod>2016-11-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/graph-database/</loc>
+    <loc>https://blog.ruhm.me/tags/graph-database/</loc>
     <lastmod>2016-12-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/headless/</loc>
+    <loc>https://blog.ruhm.me/tags/headless/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/heapster/</loc>
+    <loc>https://blog.ruhm.me/tags/heapster/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/</loc>
+    <loc>https://blog.ruhm.me/</loc>
     <lastmod>2018-07-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/ipfs/</loc>
+    <loc>https://blog.ruhm.me/tags/ipfs/</loc>
     <lastmod>2018-07-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/ipfs/</loc>
+    <loc>https://blog.ruhm.me/categories/ipfs/</loc>
     <lastmod>2018-07-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/jvm/</loc>
+    <loc>https://blog.ruhm.me/tags/jvm/</loc>
     <lastmod>2018-01-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/kubernetes/</loc>
+    <loc>https://blog.ruhm.me/tags/kubernetes/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/memo/</loc>
+    <loc>https://blog.ruhm.me/tags/memo/</loc>
     <lastmod>2016-11-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/monitor/</loc>
+    <loc>https://blog.ruhm.me/tags/monitor/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/neo4j/</loc>
+    <loc>https://blog.ruhm.me/tags/neo4j/</loc>
     <lastmod>2016-12-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/nodejs/</loc>
+    <loc>https://blog.ruhm.me/tags/nodejs/</loc>
     <lastmod>2017-09-17T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/nosql/</loc>
+    <loc>https://blog.ruhm.me/tags/nosql/</loc>
     <lastmod>2016-12-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/pip/</loc>
+    <loc>https://blog.ruhm.me/tags/pip/</loc>
     <lastmod>2016-05-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>https://blog.ruhm.me/post/</loc>
     <lastmod>2018-07-22T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/prometheus/</loc>
+    <loc>https://blog.ruhm.me/tags/prometheus/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/proxy/</loc>
+    <loc>https://blog.ruhm.me/tags/proxy/</loc>
     <lastmod>2016-11-07T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/pyenv/</loc>
+    <loc>https://blog.ruhm.me/tags/pyenv/</loc>
     <lastmod>2016-09-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/python/</loc>
+    <loc>https://blog.ruhm.me/tags/python/</loc>
     <lastmod>2018-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/regex/</loc>
+    <loc>https://blog.ruhm.me/tags/regex/</loc>
     <lastmod>2017-08-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/sequelize/</loc>
+    <loc>https://blog.ruhm.me/tags/sequelize/</loc>
     <lastmod>2017-09-17T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/sql/</loc>
+    <loc>https://blog.ruhm.me/tags/sql/</loc>
     <lastmod>2017-09-17T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://blog.ruhm.me/tags/</loc>
     <lastmod>2017-06-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/test/</loc>
+    <loc>https://blog.ruhm.me/tags/test/</loc>
     <lastmod>2017-07-18T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/%E4%BE%A7%E9%93%BE/</loc>
+    <loc>https://blog.ruhm.me/tags/%E4%BE%A7%E9%93%BE/</loc>
     <lastmod>2018-07-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <loc>https://blog.ruhm.me/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2018-07-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://blog.ruhm.me/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-06-05T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <loc>https://blog.ruhm.me/archives/</loc>
+  </url>
+  
+  <url>
+    <loc>https://blog.ruhm.me/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
     <lastmod>2017-08-20T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/%E7%9B%91%E6%8E%A7/</loc>
+    <loc>https://blog.ruhm.me/tags/%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2017-07-12T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
