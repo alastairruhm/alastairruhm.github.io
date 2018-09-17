@@ -6,19 +6,10 @@
     <description>Recent content in Ipfs on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ruhm.me/categories/ipfs/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>go-ipfs 编译</title>
-      <link>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</link>
-      <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.ruhm.me/post/20180722-compiling-go-ipfs/</guid>
-      <description>go-ipfs 编译</description>
-    </item>
     
     <item>
       <title>[翻译] IPFS 白皮书</title>
