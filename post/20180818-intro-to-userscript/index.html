@@ -7,25 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Headless | Into the Unknown</title>
-    <meta property="og:title" content="Headless - Into the Unknown">
+    <title>简单入门 usercript | Into the Unknown</title>
+    <meta property="og:title" content="简单入门 usercript - Into the Unknown">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2018-08-18T00:00:00&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-08-18T00:00:00&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Headless">
+    <meta name="description" content="简单入门 usercript">
         
     <meta name="author" content="ruhm">
-    <meta property="og:url" content="https://blog.ruhm.me/tags/headless/">
+    <meta property="og:url" content="https://blog.ruhm.me/post/20180818-intro-to-userscript/">
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="../../css/normalize.css">
     
+    <link rel="stylesheet" href="../../css/prism.css">
+    
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://blog.ruhm.me/tags/headless/index.xml" title="Into the Unknown" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -41,7 +45,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://blog.ruhm.me">首页</a>
+                    <a class="current" href="https://blog.ruhm.me">首页</a>
                     
                     <a  href="../../archives/" title="归档">归档</a>
                     
@@ -60,47 +64,77 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        包含标签
-                        <span class="keyword">headless</span>
-                        的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/">selenium with chrome headless on CentOS 7</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2017年6月12日
-                                00:00
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">简单入门 usercript</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年8月18日
+                            00:00
+                        </date>
+                        
+                        
+                        <div class="post-content">
                             
-                            <div class="post-content">
-                                <h1 id="selenium-with-chrome-headless-on-centos-7">selenium with chrome headless on centos 7</h1>
 
-<p><code>chrome</code> 在 17年4月开始支持 headless 模式(v59)， <code>phantomjs</code> 有很大可能性不再维护，最近趁着有个爬虫的需求，来探索一下<code>chrome headless</code>模式在<code>centos</code>系统上的可行性。</p>
+<p>[toc]</p>
 
-<h2 id="关于chrome安装">关于chrome安装</h2>
+<h2 id="什么是-userscript">什么是 userscript</h2>
 
-<pre><code class="language-bash">yum install  \ …</code></pre>
-                                <p class="readmore"><a href="https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/">阅读全文</a></p>
-                            </div>
-                        </article>
+<p>按照 <a href="https://greasyfork.org/en">https://greasyfork.org/en</a> 网站的描述：</p>
+
+<blockquote>
+<p>User scripts put you in control of your browsing experience. Once installed, they automatically make the sites you visit better by adding features, making them easier to use, or taking out the annoying bits. The user scripts on Greasy Fork were written by other users and posted to share with the world. They&rsquo;re free to install and easy to use.</p>
+</blockquote>
+
+<p>简单理解，就是可以控制浏览器按照你自己的要求呈现内容。常见的脚本功能比如去广告，或者增强功能。</p>
+
+<h2 id="user-script-manager">user script manager</h2>
+
+<p>如果需要在浏览器使用 user script，需要安装 userscript manager，比如 Chrome 可以安装 <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey</a>。</p>
+
+<h2 id="如何编写自己的-userscript">如何编写自己的 userscript</h2>
+
+<p>在 Tampermonkey 扩展上菜单选择「Create a new script」，出现如下所示的代码片段，就可以开始编写了。</p>
+
+<pre><code class="language-js">// ==UserScript==
+// @name         New Userscript
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://greasyfork.org/en
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Your code here...
+})();
+</code></pre>
+
+<p>有几点说明</p>
+
+<ol>
+<li>语法就是 javascript</li>
+<li>脚本将会在页面加载完毕后开始执行</li>
+</ol>
+
+                        </div>
+
+                        
+
+
+                        <div class="post-meta meta-tags">
+                            
+                            没有标签
+                            
+                        </div>
+                    </article>
                     
-
-                    
-
-
-
-
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -272,6 +306,17 @@
 </footer>
 
 
+<script type="text/javascript" src="../../js/prism.js" async="true"></script>
+<script type="text/javascript">
+window.MathJax = {
+    tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        processEscapes: true
+    }
+};
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top" class="show"></a>
 <script type="text/javascript" src="../../js/totop.js?v=0.0.0" async=""></script>
 
@@ -285,7 +330,6 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

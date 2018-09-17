@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ruhm.me/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>简单入门 usercript</title>
+      <link>https://blog.ruhm.me/post/20180818-intro-to-userscript/</link>
+      <pubDate>Sat, 18 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/20180818-intro-to-userscript/</guid>
+      <description>[toc] 什么是 userscript 按照 https://greasyfork.org/en 网站的描述： User scripts put you in control of your browsing experience. Once installed, they automatically make the sites you visit better by adding features, making them easier to use, or taking out the annoying bits. The user scripts on Greasy Fork were written by other users and posted to share with the world. They&amp;rsquo;re free to install</description>
+    </item>
     
     <item>
       <title>go-ipfs 编译</title>
