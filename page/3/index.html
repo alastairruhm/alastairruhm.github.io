@@ -62,6 +62,31 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/go-log-pratice/">golang 应用日志实践</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2017年5月5日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <h1 id="golang-应用日志实践">golang 应用日志实践</h1>
+
+<p>这里可以分为命令行应用和服务端应用两类情况</p>
+
+<h2 id="命令行客户端应用">命令行客户端应用</h2>
+
+<p>典型就是 kubectl 这种客户端应用，下面是一个使用 op/go-logging 库配置多端输出的例子，应用将会同时输出到标准输出和写入日志文件</p>
+
+<pre><code class="language-golang">var formatStdout = logging.MustStringFormatter( …</code></pre>
+                            </div>
+                            <p class="readmore"><a href="https://blog.ruhm.me/post/go-log-pratice/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="https://blog.ruhm.me/post/golang-notes-package/">golang notes: package</a>
                                 </h1>
                             </header>
@@ -309,6 +334,10 @@ host …</code></pre>
         <ul class="widget-list">
             
             <li>
+                <a href="https://blog.ruhm.me/post/20180820-python-ordereddict/" title="Python 中的 OrderedDict">Python 中的 OrderedDict</a>
+            </li>
+            
+            <li>
                 <a href="https://blog.ruhm.me/post/20180818-intro-to-userscript/" title="简单入门 userscript">简单入门 userscript</a>
             </li>
             
@@ -342,10 +371,6 @@ host …</code></pre>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/" title="flink 在 OSX 系统上以 local 方式运行">flink 在 OSX 系统上以 local 方式运行</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/datadog_jvm_monitor/" title="datadog 关于 JVM 监控的分析">datadog 关于 JVM 监控的分析</a>
             </li>
             
         </ul>

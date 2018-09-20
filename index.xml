@@ -6,10 +6,19 @@
     <description>Recent content on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 18 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.ruhm.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python 中的 OrderedDict</title>
+      <link>https://blog.ruhm.me/post/20180820-python-ordereddict/</link>
+      <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.ruhm.me/post/20180820-python-ordereddict/</guid>
+      <description>[toc] OrderedDict 最大的特征：相较于普通字典，OrderedDict 会记录键值对插入到字典中的顺序。 要点 在 Python 3.6 之前，普通字典并不记录插入顺序，迭代时的顺序</description>
+    </item>
     
     <item>
       <title>简单入门 userscript</title>
