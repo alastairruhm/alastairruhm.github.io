@@ -3,17 +3,17 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.48" />
+    <meta name="generator" content="Hugo 0.52" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Golang | Into the Unknown</title>
-    <meta property="og:title" content="Golang - Into the Unknown">
+    <title>golang | Into the Unknown</title>
+    <meta property="og:title" content="golang - Into the Unknown">
     <meta property="og:type" content="article">
         
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Golang">
+    <meta name="description" content="golang">
         
     <meta name="author" content="ruhm">
     <meta property="og:url" content="https://blog.ruhm.me/tags/golang/">
@@ -68,6 +68,86 @@
                     </h3>
                     
 
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/20181226-golang-iota/">golang 中的 iota 标识符</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年12月26日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <p>golang 中没有明确定义的枚举类型，通常我们借助<code>iota</code>标识符构造一组自增的常量值来实现枚举类型。</p>
+
+<p>自增作用范围为常量组。可在多常量定义中使用多个iota，它们各自单独计数，只须确保组中每行常量的列数量相同即可。</p>
+
+                                <p class="readmore"><a href="https://blog.ruhm.me/post/20181226-golang-iota/">阅读全文</a></p>
+                            </div>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/20181224-golang-basic-types/">golang 基础类型整理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年12月24日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <table>
+<thead>
+<tr>
+<th>type</th>
+<th>length</th>
+<th>default</th>
+<th>comment</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>bool</td>
+<td>1</td>
+<td>false</td>
+<td></td>
+</tr>
+
+<tr>
+<td>byte</td>
+<td>1</td>
+<td>0</td>
+<td>uint8</td>
+</tr>
+
+<tr>
+<td>int,uint</td>
+<td>4,8</td>
+<td>0</td>
+<td>默认整数类型，依据目标平台，32或64位</td>
+</tr>
+
+<tr>
+<td>int8,uint8</td>
+<td>1</td>
+<td>0</td>
+<td>-128~127, 0~255</td>
+</tr>
+
+<tr>
+<td>int16,uint16</td>
+<td>2</td>
+<td>0</td>
+<td>-32,768~32,767, …</td></tr></tbody></table>
+                                <p class="readmore"><a href="https://blog.ruhm.me/post/20181224-golang-basic-types/">阅读全文</a></p>
+                            </div>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -270,6 +350,14 @@ var …</code></pre>
         <ul class="widget-list">
             
             <li>
+                <a href="https://blog.ruhm.me/post/20181226-golang-iota/" title="golang 中的 iota 标识符">golang 中的 iota 标识符</a>
+            </li>
+            
+            <li>
+                <a href="https://blog.ruhm.me/post/20181224-golang-basic-types/" title="golang 基础类型整理">golang 基础类型整理</a>
+            </li>
+            
+            <li>
                 <a href="https://blog.ruhm.me/post/20180820-python-ordereddict/" title="Python 中的 OrderedDict">Python 中的 OrderedDict</a>
             </li>
             
@@ -299,14 +387,6 @@ var …</code></pre>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180701-install-ipfs/" title="ipfs 安装">ipfs 安装</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180612-python-string-formation/" title="python 字符串格式化">python 字符串格式化</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/" title="flink 在 OSX 系统上以 local 方式运行">flink 在 OSX 系统上以 local 方式运行</a>
             </li>
             
         </ul>

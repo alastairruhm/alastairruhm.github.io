@@ -7,25 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>区块链 | Into the Unknown</title>
-    <meta property="og:title" content="区块链 - Into the Unknown">
+    <title>golang 基础类型整理 | Into the Unknown</title>
+    <meta property="og:title" content="golang 基础类型整理 - Into the Unknown">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2018-12-24T00:00:00&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2018-12-24T00:00:00&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="区块链">
+    <meta name="description" content="golang 基础类型整理">
         
     <meta name="author" content="ruhm">
-    <meta property="og:url" content="https://blog.ruhm.me/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">
+    <meta property="og:url" content="https://blog.ruhm.me/post/20181224-golang-basic-types/">
     <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="../../css/normalize.css">
     
+    <link rel="stylesheet" href="../../css/prism.css">
+    
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://blog.ruhm.me/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/index.xml" title="Into the Unknown" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -41,7 +45,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="https://blog.ruhm.me">首页</a>
+                    <a class="current" href="https://blog.ruhm.me">首页</a>
                     
                     <a  href="../../archives/" title="归档">归档</a>
                     
@@ -60,56 +64,220 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">区块链</span>
-                        中的文章
-                    </h3>
-                    
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">golang 基础类型整理</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2018年12月24日
+                            00:00
+                        </date>
+                        
+                        
+                        <div class="post-content">
+                            <table>
+<thead>
+<tr>
+<th>type</th>
+<th>length</th>
+<th>default</th>
+<th>comment</th>
+</tr>
+</thead>
 
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.ruhm.me/post/20180720-note-on-sidechain/">侧链研究笔记</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2018年7月20日
-                                00:00
-                            </date>
+<tbody>
+<tr>
+<td>bool</td>
+<td>1</td>
+<td>false</td>
+<td></td>
+</tr>
+
+<tr>
+<td>byte</td>
+<td>1</td>
+<td>0</td>
+<td>uint8</td>
+</tr>
+
+<tr>
+<td>int,uint</td>
+<td>4,8</td>
+<td>0</td>
+<td>默认整数类型，依据目标平台，32或64位</td>
+</tr>
+
+<tr>
+<td>int8,uint8</td>
+<td>1</td>
+<td>0</td>
+<td>-128~127, 0~255</td>
+</tr>
+
+<tr>
+<td>int16,uint16</td>
+<td>2</td>
+<td>0</td>
+<td>-32,768~32,767, 0~65,535</td>
+</tr>
+
+<tr>
+<td>int32,uint32</td>
+<td>4</td>
+<td>0</td>
+<td>-21亿 ~ 21亿, 0~42亿</td>
+</tr>
+
+<tr>
+<td>int64,uint64</td>
+<td>8</td>
+<td>0</td>
+<td></td>
+</tr>
+
+<tr>
+<td>float32</td>
+<td>4</td>
+<td>0.0</td>
+<td></td>
+</tr>
+
+<tr>
+<td>float64</td>
+<td>8</td>
+<td>0.0</td>
+<td>默认浮点数类型</td>
+</tr>
+
+<tr>
+<td>complex64</td>
+<td>8</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>complex128</td>
+<td>16</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>rune</td>
+<td>4</td>
+<td>0</td>
+<td>Unicode Code Point, int32</td>
+</tr>
+
+<tr>
+<td>uintptr</td>
+<td>4,8</td>
+<td>0</td>
+<td>足够存储指针的 uint</td>
+</tr>
+
+<tr>
+<td>string</td>
+<td></td>
+<td>&rdquo;&rdquo;</td>
+<td>默认值是空字符串，不是 NULL</td>
+</tr>
+
+<tr>
+<td>array</td>
+<td></td>
+<td></td>
+<td>数组</td>
+</tr>
+
+<tr>
+<td>struct</td>
+<td></td>
+<td></td>
+<td>结构体</td>
+</tr>
+
+<tr>
+<td>function</td>
+<td></td>
+<td></td>
+<td>函数</td>
+</tr>
+
+<tr>
+<td>interface</td>
+<td></td>
+<td></td>
+<td>接口，引用类型</td>
+</tr>
+
+<tr>
+<td>map</td>
+<td></td>
+<td></td>
+<td>字典，引用类型</td>
+</tr>
+
+<tr>
+<td>slice</td>
+<td></td>
+<td></td>
+<td>切片，引用类型</td>
+</tr>
+
+<tr>
+<td>channel</td>
+<td></td>
+<td></td>
+<td>通道，引用类型</td>
+</tr>
+</tbody>
+</table>
+
+<p>注意：</p>
+
+<ol>
+<li><code>rune</code>是<code>int32</code>的 alias， <code>byte</code>是<code>uint8</code>的 alias</li>
+<li>浮点数的类型有float32和float64两种（没有float类型），默认是float64。（IEEE-754 标准）</li>
+<li>尽可能地使用 float64，math 包中所有有关数学运算的函数参数都是 float64</li>
+</ol>
+
+                        </div>
+
+                        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="../../post/gitlab-ci-for-golang-project/">基于 gitlab-ci 构建 golang 项目 CI 环境</a></li>
+        
+        <li><a href="../../post/go-test-technique/">golang test techniques</a></li>
+        
+        <li><a href="../../post/go-single-instance/">sync.Once 实现 golang 中的单例模式</a></li>
+        
+        <li><a href="../../post/go-log-pratice/">golang 应用日志实践</a></li>
+        
+        <li><a href="../../post/golang-notes-package/">golang notes: package</a></li>
+        
+    </ul>
+</div>
+
+
+                        <div class="post-meta meta-tags">
                             
-                            <div class="post-meta meta-category">
-                                |
+                            <ul class="clearfix">
                                 
-                                    <a href="../../categories/%E5%8C%BA%E5%9D%97%E9%93%BE">区块链</a>
+                                <li><a href="../../tags/golang">golang</a></li>
                                 
-                            </div>
+                            </ul>
                             
-                            <div class="post-content">
-                                <h1 id="侧链研究笔记">侧链研究笔记</h1>
-
-<h2 id="问题清单">问题清单</h2>
-
-<h3 id="1-为什么需要这个技术-它解决什么已知的问题">1. 为什么需要这个技术？它解决什么已知的问题？</h3>
-
-<p>侧链协议产生的原动力其实来源于其他区块链的创新威胁。侧链诞生前，众多“山寨币”的出现正在碎片化整个数字货币市场，再加上以太坊等项目的竞争，一些比特币开发者希望能借助侧链的形式扩展比特币的底层协议。</p>
-
-<p>侧链（Sidechain）协议允许资产在比特币区块链和其他区块链之间互转。这一项 …</p>
-                                <p class="readmore"><a href="https://blog.ruhm.me/post/20180720-note-on-sidechain/">阅读全文</a></p>
-                            </div>
-                        </article>
+                        </div>
+                    </article>
                     
-
-                    
-
-
-
-
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -281,6 +449,17 @@
 </footer>
 
 
+<script type="text/javascript" src="../../js/prism.js" async="true"></script>
+<script type="text/javascript">
+window.MathJax = {
+    tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        processEscapes: true
+    }
+};
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top" class="show"></a>
 <script type="text/javascript" src="../../js/totop.js?v=0.0.0" async=""></script>
 
@@ -294,7 +473,6 @@ if (!doNotTrack) {
 }
 </script>
 <script async src='https://www.google-analytics.com/analytics.js'></script>
-
 
 
 

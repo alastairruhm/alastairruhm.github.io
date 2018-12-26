@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.48" />
+    <meta name="generator" content="Hugo 0.52" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,6 +58,62 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/push-vs-pull-monitoring/">监控系统 push 和 pull 模型</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2017年6月12日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <h1 id="监控系统-push-和-pull-模型">监控系统 push 和 pull 模型</h1>
+
+<h2 id="push-模型">Push 模型</h2>
+
+<pre><code>var fooCount = 0
+
+func foo() {
+    // ... do stuff ...
+
+    fooCount += 1
+    metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} …</code></pre>
+                            </div>
+                            <p class="readmore"><a href="https://blog.ruhm.me/post/push-vs-pull-monitoring/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/go-single-instance/">sync.Once 实现 golang 中的单例模式</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2017年6月5日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <h1 id="sync-once-实现-golang-中的单例模式">sync.Once 实现 golang 中的单例模式</h1>
+
+<p>sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。</p>
+
+<pre><code class="language-go">import (
+    &quot;sync&quot;
+)
+ 
+type singleton struct {
+}
+ 
+var instance *singleton
+var …</code></pre>
+                            </div>
+                            <p class="readmore"><a href="https://blog.ruhm.me/post/go-single-instance/">阅读全文</a></p>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -263,29 +319,6 @@ host …</code></pre>
                             <p class="readmore"><a href="https://blog.ruhm.me/post/multi-user-in-git/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.ruhm.me/post/pip-cache/">使用缓存服务器加速 python pip 方式 安装包</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2016年5月12日
-                                00:00
-                            </date>
-                            
-                            <div class="post-content">
-                                <h1 id="使用缓存服务器加速-python-pip-方式-安装包">使用缓存服务器加速 python pip 方式 安装包</h1>
-
-<h2 id="pip-的问题">pip 的问题</h2>
-
-<p>从 <code>pypi.python.org</code> 官方源安装速度太慢，切换到国内的镜像，开发是没有什么问题，但是如果要搞持续集成，就需要在内网构建私有的 pypi 服务来加速安装过程，在搭建私有 pypi 这个问题上，有一堆的工具可以选择，<a href="http://wing2south.com/post/devpi-best-private-pypi-server/">这篇文章作者做了整理</a>，并且推荐使用 devpi。</p>
-
-<h2 id="搭建过程">搭建过 …</h2>
-                            </div>
-                            <p class="readmore"><a href="https://blog.ruhm.me/post/pip-cache/">阅读全文</a></p>
-                        </article>
-                    
 
                     
 
@@ -310,7 +343,15 @@ host …</code></pre>
         <a href="../../page/3/">3</a>
     </li>
     
+    <li>
+        <a href="../../page/4/">4</a>
+    </li>
+    
 
+    
+    <li class="next">
+        <a href="../../page/4/">下一页</a>
+    </li>
     
 </ol>
 
@@ -332,6 +373,14 @@ host …</code></pre>
     <section class="widget">
         <h3 class="widget-title">最近文章</h3>
         <ul class="widget-list">
+            
+            <li>
+                <a href="https://blog.ruhm.me/post/20181226-golang-iota/" title="golang 中的 iota 标识符">golang 中的 iota 标识符</a>
+            </li>
+            
+            <li>
+                <a href="https://blog.ruhm.me/post/20181224-golang-basic-types/" title="golang 基础类型整理">golang 基础类型整理</a>
+            </li>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180820-python-ordereddict/" title="Python 中的 OrderedDict">Python 中的 OrderedDict</a>
@@ -363,14 +412,6 @@ host …</code></pre>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180701-install-ipfs/" title="ipfs 安装">ipfs 安装</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180612-python-string-formation/" title="python 字符串格式化">python 字符串格式化</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/" title="flink 在 OSX 系统上以 local 方式运行">flink 在 OSX 系统上以 local 方式运行</a>
             </li>
             
         </ul>

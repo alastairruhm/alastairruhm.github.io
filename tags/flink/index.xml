@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Flink on Into the Unknown</title>
+    <title>flink on Into the Unknown</title>
     <link>https://blog.ruhm.me/tags/flink/</link>
-    <description>Recent content in Flink on Into the Unknown</description>
+    <description>Recent content in flink on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>

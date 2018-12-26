@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Prometheus on Into the Unknown</title>
+    <title>prometheus on Into the Unknown</title>
     <link>https://blog.ruhm.me/tags/prometheus/</link>
-    <description>Recent content in Prometheus on Into the Unknown</description>
+    <description>Recent content in prometheus on Into the Unknown</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 12 Jul 2017 00:00:00 +0000</lastBuildDate>

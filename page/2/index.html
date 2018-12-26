@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.48" />
+    <meta name="generator" content="Hugo 0.52" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -58,6 +58,53 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/20180612-python-string-formation/">python 字符串格式化</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年6月12日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <p>最近通过 <a href="https://www.python.org/dev/peps/pep-0498/">PEP498</a> 学习到 f-strings 的用法。文档见这里：<a href="https://docs.python.org/3.6/reference/lexical_analysis.html#formatted-string-literals">https://docs.python.org/3.6/reference/lexical_analysis.html#formatted-string-literals</a></p>
+
+<p>回想起来，已经有三种字符串格式化的方法了。这里简单总结下。</p>
+
+<p>在 3.6 之前，有两种方法： <code>% …</code></p>
+                            </div>
+                            <p class="readmore"><a href="https://blog.ruhm.me/post/20180612-python-string-formation/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/">flink 在 OSX 系统上以 local 方式运行</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2018年3月14日
+                                00:00
+                            </date>
+                            
+                            <div class="post-content">
+                                <p>安装</p>
+
+<pre><code class="language-bash">$ brew install apache-flink
+
+$ flink -v
+Version: 1.3.2, Commit ID: 0399bee
+
+$ brew info apache-flink
+apache-flink: stable 1.3.2, HEAD
+Scalable batch and stream data processing …</code></pre>
+                            </div>
+                            <p class="readmore"><a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/">阅读全文</a></p>
+                        </article>
                     
                         <article class="post">
                             <header>
@@ -247,62 +294,6 @@
                             <p class="readmore"><a href="https://blog.ruhm.me/post/selenium-with-chrome-headless-on-centos-7/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.ruhm.me/post/push-vs-pull-monitoring/">监控系统 push 和 pull 模型</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2017年6月12日
-                                00:00
-                            </date>
-                            
-                            <div class="post-content">
-                                <h1 id="监控系统-push-和-pull-模型">监控系统 push 和 pull 模型</h1>
-
-<h2 id="push-模型">Push 模型</h2>
-
-<pre><code>var fooCount = 0
-
-func foo() {
-    // ... do stuff ...
-
-    fooCount += 1
-    metricsChan &lt;- Metrics{&quot;foo.count&quot;, fooCount, CounterType} …</code></pre>
-                            </div>
-                            <p class="readmore"><a href="https://blog.ruhm.me/post/push-vs-pull-monitoring/">阅读全文</a></p>
-                        </article>
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.ruhm.me/post/go-single-instance/">sync.Once 实现 golang 中的单例模式</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2017年6月5日
-                                00:00
-                            </date>
-                            
-                            <div class="post-content">
-                                <h1 id="sync-once-实现-golang-中的单例模式">sync.Once 实现 golang 中的单例模式</h1>
-
-<p>sync.once可以控制函数只能被调用一次，不能多次重复调用。因此，可以利用这个特性实现一个线程安全的单例模式。</p>
-
-<pre><code class="language-go">import (
-    &quot;sync&quot;
-)
- 
-type singleton struct {
-}
- 
-var instance *singleton
-var …</code></pre>
-                            </div>
-                            <p class="readmore"><a href="https://blog.ruhm.me/post/go-single-instance/">阅读全文</a></p>
-                        </article>
-                    
 
                     
 
@@ -325,6 +316,10 @@ var …</code></pre>
     
     <li>
         <a href="../../page/3/">3</a>
+    </li>
+    
+    <li>
+        <a href="../../page/4/">4</a>
     </li>
     
 
@@ -353,6 +348,14 @@ var …</code></pre>
     <section class="widget">
         <h3 class="widget-title">最近文章</h3>
         <ul class="widget-list">
+            
+            <li>
+                <a href="https://blog.ruhm.me/post/20181226-golang-iota/" title="golang 中的 iota 标识符">golang 中的 iota 标识符</a>
+            </li>
+            
+            <li>
+                <a href="https://blog.ruhm.me/post/20181224-golang-basic-types/" title="golang 基础类型整理">golang 基础类型整理</a>
+            </li>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180820-python-ordereddict/" title="Python 中的 OrderedDict">Python 中的 OrderedDict</a>
@@ -384,14 +387,6 @@ var …</code></pre>
             
             <li>
                 <a href="https://blog.ruhm.me/post/20180701-install-ipfs/" title="ipfs 安装">ipfs 安装</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180612-python-string-formation/" title="python 字符串格式化">python 字符串格式化</a>
-            </li>
-            
-            <li>
-                <a href="https://blog.ruhm.me/post/20180314-flink-run-in-local-mode-osx/" title="flink 在 OSX 系统上以 local 方式运行">flink 在 OSX 系统上以 local 方式运行</a>
             </li>
             
         </ul>
